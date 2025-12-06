@@ -15,7 +15,7 @@
     "createInvoice": "建立發票",
     "saveInvoice": "儲存發票",
     "downloadPdf": "下載 PDF",
-    "duplicate": "克隆發票",
+    "duplicate": "克隆發票"
   },
   "pages": {
     "newInvoice": "新建發票",
