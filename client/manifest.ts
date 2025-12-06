@@ -3,9 +3,11 @@ import type { ModuleConfig } from 'shared'
 
 export default {
   name: 'Invoice Maker',
-  icon: 'tabler:invoice',
+  icon: 'tabler:file-invoice',
   routes: {
-    '/': lazy(() => import('@'))
+    '/': lazy(() => import('@')),
+    '/modify/:id?': lazy(() => import('@/pages/ModifyInvoice')),
+    '/view/:id': lazy(() => import('@/pages/ViewInvoice'))
   },
   category: 'Finance'
 } satisfies ModuleConfig
