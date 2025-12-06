@@ -62,7 +62,7 @@ function TopInfoSection() {
                 )
               })()}
               className="min-w-0 flex-1"
-              styleType="plain"
+              variant="plain"
               value={formData.bill_to}
               onChange={val => updateField('bill_to', val)}
             >
@@ -94,7 +94,7 @@ function TopInfoSection() {
                 {t('inputs.date')}
               </label>
               <DateInput
-                styleType="plain"
+                variant="plain"
                 value={formData.date}
                 onChange={val => val && updateField('date', val)}
               />
@@ -104,7 +104,7 @@ function TopInfoSection() {
                 {t('inputs.dueDate')}
               </label>
               <DateInput
-                styleType="plain"
+                variant="plain"
                 value={formData.due_date}
                 onChange={val => val && updateField('due_date', val)}
               />
@@ -117,7 +117,7 @@ function TopInfoSection() {
               </label>
               <TextInput
                 placeholder="Net 30"
-                styleType="plain"
+                variant="plain"
                 value={formData.payment_terms}
                 onChange={e => updateField('payment_terms', e)}
               />
@@ -128,7 +128,7 @@ function TopInfoSection() {
               </label>
               <TextInput
                 placeholder="Optional"
-                styleType="plain"
+                variant="plain"
                 value={formData.po_number}
                 onChange={e => updateField('po_number', e)}
               />

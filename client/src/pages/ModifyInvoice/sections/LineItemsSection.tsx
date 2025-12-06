@@ -41,7 +41,7 @@ function LineItemsSection() {
                 </label>
                 <TextInput
                   placeholder="Item description"
-                  styleType="plain"
+                  variant="plain"
                   value={item.description}
                   onChange={val => updateLineItem(index, 'description', val)}
                 />
@@ -53,7 +53,7 @@ function LineItemsSection() {
                   </label>
                   <NumberInput
                     min={0}
-                    styleType="plain"
+                    variant="plain"
                     value={item.quantity}
                     onChange={val =>
                       updateLineItem(index, 'quantity', val || 0)
@@ -67,7 +67,7 @@ function LineItemsSection() {
                   <CurrencyInput
                     currency={currencySymbol}
                     placeholder="0.00"
-                    styleType="plain"
+                    variant="plain"
                     value={item.rate}
                     onChange={val => updateLineItem(index, 'rate', val || 0)}
                   />
@@ -89,7 +89,7 @@ function LineItemsSection() {
               <div className="col-span-6">
                 <TextInput
                   placeholder="Item description"
-                  styleType="plain"
+                  variant="plain"
                   value={item.description}
                   onChange={val => updateLineItem(index, 'description', val)}
                 />
@@ -97,7 +97,7 @@ function LineItemsSection() {
               <div className="col-span-2 text-center">
                 <NumberInput
                   min={0}
-                  styleType="plain"
+                  variant="plain"
                   value={item.quantity}
                   onChange={val => updateLineItem(index, 'quantity', val || 0)}
                 />
@@ -106,7 +106,7 @@ function LineItemsSection() {
                 <CurrencyInput
                   currency={currencySymbol}
                   placeholder="0.00"
-                  styleType="plain"
+                  variant="plain"
                   value={item.rate}
                   onChange={val => updateLineItem(index, 'rate', val || 0)}
                 />

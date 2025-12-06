@@ -22,7 +22,7 @@ function TaxColumn() {
       <NumberInput
         className="w-24"
         min={0}
-        styleType="plain"
+        variant="plain"
         value={formData.tax_amount}
         onChange={val => updateField('tax_amount', val || 0)}
       />

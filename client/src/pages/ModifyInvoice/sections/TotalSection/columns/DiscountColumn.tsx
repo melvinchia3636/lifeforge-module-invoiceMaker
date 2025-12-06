@@ -22,7 +22,7 @@ function DiscountColumn() {
       <NumberInput
         className="w-24"
         min={0}
-        styleType="plain"
+        variant="plain"
         value={formData.discount_amount}
         onChange={val => updateField('discount_amount', val || 0)}
       />

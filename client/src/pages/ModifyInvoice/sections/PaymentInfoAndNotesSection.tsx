@@ -37,7 +37,7 @@ function PaymentInfoAndNotesSection() {
               icon="tabler:note"
               label="Notes"
               placeholder="Payment instructions, terms, etc."
-              styleType="plain"
+              variant="plain"
               value={formData.notes}
               onChange={e => updateField('notes', e)}
             />
