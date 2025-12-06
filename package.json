@@ -12,11 +12,13 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.18",
     "html2pdf.js": "^0.12.1",
+    "i18next": "^25.7.1",
     "lifeforge-ui": "workspace:*",
     "react": "^19.2.0",
     "react-i18next": "^15.1.1",
     "react-to-print": "^3.2.0",
     "react-toastify": "^11.0.5",
+    "react-virtualized": "^9.22.6",
     "shared": "workspace:*",
     "tailwindcss": "^4.1.17",
     "vite": "^7.1.9",
@@ -25,6 +27,7 @@
   "devDependencies": {
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "@types/react-virtualized": "^9.22.3",
     "vite": "^7.1.9"
   }
 }

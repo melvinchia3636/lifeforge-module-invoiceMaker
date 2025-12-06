@@ -138,7 +138,7 @@ function InvoiceEditorProvider({ children }: { children: React.ReactNode }) {
       })
   )
 
-  const isLoading = createMutation.isLoading || updateMutation.isLoading
+  const isLoading = createMutation.isPending || updateMutation.isPending
 
   useEffect(() => {
     if (invoiceQuery.data) {
