@@ -1,3 +1,4 @@
+import ManageClientsModal from '@/modals/ManageClientsModal'
 import forgeAPI from '@/utils/forgeAPI'
 import { useQuery } from '@tanstack/react-query'
 import {
@@ -5,7 +6,8 @@ import {
   SidebarItem,
   SidebarTitle,
   SidebarWrapper,
-  WithQuery
+  WithQuery,
+  useModalStore
 } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
 
@@ -25,6 +27,8 @@ export default function Sidebar({
   onClientFilterChange
 }: SidebarProps) {
   const { t } = useTranslation('apps.invoiceMaker')
+
+  const open = useModalStore(state => state.open)
 
   const clientsQuery = useQuery(
     forgeAPI.invoiceMaker.clients.list.queryOptions()
@@ -57,7 +61,15 @@ export default function Sidebar({
         />
       ))}
       <SidebarDivider />
-      <SidebarTitle label={t('sidebar.clients')} />
+      <SidebarTitle
+        actionButton={{
+          icon: 'tabler:settings',
+          onClick: () => {
+            open(ManageClientsModal, {})
+          }
+        }}
+        label={t('sidebar.clients')}
+      />
       <WithQuery query={clientsQuery}>
         {clients => (
           <>
@@ -81,7 +93,7 @@ export default function Sidebar({
                 ))}
               </>
             ) : (
-              <p className="text-bg-500">No clients found</p>
+              <p className="text-bg-500 text-center">No clients found</p>
             )}
           </>
         )}
