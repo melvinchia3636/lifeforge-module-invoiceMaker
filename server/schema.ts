@@ -758,7 +758,7 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: '_clone_KzF4',
+          id: '_clone_iST8',
           max: 0,
           min: 0,
           name: 'invoice_number',
@@ -773,7 +773,7 @@ const invoiceMakerSchemas = {
           cascadeDelete: true,
           collectionId: 'pbc_3022276037',
           hidden: false,
-          id: '_clone_tAJ5',
+          id: '_clone_VS3C',
           maxSelect: 1,
           minSelect: 0,
           name: 'bill_to',
@@ -784,7 +784,7 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_6xB2',
+          id: '_clone_JzRE',
           max: '',
           min: '',
           name: 'date',
@@ -795,7 +795,7 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_KETS',
+          id: '_clone_pLCQ',
           max: '',
           min: '',
           name: 'due_date',
@@ -807,7 +807,7 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: '_clone_AXry',
+          id: '_clone_wfPo',
           max: 0,
           min: 0,
           name: 'payment_terms',
@@ -821,7 +821,7 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: '_clone_20oU',
+          id: '_clone_WNRn',
           max: 0,
           min: 0,
           name: 'po_number',
@@ -834,7 +834,7 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_pR5y',
+          id: '_clone_hkJI',
           maxSelect: 1,
           name: 'status',
           presentable: false,
@@ -846,7 +846,7 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: '_clone_zpAi',
+          id: '_clone_oemq',
           max: 0,
           min: 0,
           name: 'shipping_address',
@@ -859,7 +859,7 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_UaDV',
+          id: '_clone_9n1o',
           maxSelect: 1,
           name: 'tax_type',
           presentable: false,
@@ -870,7 +870,7 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_0sej',
+          id: '_clone_MRKE',
           max: null,
           min: null,
           name: 'tax_amount',
@@ -882,7 +882,7 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_XzDm',
+          id: '_clone_bDUQ',
           maxSelect: 1,
           name: 'discount_type',
           presentable: false,
@@ -893,7 +893,7 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_m6WV',
+          id: '_clone_Ug0M',
           max: null,
           min: null,
           name: 'discount_amount',
@@ -905,7 +905,7 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_DYJs',
+          id: '_clone_qCud',
           max: null,
           min: null,
           name: 'shipping_amount',
@@ -917,7 +917,7 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_fVbX',
+          id: '_clone_e8GT',
           max: null,
           min: null,
           name: 'amount_paid',
@@ -930,7 +930,7 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: '_clone_ASKA',
+          id: '_clone_miVD',
           max: 0,
           min: 0,
           name: 'notes',
@@ -943,7 +943,7 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_T8Sy',
+          id: '_clone_NYeL',
           name: 'created',
           onCreate: true,
           onUpdate: false,
@@ -953,7 +953,7 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_lYq6',
+          id: '_clone_6cwd',
           name: 'updated',
           onCreate: true,
           onUpdate: true,
