@@ -1,10 +1,11 @@
-import { STATUS_CONFIG } from '@/components/InvoiceCard'
-import forgeAPI from '@/utils/forgeAPI'
 import { useQuery } from '@tanstack/react-query'
 import { Button, GoBackButton, TagChip } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
 import { useReactToPrint } from 'react-to-print'
 import { Link, useNavigate } from 'shared'
+
+import { STATUS_CONFIG } from '@/components/InvoiceCard'
+import forgeAPI from '@/utils/forgeAPI'
 
 import { useInvoiceViewer } from '../providers/InvoiceViewerProvider'
 
@@ -33,7 +34,7 @@ function Header({
 
   const reactToPrintFn = useReactToPrint({
     contentRef: invoiceRef,
-    fonts: fontQuery.data?.items.length
+    fonts: fontQuery.data?.items?.length
       ? [
           {
             family: fontQuery.data.items[0].family,
