@@ -22,7 +22,6 @@ const invoiceMakerSchemas = {
       updated: z.string()
     }),
     raw: {
-      id: 'pbc_2028188723',
       listRule: '@request.auth.id != ""',
       viewRule: '@request.auth.id != ""',
       createRule: '@request.auth.id != ""',
@@ -34,7 +33,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '[a-z0-9]{15}',
           hidden: false,
-          id: 'text3208210256',
           max: 15,
           min: 15,
           name: 'id',
@@ -48,7 +46,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text765886983',
           max: 0,
           min: 0,
           name: 'invoice_number',
@@ -61,9 +58,8 @@ const invoiceMakerSchemas = {
         },
         {
           cascadeDelete: true,
-          collectionId: 'pbc_3022276037',
+          collectionId: 'invoice_maker__clients',
           hidden: false,
-          id: 'relation1915922273',
           maxSelect: 1,
           minSelect: 0,
           name: 'bill_to',
@@ -74,7 +70,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'date2862495610',
           max: '',
           min: '',
           name: 'date',
@@ -85,7 +80,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'date3866337329',
           max: '',
           min: '',
           name: 'due_date',
@@ -97,7 +91,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text3756722627',
           max: 0,
           min: 0,
           name: 'payment_terms',
@@ -111,7 +104,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text3987620549',
           max: 0,
           min: 0,
           name: 'po_number',
@@ -124,7 +116,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'select2063623452',
           maxSelect: 1,
           name: 'status',
           presentable: false,
@@ -136,7 +127,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text3943065925',
           max: 0,
           min: 0,
           name: 'shipping_address',
@@ -149,7 +139,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'select2421250257',
           maxSelect: 1,
           name: 'tax_type',
           presentable: false,
@@ -160,7 +149,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'number3262847721',
           max: null,
           min: null,
           name: 'tax_amount',
@@ -172,7 +160,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'select308040339',
           maxSelect: 1,
           name: 'discount_type',
           presentable: false,
@@ -183,7 +170,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'number3772865661',
           max: null,
           min: null,
           name: 'discount_amount',
@@ -195,7 +181,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'number2784736525',
           max: null,
           min: null,
           name: 'shipping_amount',
@@ -207,7 +192,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'number2484990468',
           max: null,
           min: null,
           name: 'amount_paid',
@@ -220,7 +204,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text18589324',
           max: 0,
           min: 0,
           name: 'notes',
@@ -233,7 +216,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'autodate2990389176',
           name: 'created',
           onCreate: true,
           onUpdate: false,
@@ -243,7 +225,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'autodate3332085495',
           name: 'updated',
           onCreate: true,
           onUpdate: true,
@@ -265,7 +246,6 @@ const invoiceMakerSchemas = {
       order: z.number()
     }),
     raw: {
-      id: 'pbc_812090032',
       listRule: '@request.auth.id != ""',
       viewRule: '@request.auth.id != ""',
       createRule: '@request.auth.id != ""',
@@ -277,7 +257,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '[a-z0-9]{15}',
           hidden: false,
-          id: 'text3208210256',
           max: 15,
           min: 15,
           name: 'id',
@@ -290,9 +269,8 @@ const invoiceMakerSchemas = {
         },
         {
           cascadeDelete: true,
-          collectionId: 'pbc_2028188723',
+          collectionId: 'invoice_maker__invoices',
           hidden: false,
-          id: 'relation2422544196',
           maxSelect: 1,
           minSelect: 0,
           name: 'invoice',
@@ -304,7 +282,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text1843675174',
           max: 0,
           min: 0,
           name: 'description',
@@ -317,7 +294,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'number2683508278',
           max: null,
           min: null,
           name: 'quantity',
@@ -329,7 +305,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'number3756801849',
           max: null,
           min: null,
           name: 'rate',
@@ -341,7 +316,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'number4113142680',
           max: null,
           min: null,
           name: 'order',
@@ -366,7 +340,6 @@ const invoiceMakerSchemas = {
       updated: z.string()
     }),
     raw: {
-      id: 'pbc_3022276037',
       listRule: '@request.auth.id != ""',
       viewRule: '@request.auth.id != ""',
       createRule: '@request.auth.id != ""',
@@ -378,7 +351,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '[a-z0-9]{15}',
           hidden: false,
-          id: 'text3208210256',
           max: 15,
           min: 15,
           name: 'id',
@@ -392,7 +364,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text1579384326',
           max: 0,
           min: 0,
           name: 'name',
@@ -406,7 +377,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text223244161',
           max: 0,
           min: 0,
           name: 'address',
@@ -420,7 +390,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text3885137012',
           max: 0,
           min: 0,
           name: 'email',
@@ -434,7 +403,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text1146066909',
           max: 0,
           min: 0,
           name: 'phone',
@@ -447,7 +415,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'autodate2990389176',
           name: 'created',
           onCreate: true,
           onUpdate: false,
@@ -457,7 +424,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'autodate3332085495',
           name: 'updated',
           onCreate: true,
           onUpdate: true,
@@ -488,7 +454,6 @@ const invoiceMakerSchemas = {
       updated: z.string()
     }),
     raw: {
-      id: 'pbc_4152965987',
       listRule: '@request.auth.id != ""',
       viewRule: '@request.auth.id != ""',
       createRule: '@request.auth.id != ""',
@@ -500,7 +465,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '[a-z0-9]{15}',
           hidden: false,
-          id: 'text3208210256',
           max: 15,
           min: 15,
           name: 'id',
@@ -514,7 +478,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text491676904',
           max: 0,
           min: 0,
           name: 'company_name',
@@ -528,7 +491,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text1825036814',
           max: 0,
           min: 0,
           name: 'company_additional_info',
@@ -541,7 +503,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'file2709496085',
           maxSelect: 1,
           maxSize: 0,
           mimeTypes: [
@@ -562,7 +523,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text3922367952',
           max: 0,
           min: 0,
           name: 'default_payment_terms',
@@ -576,7 +536,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text3896373890',
           max: 0,
           min: 0,
           name: 'default_notes',
@@ -589,7 +548,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'number3307667599',
           max: null,
           min: null,
           name: 'default_tax_rate',
@@ -602,7 +560,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text4098043016',
           max: 0,
           min: 0,
           name: 'bank_name',
@@ -616,7 +573,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text1403141642',
           max: 0,
           min: 0,
           name: 'bank_account',
@@ -630,7 +586,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text1767278655',
           max: 0,
           min: 0,
           name: 'currency',
@@ -644,7 +599,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text1213075606',
           max: 0,
           min: 0,
           name: 'currency_symbol',
@@ -658,7 +612,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text679943133',
           max: 0,
           min: 0,
           name: 'invoice_prefix',
@@ -671,7 +624,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'number2302103150',
           max: null,
           min: null,
           name: 'next_invoice_number',
@@ -683,7 +635,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'autodate2990389176',
           name: 'created',
           onCreate: true,
           onUpdate: false,
@@ -693,7 +644,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'autodate3332085495',
           name: 'updated',
           onCreate: true,
           onUpdate: true,
@@ -732,7 +682,6 @@ const invoiceMakerSchemas = {
       calculated_shipping: z.any()
     }),
     raw: {
-      id: 'pbc_2368357959',
       listRule: '@request.auth.id != ""',
       viewRule: '@request.auth.id != ""',
       createRule: null,
@@ -744,7 +693,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: 'text3208210256',
           max: 0,
           min: 0,
           name: 'id',
@@ -758,7 +706,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: '_clone_iST8',
           max: 0,
           min: 0,
           name: 'invoice_number',
@@ -771,9 +718,8 @@ const invoiceMakerSchemas = {
         },
         {
           cascadeDelete: true,
-          collectionId: 'pbc_3022276037',
+          collectionId: 'invoice_maker__clients',
           hidden: false,
-          id: '_clone_VS3C',
           maxSelect: 1,
           minSelect: 0,
           name: 'bill_to',
@@ -784,7 +730,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_JzRE',
           max: '',
           min: '',
           name: 'date',
@@ -795,7 +740,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_pLCQ',
           max: '',
           min: '',
           name: 'due_date',
@@ -807,7 +751,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: '_clone_wfPo',
           max: 0,
           min: 0,
           name: 'payment_terms',
@@ -821,7 +764,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: '_clone_WNRn',
           max: 0,
           min: 0,
           name: 'po_number',
@@ -834,7 +776,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_hkJI',
           maxSelect: 1,
           name: 'status',
           presentable: false,
@@ -846,7 +787,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: '_clone_oemq',
           max: 0,
           min: 0,
           name: 'shipping_address',
@@ -859,7 +799,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_9n1o',
           maxSelect: 1,
           name: 'tax_type',
           presentable: false,
@@ -870,7 +809,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_MRKE',
           max: null,
           min: null,
           name: 'tax_amount',
@@ -882,7 +820,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_bDUQ',
           maxSelect: 1,
           name: 'discount_type',
           presentable: false,
@@ -893,7 +830,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_Ug0M',
           max: null,
           min: null,
           name: 'discount_amount',
@@ -905,7 +841,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_qCud',
           max: null,
           min: null,
           name: 'shipping_amount',
@@ -917,7 +852,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_e8GT',
           max: null,
           min: null,
           name: 'amount_paid',
@@ -930,7 +864,6 @@ const invoiceMakerSchemas = {
         {
           autogeneratePattern: '',
           hidden: false,
-          id: '_clone_miVD',
           max: 0,
           min: 0,
           name: 'notes',
@@ -943,7 +876,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_NYeL',
           name: 'created',
           onCreate: true,
           onUpdate: false,
@@ -953,7 +885,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: '_clone_6cwd',
           name: 'updated',
           onCreate: true,
           onUpdate: true,
@@ -963,7 +894,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'json3097235076',
           maxSize: 1,
           name: 'subtotal',
           presentable: false,
@@ -973,7 +903,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'json2944294834',
           maxSize: 1,
           name: 'item_count',
           presentable: false,
@@ -983,7 +912,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'json1853381339',
           maxSize: 1,
           name: 'calculated_tax',
           presentable: false,
@@ -993,7 +921,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'json1531123106',
           maxSize: 1,
           name: 'calculated_discount',
           presentable: false,
@@ -1003,7 +930,6 @@ const invoiceMakerSchemas = {
         },
         {
           hidden: false,
-          id: 'json2545923720',
           maxSize: 1,
           name: 'calculated_shipping',
           presentable: false,
