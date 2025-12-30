@@ -83,10 +83,15 @@
     "search": {
       "title": "没有找到结果",
       "description": "尝试不同的关键字或条件。"
+    },
+    "clients": {
+      "title": "没有客户",
+      "description": "创建您的第一个客户开始使用。"
     }
   },
   "items": {
-    "invoice": "发票"
+    "invoice": "发票",
+    "client": "客戶"
   },
   "statuses": {
     "draft": "草稿",

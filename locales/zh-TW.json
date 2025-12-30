@@ -83,10 +83,15 @@
     "search": {
       "title": "沒有找到結果",
       "description": "嘗試不同的關鍵字或條件。"
+    },
+    "clients": {
+      "title": "沒有客戶",
+      "description": "建立您的第一個客戶開始使用。"
     }
   },
   "items": {
-    "invoice": "發票"
+    "invoice": "發票",
+    "client": "客戶"
   },
   "statuses": {
     "draft": "草稿",
