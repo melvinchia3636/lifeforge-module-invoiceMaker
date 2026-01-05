@@ -9,7 +9,7 @@ import ShippingColumn from './columns/ShippingColumn'
 import TaxColumn from './columns/TaxColumn'
 
 function TotalSection() {
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   const {
     currencySymbol,

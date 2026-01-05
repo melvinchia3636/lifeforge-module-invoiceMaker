@@ -1,4 +1,3 @@
-import forgeAPI from '@/utils/forgeAPI'
 import { useQuery } from '@tanstack/react-query'
 import {
   EmptyStateScreen,
@@ -10,16 +9,18 @@ import {
 import { useTranslation } from 'react-i18next'
 import { AutoSizer } from 'react-virtualized'
 
+import forgeAPI from '@/utils/forgeAPI'
+
 import ClientModal from '../ModifyClientModal'
 import ClientItem from './components/ClientItem'
 
 function ManageClientsModal({ onClose }: { onClose: () => void }) {
   const open = useModalStore(state => state.open)
 
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   const clientsQuery = useQuery(
-    forgeAPI.invoiceMaker.clients.list.queryOptions()
+    forgeAPI.melvinchia3636$invoiceMaker.clients.list.queryOptions()
   )
 
   return (
@@ -34,7 +35,7 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
           }
         }}
         icon="tabler:users"
-        namespace="apps.invoiceMaker"
+        namespace="apps.melvinchia3636$invoiceMaker"
         title="clients.manage"
         onClose={onClose}
       />
@@ -75,7 +76,7 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
                 icon="tabler:users-off"
                 message={{
                   id: 'clients',
-                  namespace: 'apps.invoiceMaker'
+                  namespace: 'apps.melvinchia3636$invoiceMaker'
                 }}
               />
             </div>

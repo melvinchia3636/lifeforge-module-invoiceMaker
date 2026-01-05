@@ -1,4 +1,3 @@
-import forgeAPI from '@/utils/forgeAPI'
 import { Icon } from '@iconify/react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import {
@@ -12,16 +11,20 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import type { InferOutput } from 'shared'
 
+import forgeAPI from '@/utils/forgeAPI'
+
 import ClientModal from '../../ModifyClientModal'
 
-type Client = InferOutput<typeof forgeAPI.invoiceMaker.clients.list>[number]
+type Client = InferOutput<
+  typeof forgeAPI.melvinchia3636$invoiceMaker.clients.list
+>[number]
 
 function ClientItem({ client }: { client: Client }) {
   const queryClient = useQueryClient()
 
   const open = useModalStore(state => state.open)
 
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   const handleEditClient = useCallback(() => {
     open(ClientModal, {
@@ -31,7 +34,7 @@ function ClientItem({ client }: { client: Client }) {
   }, [client, open])
 
   const deleteMutation = useMutation(
-    forgeAPI.invoiceMaker.clients.remove
+    forgeAPI.melvinchia3636$invoiceMaker.clients.remove
       .input({ id: client.id })
       .mutationOptions({
         onSuccess: () => {

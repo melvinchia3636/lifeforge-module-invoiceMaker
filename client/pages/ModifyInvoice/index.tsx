@@ -1,14 +1,14 @@
 import { Button, GoBackButton } from 'lifeforge-ui'
 import { useNavigate } from 'shared'
 
+import InvoiceEditorProvider, {
+  useInvoiceEditor
+} from './providers/InvoiceEditorProvider'
 import Header from './sections/HeaderSection'
 import LineItemsSection from './sections/LineItemsSection'
 import PaymentInfoAndNotesSection from './sections/PaymentInfoAndNotesSection'
 import TopInfoSection from './sections/TopInfoSection'
 import TotalSection from './sections/TotalSection'
-import InvoiceEditorProvider, {
-  useInvoiceEditor
-} from './providers/InvoiceEditorProvider'
 
 function ModifyInvoiceContent() {
   const navigate = useNavigate()
@@ -30,7 +30,7 @@ function ModifyInvoiceContent() {
           className="w-full"
           icon={isEditMode ? 'tabler:device-floppy' : 'tabler:plus'}
           loading={isLoading}
-          namespace="apps.invoiceMaker"
+          namespace="apps.melvinchia3636$invoiceMaker"
           onClick={handleSubmit}
         >
           {isEditMode ? 'Save Invoice' : 'Create Invoice'}

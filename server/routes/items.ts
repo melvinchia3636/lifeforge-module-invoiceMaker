@@ -12,11 +12,11 @@ const listByInvoice = forgeController
     })
   })
   .existenceCheck('query', {
-    invoiceId: 'invoice_maker__invoices'
+    invoiceId: 'melvinchia3636$invoiceMaker__invoices'
   })
   .callback(async ({ pb, query: { invoiceId } }) =>
     pb.getFullList
-      .collection('invoice_maker__items')
+      .collection('melvinchia3636$invoiceMaker__items')
       .filter([{ field: 'invoice', operator: '=', value: invoiceId }])
       .sort(['order'])
       .execute()
@@ -26,14 +26,17 @@ const create = forgeController
   .mutation()
   .description('Create a new line item')
   .input({
-    body: SCHEMAS.invoice_maker.items.schema
+    body: SCHEMAS.melvinchia3636$invoiceMaker.items.schema
   })
   .existenceCheck('body', {
-    invoice: 'invoice_maker__invoices'
+    invoice: 'melvinchia3636$invoiceMaker__invoices'
   })
   .statusCode(201)
   .callback(async ({ pb, body }) =>
-    pb.create.collection('invoice_maker__items').data(body).execute()
+    pb.create
+      .collection('melvinchia3636$invoiceMaker__items')
+      .data(body)
+      .execute()
   )
 
 const update = forgeController
@@ -43,13 +46,17 @@ const update = forgeController
     query: z.object({
       id: z.string()
     }),
-    body: SCHEMAS.invoice_maker.items.schema.partial()
+    body: SCHEMAS.melvinchia3636$invoiceMaker.items.schema.partial()
   })
   .existenceCheck('query', {
-    id: 'invoice_maker__items'
+    id: 'melvinchia3636$invoiceMaker__items'
   })
   .callback(async ({ pb, query: { id }, body }) =>
-    pb.update.collection('invoice_maker__items').id(id).data(body).execute()
+    pb.update
+      .collection('melvinchia3636$invoiceMaker__items')
+      .id(id)
+      .data(body)
+      .execute()
   )
 
 const remove = forgeController
@@ -61,11 +68,11 @@ const remove = forgeController
     })
   })
   .existenceCheck('query', {
-    id: 'invoice_maker__items'
+    id: 'melvinchia3636$invoiceMaker__items'
   })
   .statusCode(204)
   .callback(({ pb, query: { id } }) =>
-    pb.delete.collection('invoice_maker__items').id(id).execute()
+    pb.delete.collection('melvinchia3636$invoiceMaker__items').id(id).execute()
   )
 
 const reorder = forgeController
@@ -78,13 +85,13 @@ const reorder = forgeController
     })
   })
   .existenceCheck('body', {
-    invoiceId: 'invoice_maker__invoices'
+    invoiceId: 'melvinchia3636$invoiceMaker__invoices'
   })
   .callback(async ({ pb, body: { itemIds } }) => {
     // Update each item's order based on its position in the array
     const updates = itemIds.map((id, index) =>
       pb.update
-        .collection('invoice_maker__items')
+        .collection('melvinchia3636$invoiceMaker__items')
         .id(id)
         .data({ order: index })
         .execute()

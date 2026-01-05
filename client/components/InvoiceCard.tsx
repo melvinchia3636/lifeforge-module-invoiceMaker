@@ -1,5 +1,4 @@
 import type { InvoiceEntry } from '@'
-import forgeAPI from '@/utils/forgeAPI'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import {
@@ -14,6 +13,8 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { useNavigate, usePromiseLoading } from 'shared'
 import COLORS from 'tailwindcss/colors'
+
+import forgeAPI from '@/utils/forgeAPI'
 
 export const STATUS_CONFIG = {
   draft: { color: COLORS.zinc[500], icon: 'tabler:file' },
@@ -42,13 +43,13 @@ export default function InvoiceCard({
 
   const navigate = useNavigate()
 
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   const statusConfig = STATUS_CONFIG[invoice.status || 'draft']
 
   // Mutations
   const duplicateMutation = useMutation(
-    forgeAPI.invoiceMaker.invoices.duplicate
+    forgeAPI.melvinchia3636$invoiceMaker.invoices.duplicate
       .input({
         id: invoice.id
       })
@@ -63,7 +64,7 @@ export default function InvoiceCard({
   )
 
   const deleteMutation = useMutation(
-    forgeAPI.invoiceMaker.invoices.remove
+    forgeAPI.melvinchia3636$invoiceMaker.invoices.remove
       .input({
         id: invoice.id
       })
@@ -133,7 +134,7 @@ export default function InvoiceCard({
           icon="tabler:files"
           label="duplicate"
           loading={loading}
-          namespace="apps.invoiceMaker"
+          namespace="apps.melvinchia3636$invoiceMaker"
           onClick={onDuplicate}
         />
         <ContextMenuItem

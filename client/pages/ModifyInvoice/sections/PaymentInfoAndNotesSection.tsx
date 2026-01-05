@@ -1,15 +1,16 @@
-import forgeAPI from '@/utils/forgeAPI'
 import { useQuery } from '@tanstack/react-query'
 import { Card, TextAreaInput, WithQuery } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
 
+import forgeAPI from '@/utils/forgeAPI'
+
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 
 function PaymentInfoAndNotesSection() {
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   const settingsQuery = useQuery(
-    forgeAPI.invoiceMaker.settings.get.queryOptions()
+    forgeAPI.melvinchia3636$invoiceMaker.settings.get.queryOptions()
   )
 
   const { formData, updateField } = useInvoiceEditor()

@@ -16,7 +16,7 @@ function Header({
 }) {
   const navigate = useNavigate()
 
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   const { invoice } = useInvoiceViewer()
 

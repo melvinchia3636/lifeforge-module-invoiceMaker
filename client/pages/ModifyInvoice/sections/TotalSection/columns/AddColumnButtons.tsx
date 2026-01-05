@@ -1,9 +1,10 @@
-import { useInvoiceEditor } from '@/pages/ModifyInvoice/providers/InvoiceEditorProvider'
 import { Button } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
 
+import { useInvoiceEditor } from '@/pages/ModifyInvoice/providers/InvoiceEditorProvider'
+
 function AddColumnButtons() {
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   const {
     showDiscount,

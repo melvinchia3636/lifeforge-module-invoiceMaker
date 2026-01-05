@@ -1,7 +1,8 @@
-import forgeAPI from '@/utils/forgeAPI'
 import { useQuery } from '@tanstack/react-query'
 import { Button, TagsFilter, useModuleSidebarState } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
+
+import forgeAPI from '@/utils/forgeAPI'
 
 import { STATUS_CONFIG } from './InvoiceCard'
 
@@ -22,12 +23,12 @@ function InnerHeader({
   onStatusFilterChange,
   onClientFilterChange
 }: HeaderProps) {
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   const { setIsSidebarOpen } = useModuleSidebarState()
 
   const clientsQuery = useQuery(
-    forgeAPI.invoiceMaker.clients.list.queryOptions()
+    forgeAPI.melvinchia3636$invoiceMaker.clients.list.queryOptions()
   )
 
   const isFiltered =

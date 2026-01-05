@@ -1,5 +1,3 @@
-import ManageClientsModal from '@/modals/ManageClientsModal'
-import forgeAPI from '@/utils/forgeAPI'
 import { useQuery } from '@tanstack/react-query'
 import {
   SidebarDivider,
@@ -10,6 +8,9 @@ import {
   useModalStore
 } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
+
+import ManageClientsModal from '@/modals/ManageClientsModal'
+import forgeAPI from '@/utils/forgeAPI'
 
 import { STATUS_CONFIG } from './InvoiceCard'
 
@@ -26,12 +27,12 @@ export default function Sidebar({
   clientFilter,
   onClientFilterChange
 }: SidebarProps) {
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   const open = useModalStore(state => state.open)
 
   const clientsQuery = useQuery(
-    forgeAPI.invoiceMaker.clients.list.queryOptions()
+    forgeAPI.melvinchia3636$invoiceMaker.clients.list.queryOptions()
   )
 
   return (
@@ -40,7 +41,7 @@ export default function Sidebar({
         active={statusFilter === null && clientFilter === null}
         icon="tabler:file-invoice"
         label="All Invoices"
-        namespace="apps.invoiceMaker"
+        namespace="apps.melvinchia3636$invoiceMaker"
         onClick={() => {
           onStatusFilterChange(null)
           onClientFilterChange(null)
@@ -54,7 +55,7 @@ export default function Sidebar({
           active={statusFilter === key}
           icon={value.icon}
           label={t(`statuses.${key}`)}
-          namespace="apps.invoiceMaker"
+          namespace="apps.melvinchia3636$invoiceMaker"
           sideStripColor={value.color}
           onCancelButtonClick={() => onStatusFilterChange(null)}
           onClick={() => onStatusFilterChange(key)}

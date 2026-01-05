@@ -1,4 +1,3 @@
-import forgeAPI from '@/utils/forgeAPI'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import {
@@ -12,6 +11,8 @@ import {
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { useNavigate, useParams } from 'shared'
+
+import forgeAPI from '@/utils/forgeAPI'
 
 interface LineItem {
   id?: string
@@ -88,7 +89,7 @@ const InvoiceEditorContext = createContext<InvoiceEditorContext | null>(null)
 function InvoiceEditorProvider({ children }: { children: React.ReactNode }) {
   const qc = useQueryClient()
 
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   const navigate = useNavigate()
 
@@ -105,17 +106,17 @@ function InvoiceEditorProvider({ children }: { children: React.ReactNode }) {
   const [showShipping, setShowShipping] = useState(false)
 
   const invoiceQuery = useQuery(
-    forgeAPI.invoiceMaker.invoices.getById
+    forgeAPI.melvinchia3636$invoiceMaker.invoices.getById
       .input({ id: id || '' })
       .queryOptions({ enabled: isEditMode })
   )
 
   const settingsQuery = useQuery(
-    forgeAPI.invoiceMaker.settings.get.queryOptions()
+    forgeAPI.melvinchia3636$invoiceMaker.settings.get.queryOptions()
   )
 
   const createMutation = useMutation(
-    forgeAPI.invoiceMaker.invoices.create.mutationOptions({
+    forgeAPI.melvinchia3636$invoiceMaker.invoices.create.mutationOptions({
       onSuccess: () => {
         qc.invalidateQueries({ queryKey: ['invoiceMaker', 'invoices'] })
         toast.success(t('toast.invoiceCreated'))
@@ -125,7 +126,7 @@ function InvoiceEditorProvider({ children }: { children: React.ReactNode }) {
   )
 
   const updateMutation = useMutation(
-    forgeAPI.invoiceMaker.invoices.update
+    forgeAPI.melvinchia3636$invoiceMaker.invoices.update
       .input({
         id: id || ''
       })

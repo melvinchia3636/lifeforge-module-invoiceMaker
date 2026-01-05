@@ -5,7 +5,9 @@ import type { InferInput, InferOutput } from 'shared'
 
 import forgeAPI from '../utils/forgeAPI'
 
-type Client = InferOutput<typeof forgeAPI.invoiceMaker.clients.list>[number]
+type Client = InferOutput<
+  typeof forgeAPI.melvinchia3636$invoiceMaker.clients.list
+>[number]
 
 interface ClientModalProps {
   data: {
@@ -22,7 +24,7 @@ export default function ModifyClientModal({
   const qc = useQueryClient()
 
   const createMutation = useMutation(
-    forgeAPI.invoiceMaker.clients.create.mutationOptions({
+    forgeAPI.melvinchia3636$invoiceMaker.clients.create.mutationOptions({
       onSuccess: () => {
         qc.invalidateQueries({ queryKey: ['invoiceMaker', 'clients'] })
         toast.success('Client created successfully')
@@ -35,7 +37,7 @@ export default function ModifyClientModal({
   )
 
   const updateMutation = useMutation(
-    forgeAPI.invoiceMaker.clients.update
+    forgeAPI.melvinchia3636$invoiceMaker.clients.update
       .input({
         id: initialData?.id || ''
       })
@@ -52,12 +54,14 @@ export default function ModifyClientModal({
   )
 
   const { formProps } = defineForm<
-    InferInput<typeof forgeAPI.invoiceMaker.clients.create>['body']
+    InferInput<
+      typeof forgeAPI.melvinchia3636$invoiceMaker.clients.create
+    >['body']
   >({
     title:
       type === 'update' ? 'modals.clients.update' : 'modals.clients.create',
     icon: type === 'update' ? 'tabler:pencil' : 'tabler:plus',
-    namespace: 'apps.invoiceMaker',
+    namespace: 'apps.melvinchia3636$invoiceMaker',
     submitButton: type === 'update' ? 'update' : 'create',
     onClose
   })

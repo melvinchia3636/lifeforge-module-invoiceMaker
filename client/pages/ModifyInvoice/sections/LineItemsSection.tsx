@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 
 function LineItemsSection() {
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   const {
     formData,

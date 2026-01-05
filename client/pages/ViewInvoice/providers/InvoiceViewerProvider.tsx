@@ -1,11 +1,16 @@
-import forgeAPI from '@/utils/forgeAPI'
 import { useQuery } from '@tanstack/react-query'
 import { WithQuery } from 'lifeforge-ui'
 import { createContext, useContext, useMemo } from 'react'
 import type { InferOutput } from 'shared'
 
-type Invoice = InferOutput<typeof forgeAPI.invoiceMaker.invoices.getById>
-type Settings = InferOutput<typeof forgeAPI.invoiceMaker.settings.get>
+import forgeAPI from '@/utils/forgeAPI'
+
+type Invoice = InferOutput<
+  typeof forgeAPI.melvinchia3636$invoiceMaker.invoices.getById
+>
+type Settings = InferOutput<
+  typeof forgeAPI.melvinchia3636$invoiceMaker.settings.get
+>
 
 interface InvoiceViewerContext {
   invoice: Invoice
@@ -32,13 +37,13 @@ function InvoiceViewerProvider({
   children
 }: InvoiceViewerProviderProps) {
   const invoiceQuery = useQuery(
-    forgeAPI.invoiceMaker.invoices.getById
+    forgeAPI.melvinchia3636$invoiceMaker.invoices.getById
       .input({ id: invoiceId })
       .queryOptions()
   )
 
   const settingsQuery = useQuery(
-    forgeAPI.invoiceMaker.settings.get.queryOptions()
+    forgeAPI.melvinchia3636$invoiceMaker.settings.get.queryOptions()
   )
 
   const calculations = useMemo(() => {

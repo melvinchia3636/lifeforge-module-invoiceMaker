@@ -10,7 +10,7 @@ const list = forgeController
   .input({})
   .callback(async ({ pb }) =>
     pb.getFullList
-      .collection('invoice_maker__clients')
+      .collection('melvinchia3636$invoiceMaker__clients')
       .sort(['-created'])
       .execute()
   )
@@ -24,24 +24,30 @@ const getById = forgeController
     })
   })
   .existenceCheck('query', {
-    id: 'invoice_maker__clients'
+    id: 'melvinchia3636$invoiceMaker__clients'
   })
   .callback(({ pb, query: { id } }) =>
-    pb.getOne.collection('invoice_maker__clients').id(id).execute()
+    pb.getOne
+      .collection('melvinchia3636$invoiceMaker__clients')
+      .id(id)
+      .execute()
   )
 
 const create = forgeController
   .mutation()
   .description('Create a new client')
   .input({
-    body: SCHEMAS.invoice_maker.clients.schema.omit({
+    body: SCHEMAS.melvinchia3636$invoiceMaker.clients.schema.omit({
       created: true,
       updated: true
     })
   })
   .statusCode(201)
   .callback(async ({ pb, body }) =>
-    pb.create.collection('invoice_maker__clients').data(body).execute()
+    pb.create
+      .collection('melvinchia3636$invoiceMaker__clients')
+      .data(body)
+      .execute()
   )
 
 const update = forgeController
@@ -51,16 +57,20 @@ const update = forgeController
     query: z.object({
       id: z.string()
     }),
-    body: SCHEMAS.invoice_maker.clients.schema.partial().omit({
+    body: SCHEMAS.melvinchia3636$invoiceMaker.clients.schema.partial().omit({
       created: true,
       updated: true
     })
   })
   .existenceCheck('query', {
-    id: 'invoice_maker__clients'
+    id: 'melvinchia3636$invoiceMaker__clients'
   })
   .callback(async ({ pb, query: { id }, body }) =>
-    pb.update.collection('invoice_maker__clients').id(id).data(body).execute()
+    pb.update
+      .collection('melvinchia3636$invoiceMaker__clients')
+      .id(id)
+      .data(body)
+      .execute()
   )
 
 const remove = forgeController
@@ -72,13 +82,13 @@ const remove = forgeController
     })
   })
   .existenceCheck('query', {
-    id: 'invoice_maker__clients'
+    id: 'melvinchia3636$invoiceMaker__clients'
   })
   .statusCode(204)
   .callback(async ({ pb, query: { id } }) => {
     // Check if client has any invoices
     const invoices = await pb.getFullList
-      .collection('invoice_maker__invoices')
+      .collection('melvinchia3636$invoiceMaker__invoices')
       .filter([{ field: 'bill_to', operator: '=', value: id }])
       .execute()
 
@@ -88,7 +98,10 @@ const remove = forgeController
       )
     }
 
-    return pb.delete.collection('invoice_maker__clients').id(id).execute()
+    return pb.delete
+      .collection('melvinchia3636$invoiceMaker__clients')
+      .id(id)
+      .execute()
   })
 
 export default forgeRouter({ list, getById, create, update, remove })

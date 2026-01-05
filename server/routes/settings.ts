@@ -10,7 +10,7 @@ const get = forgeController
   .callback(async ({ pb }) => {
     // Try to get existing settings (there should only be one)
     const existing = await pb.getFullList
-      .collection('invoice_maker__settings')
+      .collection('melvinchia3636$invoiceMaker__settings')
       .execute()
 
     if (existing.length > 0) {
@@ -19,7 +19,7 @@ const get = forgeController
 
     // Create default settings if none exist
     return await pb.create
-      .collection('invoice_maker__settings')
+      .collection('melvinchia3636$invoiceMaker__settings')
       .data({
         company_name: '',
         company_additional_info: '',
@@ -40,7 +40,7 @@ const update = forgeController
   .mutation()
   .description('Update invoice maker settings')
   .input({
-    body: SCHEMAS.invoice_maker.settings.schema.partial().omit({
+    body: SCHEMAS.melvinchia3636$invoiceMaker.settings.schema.partial().omit({
       created: true,
       updated: true,
       default_logo: true
@@ -54,13 +54,13 @@ const update = forgeController
   .callback(async ({ pb, body, media: { default_logo } }) => {
     // Get existing settings
     const existing = await pb.getFullList
-      .collection('invoice_maker__settings')
+      .collection('melvinchia3636$invoiceMaker__settings')
       .execute()
 
     if (existing.length === 0) {
       // Create new settings
       return await pb.create
-        .collection('invoice_maker__settings')
+        .collection('melvinchia3636$invoiceMaker__settings')
         .data({
           ...body,
           ...(await getMedia('default_logo', default_logo))
@@ -70,7 +70,7 @@ const update = forgeController
 
     // Update existing settings
     return await pb.update
-      .collection('invoice_maker__settings')
+      .collection('melvinchia3636$invoiceMaker__settings')
       .id(existing[0].id)
       .data({
         ...body,

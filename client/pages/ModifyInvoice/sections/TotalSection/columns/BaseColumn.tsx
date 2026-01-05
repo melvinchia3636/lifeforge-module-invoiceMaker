@@ -8,7 +8,7 @@ interface ColumnProps {
 }
 
 function BaseColumn({ children, type, onHide }: ColumnProps) {
-  const { t } = useTranslation('apps.invoiceMaker')
+  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
   return (
     <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">

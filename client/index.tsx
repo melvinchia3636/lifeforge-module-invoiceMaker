@@ -23,7 +23,7 @@ import ModifySettingsModal from './modals/ModifySettingsModal'
 import forgeAPI from './utils/forgeAPI'
 
 export type InvoiceEntry = InferOutput<
-  typeof forgeAPI.invoiceMaker.invoices.list
+  typeof forgeAPI.melvinchia3636$invoiceMaker.invoices.list
 >[number]
 
 function InvoiceMaker() {
@@ -38,7 +38,7 @@ function InvoiceMaker() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const invoicesQuery = useQuery(
-    forgeAPI.invoiceMaker.invoices.list
+    forgeAPI.melvinchia3636$invoiceMaker.invoices.list
       .input({
         status: (statusFilter || undefined) as keyof typeof STATUS_CONFIG,
         clientId: clientFilter || undefined
@@ -47,7 +47,7 @@ function InvoiceMaker() {
   )
 
   const settingsQuery = useQuery(
-    forgeAPI.invoiceMaker.settings.get.queryOptions()
+    forgeAPI.melvinchia3636$invoiceMaker.settings.get.queryOptions()
   )
 
   const filteredInvoices = useMemo(() => {
@@ -76,7 +76,7 @@ function InvoiceMaker() {
           <Button
             className="hidden md:flex"
             icon="tabler:plus"
-            namespace="apps.invoiceMaker"
+            namespace="apps.melvinchia3636$invoiceMaker"
             onClick={() => navigate('/invoice-maker/modify')}
           >
             New Invoice
@@ -88,13 +88,13 @@ function InvoiceMaker() {
               <ContextMenuItem
                 icon="tabler:users"
                 label="manageClients"
-                namespace="apps.invoiceMaker"
+                namespace="apps.melvinchia3636$invoiceMaker"
                 onClick={() => open(ManageClientsModal, {})}
               />
               <ContextMenuItem
                 icon="tabler:settings"
                 label="settings"
-                namespace="apps.invoiceMaker"
+                namespace="apps.melvinchia3636$invoiceMaker"
                 onClick={() => open(ModifySettingsModal, {})}
               />
             </>
@@ -120,7 +120,7 @@ function InvoiceMaker() {
           />
           <div className="mt-4 mb-6">
             <SearchInput
-              namespace="apps.invoiceMaker"
+              namespace="apps.melvinchia3636$invoiceMaker"
               searchTarget="invoice"
               value={searchQuery}
               onChange={setSearchQuery}
@@ -134,7 +134,7 @@ function InvoiceMaker() {
                     icon="tabler:file-off"
                     message={{
                       id: 'invoice',
-                      namespace: 'apps.invoiceMaker'
+                      namespace: 'apps.melvinchia3636$invoiceMaker'
                     }}
                   />
                 )
@@ -145,7 +145,7 @@ function InvoiceMaker() {
                   icon="tabler:search-off"
                   message={{
                     id: 'search',
-                    namespace: 'apps.invoiceMaker'
+                    namespace: 'apps.melvinchia3636$invoiceMaker'
                   }}
                 />
               ) : (

@@ -1,10 +1,11 @@
 import type { InvoiceEntry } from '@'
-import { STATUS_CONFIG } from '@/components/InvoiceCard'
-import forgeAPI from '@/utils/forgeAPI'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { t } from 'i18next'
 import { FormModal, defineForm } from 'lifeforge-ui'
 import { toast } from 'react-toastify'
+
+import { STATUS_CONFIG } from '@/components/InvoiceCard'
+import forgeAPI from '@/utils/forgeAPI'
 
 interface InvoiceMetadataModalProps {
   data: {
@@ -22,7 +23,7 @@ export default function ModifyInvoiceMetadataModal({
   const qc = useQueryClient()
 
   const updateMutation = useMutation(
-    forgeAPI.invoiceMaker.invoices.update
+    forgeAPI.melvinchia3636$invoiceMaker.invoices.update
       .input({
         id: invoice.id
       })
@@ -43,7 +44,7 @@ export default function ModifyInvoiceMetadataModal({
   }>({
     title: 'Edit Invoice Metadata',
     icon: 'tabler:file-invoice',
-    namespace: 'apps.invoiceMaker',
+    namespace: 'apps.melvinchia3636$invoiceMaker',
     onClose,
     submitButton: {
       icon: 'tabler:device-floppy',
@@ -68,7 +69,7 @@ export default function ModifyInvoiceMetadataModal({
         multiple: false,
         options: Object.entries(STATUS_CONFIG).map(([key, status]) => ({
           icon: status.icon,
-          text: t(`apps.invoiceMaker:statuses.${key}`),
+          text: t(`apps.melvinchia3636$invoiceMaker:statuses.${key}`),
           color: status.color,
           value: key as 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled'
         }))
