@@ -1,6 +1,6 @@
 import z from 'zod'
 
-const invoiceMakerSchemas = {
+const schemas = {
   invoices: {
     schema: z.object({
       invoice_number: z.string(),
@@ -27,7 +27,7 @@ const invoiceMakerSchemas = {
       createRule: '@request.auth.id != ""',
       updateRule: '@request.auth.id != ""',
       deleteRule: '@request.auth.id != ""',
-      name: 'melvinchia3636$invoiceMaker__invoices',
+      name: 'melvinchia3636___invoice_maker__invoices',
       type: 'base',
       fields: [
         {
@@ -58,7 +58,7 @@ const invoiceMakerSchemas = {
         },
         {
           cascadeDelete: true,
-          collectionId: 'melvinchia3636$invoiceMaker__clients',
+          collectionId: 'melvinchia3636___invoice_maker__clients',
           hidden: false,
           maxSelect: 1,
           minSelect: 0,
@@ -251,7 +251,7 @@ const invoiceMakerSchemas = {
       createRule: '@request.auth.id != ""',
       updateRule: '@request.auth.id != ""',
       deleteRule: '@request.auth.id != ""',
-      name: 'melvinchia3636$invoiceMaker__items',
+      name: 'melvinchia3636___invoice_maker__items',
       type: 'base',
       fields: [
         {
@@ -269,7 +269,7 @@ const invoiceMakerSchemas = {
         },
         {
           cascadeDelete: true,
-          collectionId: 'melvinchia3636$invoiceMaker__invoices',
+          collectionId: 'melvinchia3636___invoice_maker__invoices',
           hidden: false,
           maxSelect: 1,
           minSelect: 0,
@@ -345,7 +345,7 @@ const invoiceMakerSchemas = {
       createRule: '@request.auth.id != ""',
       updateRule: '@request.auth.id != ""',
       deleteRule: '@request.auth.id != ""',
-      name: 'melvinchia3636$invoiceMaker__clients',
+      name: 'melvinchia3636___invoice_maker__clients',
       type: 'base',
       fields: [
         {
@@ -459,7 +459,7 @@ const invoiceMakerSchemas = {
       createRule: '@request.auth.id != ""',
       updateRule: '@request.auth.id != ""',
       deleteRule: '@request.auth.id != ""',
-      name: 'melvinchia3636$invoiceMaker__settings',
+      name: 'melvinchia3636___invoice_maker__settings',
       type: 'base',
       fields: [
         {
@@ -687,7 +687,7 @@ const invoiceMakerSchemas = {
       createRule: null,
       updateRule: null,
       deleteRule: null,
-      name: 'melvinchia3636$invoiceMaker__invoices_aggregated',
+      name: 'melvinchia3636___invoice_maker__invoices_aggregated',
       type: 'view',
       fields: [
         {
@@ -718,7 +718,7 @@ const invoiceMakerSchemas = {
         },
         {
           cascadeDelete: true,
-          collectionId: 'melvinchia3636$invoiceMaker__clients',
+          collectionId: 'melvinchia3636___invoice_maker__clients',
           hidden: false,
           maxSelect: 1,
           minSelect: 0,
@@ -941,9 +941,9 @@ const invoiceMakerSchemas = {
       indexes: [],
       system: false,
       viewQuery:
-        "SELECT \n    i.id,\n    i.invoice_number,\n    i.bill_to,\n    i.date,\n    i.due_date,\n    i.payment_terms,\n    i.po_number,\n    i.status,\n    i.shipping_address,\n    i.tax_type,\n    i.tax_amount,\n    i.discount_type,\n    i.discount_amount,\n    i.shipping_amount,\n    i.amount_paid,\n    i.notes,\n    i.created,\n    i.updated,\n    COALESCE(agg.subtotal, 0) AS subtotal,\n    COALESCE(agg.item_count, 0) AS item_count,\n    IIF(i.tax_type = 'rate', COALESCE(agg.subtotal, 0) * i.tax_amount / 100, IIF(i.tax_type = 'fixed', i.tax_amount, 0)) AS calculated_tax,\n    IIF(i.discount_type = 'rate', COALESCE(agg.subtotal, 0) * i.discount_amount / 100, IIF(i.discount_type = 'fixed', i.discount_amount, 0)) AS calculated_discount,\n    COALESCE(i.shipping_amount, 0) AS calculated_shipping\nFROM melvinchia3636$invoiceMaker__invoices i\nLEFT JOIN (\n    SELECT \n        invoice,\n        SUM(quantity * rate) AS subtotal,\n        COUNT(*) AS item_count\n    FROM melvinchia3636$invoiceMaker__items\n    GROUP BY invoice\n) agg ON agg.invoice = i.id;"
+        "SELECT \n    i.id,\n    i.invoice_number,\n    i.bill_to,\n    i.date,\n    i.due_date,\n    i.payment_terms,\n    i.po_number,\n    i.status,\n    i.shipping_address,\n    i.tax_type,\n    i.tax_amount,\n    i.discount_type,\n    i.discount_amount,\n    i.shipping_amount,\n    i.amount_paid,\n    i.notes,\n    i.created,\n    i.updated,\n    COALESCE(agg.subtotal, 0) AS subtotal,\n    COALESCE(agg.item_count, 0) AS item_count,\n    IIF(i.tax_type = 'rate', COALESCE(agg.subtotal, 0) * i.tax_amount / 100, IIF(i.tax_type = 'fixed', i.tax_amount, 0)) AS calculated_tax,\n    IIF(i.discount_type = 'rate', COALESCE(agg.subtotal, 0) * i.discount_amount / 100, IIF(i.discount_type = 'fixed', i.discount_amount, 0)) AS calculated_discount,\n    COALESCE(i.shipping_amount, 0) AS calculated_shipping\nFROM melvinchia3636___invoice_maker__invoices i\nLEFT JOIN (\n    SELECT \n        invoice,\n        SUM(quantity * rate) AS subtotal,\n        COUNT(*) AS item_count\n    FROM melvinchia3636___invoice_maker__items\n    GROUP BY invoice\n) agg ON agg.invoice = i.id;"
     }
   }
 }
 
-export default invoiceMakerSchemas
+export default schemas
