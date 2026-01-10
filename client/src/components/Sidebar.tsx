@@ -29,7 +29,7 @@ export default function Sidebar({
 }: SidebarProps) {
   const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
-  const open = useModalStore(state => state.open)
+  const { open } = useModalStore()
 
   const clientsQuery = useQuery(
     forgeAPI.melvinchia3636$invoiceMaker.clients.list.queryOptions()

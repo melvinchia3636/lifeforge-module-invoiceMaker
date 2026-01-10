@@ -15,7 +15,7 @@ import ClientModal from '../ModifyClientModal'
 import ClientItem from './components/ClientItem'
 
 function ManageClientsModal({ onClose }: { onClose: () => void }) {
-  const open = useModalStore(state => state.open)
+  const { open } = useModalStore()
 
   const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 

@@ -16,7 +16,7 @@ function Header() {
 
   const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
-  const open = useModalStore(state => state.open)
+  const { open } = useModalStore()
 
   const invoiceQuery = useQuery(
     forgeAPI.melvinchia3636$invoiceMaker.invoices.getById

@@ -22,7 +22,7 @@ type Client = InferOutput<
 function ClientItem({ client }: { client: Client }) {
   const queryClient = useQueryClient()
 
-  const open = useModalStore(state => state.open)
+  const { open } = useModalStore()
 
   const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 

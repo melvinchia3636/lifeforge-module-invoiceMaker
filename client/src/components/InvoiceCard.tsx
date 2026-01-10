@@ -39,7 +39,7 @@ export default function InvoiceCard({
 }) {
   const qc = useQueryClient()
 
-  const open = useModalStore(state => state.open)
+  const { open } = useModalStore()
 
   const navigate = useNavigate()
 

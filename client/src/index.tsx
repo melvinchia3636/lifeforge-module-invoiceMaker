@@ -18,6 +18,7 @@ import { type InferOutput, useNavigate } from 'shared'
 import InnerHeader from './components/InnerHeader'
 import InvoiceCard, { STATUS_CONFIG } from './components/InvoiceCard'
 import Sidebar from './components/Sidebar'
+import './index.css'
 import ManageClientsModal from './modals/ManageClientsModal'
 import ModifySettingsModal from './modals/ModifySettingsModal'
 import forgeAPI from './utils/forgeAPI'
@@ -29,7 +30,7 @@ export type InvoiceEntry = InferOutput<
 function InvoiceMaker() {
   const navigate = useNavigate()
 
-  const open = useModalStore(state => state.open)
+  const { open } = useModalStore()
 
   const [statusFilter, setStatusFilter] = useState<string | null>(null)
 
