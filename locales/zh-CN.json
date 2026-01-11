@@ -1,6 +1,6 @@
 {
   "title": "发票生成器",
-  "description": "帮助生成整洁专业的发票的实用工具",
+  "description": "在几秒钟内生成干净、专业的发票。",
   "sidebar": {
     "allInvoices": "所有发票",
     "filteredInvoices": "已过滤的发票",

@@ -1,6 +1,6 @@
 {
   "title": "Invoice Maker",
-  "description": "A handy utility tool that helps generate clean and professional looking invoices",
+  "description": "Generate clean, professional invoices in seconds.",
   "sidebar": {
     "allInvoices": "All Invoices",
     "filteredInvoices": "Filtered Invoices",
