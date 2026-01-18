@@ -15,9 +15,7 @@ import forgeAPI from '@/utils/forgeAPI'
 
 import ClientModal from '../../ModifyClientModal'
 
-type Client = InferOutput<
-  typeof forgeAPI.melvinchia3636$invoiceMaker.clients.list
->[number]
+type Client = InferOutput<typeof forgeAPI.clients.list>[number]
 
 function ClientItem({ client }: { client: Client }) {
   const queryClient = useQueryClient()
@@ -34,19 +32,17 @@ function ClientItem({ client }: { client: Client }) {
   }, [client, open])
 
   const deleteMutation = useMutation(
-    forgeAPI.melvinchia3636$invoiceMaker.clients.remove
-      .input({ id: client.id })
-      .mutationOptions({
-        onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: ['invoiceMaker', 'clients']
-          })
-          toast.success(t('toast.clientDeleted'))
-        },
-        onError: () => {
-          toast.error('Failed to delete client')
-        }
-      })
+    forgeAPI.clients.remove.input({ id: client.id }).mutationOptions({
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ['invoiceMaker', 'clients']
+        })
+        toast.success(t('toast.clientDeleted'))
+      },
+      onError: () => {
+        toast.error('Failed to delete client')
+      }
+    })
   )
 
   const handleDeleteClient = useCallback(() => {

@@ -23,9 +23,7 @@ import ManageClientsModal from './modals/ManageClientsModal'
 import ModifySettingsModal from './modals/ModifySettingsModal'
 import forgeAPI from './utils/forgeAPI'
 
-export type InvoiceEntry = InferOutput<
-  typeof forgeAPI.melvinchia3636$invoiceMaker.invoices.list
->[number]
+export type InvoiceEntry = InferOutput<typeof forgeAPI.invoices.list>[number]
 
 function InvoiceMaker() {
   const navigate = useNavigate()
@@ -39,7 +37,7 @@ function InvoiceMaker() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const invoicesQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.invoices.list
+    forgeAPI.invoices.list
       .input({
         status: (statusFilter || undefined) as keyof typeof STATUS_CONFIG,
         clientId: clientFilter || undefined
@@ -47,9 +45,7 @@ function InvoiceMaker() {
       .queryOptions()
   )
 
-  const settingsQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.settings.get.queryOptions()
-  )
+  const settingsQuery = useQuery(forgeAPI.settings.get.queryOptions())
 
   const filteredInvoices = useMemo(() => {
     if (!invoicesQuery.data) return []

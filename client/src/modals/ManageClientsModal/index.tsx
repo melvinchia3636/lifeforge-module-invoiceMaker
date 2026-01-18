@@ -19,9 +19,7 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
 
   const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
-  const clientsQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.clients.list.queryOptions()
-  )
+  const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
   return (
     <div className="flex min-h-[80vh] min-w-[40vw] flex-col">

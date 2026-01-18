@@ -1,6 +1,7 @@
+import { cleanSchemas } from '@lifeforge/server-utils'
 import z from 'zod'
 
-const schemas = {
+export const schemas = {
   invoices: {
     schema: z.object({
       invoice_number: z.string(),
@@ -946,4 +947,4 @@ const schemas = {
   }
 }
 
-export default schemas
+export default cleanSchemas(schemas)

@@ -106,17 +106,15 @@ function InvoiceEditorProvider({ children }: { children: React.ReactNode }) {
   const [showShipping, setShowShipping] = useState(false)
 
   const invoiceQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.invoices.getById
+    forgeAPI.invoices.getById
       .input({ id: id || '' })
       .queryOptions({ enabled: isEditMode })
   )
 
-  const settingsQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.settings.get.queryOptions()
-  )
+  const settingsQuery = useQuery(forgeAPI.settings.get.queryOptions())
 
   const createMutation = useMutation(
-    forgeAPI.melvinchia3636$invoiceMaker.invoices.create.mutationOptions({
+    forgeAPI.invoices.create.mutationOptions({
       onSuccess: () => {
         qc.invalidateQueries({ queryKey: ['invoiceMaker', 'invoices'] })
         toast.success(t('toast.invoiceCreated'))
@@ -126,7 +124,7 @@ function InvoiceEditorProvider({ children }: { children: React.ReactNode }) {
   )
 
   const updateMutation = useMutation(
-    forgeAPI.melvinchia3636$invoiceMaker.invoices.update
+    forgeAPI.invoices.update
       .input({
         id: id || ''
       })

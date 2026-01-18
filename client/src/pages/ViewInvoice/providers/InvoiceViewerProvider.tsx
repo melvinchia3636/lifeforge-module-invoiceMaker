@@ -5,12 +5,8 @@ import type { InferOutput } from 'shared'
 
 import forgeAPI from '@/utils/forgeAPI'
 
-type Invoice = InferOutput<
-  typeof forgeAPI.melvinchia3636$invoiceMaker.invoices.getById
->
-type Settings = InferOutput<
-  typeof forgeAPI.melvinchia3636$invoiceMaker.settings.get
->
+type Invoice = InferOutput<typeof forgeAPI.invoices.getById>
+type Settings = InferOutput<typeof forgeAPI.settings.get>
 
 interface InvoiceViewerContext {
   invoice: Invoice
@@ -37,14 +33,10 @@ function InvoiceViewerProvider({
   children
 }: InvoiceViewerProviderProps) {
   const invoiceQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.invoices.getById
-      .input({ id: invoiceId })
-      .queryOptions()
+    forgeAPI.invoices.getById.input({ id: invoiceId }).queryOptions()
   )
 
-  const settingsQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.settings.get.queryOptions()
-  )
+  const settingsQuery = useQuery(forgeAPI.settings.get.queryOptions())
 
   const calculations = useMemo(() => {
     if (!invoiceQuery.data) {

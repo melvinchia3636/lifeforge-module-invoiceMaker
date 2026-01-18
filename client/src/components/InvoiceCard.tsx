@@ -49,7 +49,7 @@ export default function InvoiceCard({
 
   // Mutations
   const duplicateMutation = useMutation(
-    forgeAPI.melvinchia3636$invoiceMaker.invoices.duplicate
+    forgeAPI.invoices.duplicate
       .input({
         id: invoice.id
       })
@@ -64,7 +64,7 @@ export default function InvoiceCard({
   )
 
   const deleteMutation = useMutation(
-    forgeAPI.melvinchia3636$invoiceMaker.invoices.remove
+    forgeAPI.invoices.remove
       .input({
         id: invoice.id
       })

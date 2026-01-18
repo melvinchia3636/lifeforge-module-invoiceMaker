@@ -21,9 +21,7 @@ function TopInfoSection() {
 
   const { open } = useModalStore()
 
-  const clientsQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.clients.list.queryOptions()
-  )
+  const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
   const clients = clientsQuery.data || []
 

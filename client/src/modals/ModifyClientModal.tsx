@@ -5,9 +5,7 @@ import type { InferInput, InferOutput } from 'shared'
 
 import forgeAPI from '../utils/forgeAPI'
 
-type Client = InferOutput<
-  typeof forgeAPI.melvinchia3636$invoiceMaker.clients.list
->[number]
+type Client = InferOutput<typeof forgeAPI.clients.list>[number]
 
 interface ClientModalProps {
   data: {
@@ -24,7 +22,7 @@ export default function ModifyClientModal({
   const qc = useQueryClient()
 
   const createMutation = useMutation(
-    forgeAPI.melvinchia3636$invoiceMaker.clients.create.mutationOptions({
+    forgeAPI.clients.create.mutationOptions({
       onSuccess: () => {
         qc.invalidateQueries({ queryKey: ['invoiceMaker', 'clients'] })
         toast.success('Client created successfully')
@@ -37,7 +35,7 @@ export default function ModifyClientModal({
   )
 
   const updateMutation = useMutation(
-    forgeAPI.melvinchia3636$invoiceMaker.clients.update
+    forgeAPI.clients.update
       .input({
         id: initialData?.id || ''
       })
@@ -54,9 +52,7 @@ export default function ModifyClientModal({
   )
 
   const { formProps } = defineForm<
-    InferInput<
-      typeof forgeAPI.melvinchia3636$invoiceMaker.clients.create
-    >['body']
+    InferInput<typeof forgeAPI.clients.create>['body']
   >({
     title:
       type === 'update' ? 'modals.clients.update' : 'modals.clients.create',

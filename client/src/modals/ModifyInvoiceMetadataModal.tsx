@@ -23,7 +23,7 @@ export default function ModifyInvoiceMetadataModal({
   const qc = useQueryClient()
 
   const updateMutation = useMutation(
-    forgeAPI.melvinchia3636$invoiceMaker.invoices.update
+    forgeAPI.invoices.update
       .input({
         id: invoice.id
       })

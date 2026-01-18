@@ -1,21 +1,18 @@
-import { SCHEMAS } from '@schema'
+import { ClientError } from '@lifeforge/server-utils'
 import z from 'zod'
 
-import { forgeController, forgeRouter } from '@functions/routes'
-import { ClientError } from '@functions/routes/utils/response'
+import forge from '../forge'
+import schemas from '../schema'
 
-const list = forgeController
+export const list = forge
   .query()
   .description('List all clients')
   .input({})
   .callback(async ({ pb }) =>
-    pb.getFullList
-      .collection('melvinchia3636$invoiceMaker__clients')
-      .sort(['-created'])
-      .execute()
+    pb.getFullList.collection('clients').sort(['-created']).execute()
   )
 
-const getById = forgeController
+export const getById = forge
   .query()
   .description('Get client by ID')
   .input({
@@ -24,56 +21,46 @@ const getById = forgeController
     })
   })
   .existenceCheck('query', {
-    id: 'melvinchia3636$invoiceMaker__clients'
+    id: 'clients'
   })
   .callback(({ pb, query: { id } }) =>
-    pb.getOne
-      .collection('melvinchia3636$invoiceMaker__clients')
-      .id(id)
-      .execute()
+    pb.getOne.collection('clients').id(id).execute()
   )
 
-const create = forgeController
+export const create = forge
   .mutation()
   .description('Create a new client')
   .input({
-    body: SCHEMAS.melvinchia3636$invoiceMaker.clients.schema.omit({
+    body: schemas.clients.omit({
       created: true,
       updated: true
     })
   })
   .statusCode(201)
   .callback(async ({ pb, body }) =>
-    pb.create
-      .collection('melvinchia3636$invoiceMaker__clients')
-      .data(body)
-      .execute()
+    pb.create.collection('clients').data(body).execute()
   )
 
-const update = forgeController
+export const update = forge
   .mutation()
   .description('Update an existing client')
   .input({
     query: z.object({
       id: z.string()
     }),
-    body: SCHEMAS.melvinchia3636$invoiceMaker.clients.schema.partial().omit({
+    body: schemas.clients.partial().omit({
       created: true,
       updated: true
     })
   })
   .existenceCheck('query', {
-    id: 'melvinchia3636$invoiceMaker__clients'
+    id: 'clients'
   })
   .callback(async ({ pb, query: { id }, body }) =>
-    pb.update
-      .collection('melvinchia3636$invoiceMaker__clients')
-      .id(id)
-      .data(body)
-      .execute()
+    pb.update.collection('clients').id(id).data(body).execute()
   )
 
-const remove = forgeController
+export const remove = forge
   .mutation()
   .description('Delete a client')
   .input({
@@ -82,13 +69,13 @@ const remove = forgeController
     })
   })
   .existenceCheck('query', {
-    id: 'melvinchia3636$invoiceMaker__clients'
+    id: 'clients'
   })
   .statusCode(204)
   .callback(async ({ pb, query: { id } }) => {
     // Check if client has any invoices
     const invoices = await pb.getFullList
-      .collection('melvinchia3636$invoiceMaker__invoices')
+      .collection('invoices')
       .filter([{ field: 'bill_to', operator: '=', value: id }])
       .execute()
 
@@ -98,10 +85,5 @@ const remove = forgeController
       )
     }
 
-    return pb.delete
-      .collection('melvinchia3636$invoiceMaker__clients')
-      .id(id)
-      .execute()
+    return pb.delete.collection('clients').id(id).execute()
   })
-
-export default forgeRouter({ list, getById, create, update, remove })

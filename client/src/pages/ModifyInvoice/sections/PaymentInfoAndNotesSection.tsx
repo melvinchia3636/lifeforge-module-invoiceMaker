@@ -9,9 +9,7 @@ import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 function PaymentInfoAndNotesSection() {
   const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
 
-  const settingsQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.settings.get.queryOptions()
-  )
+  const settingsQuery = useQuery(forgeAPI.settings.get.queryOptions())
 
   const { formData, updateField } = useInvoiceEditor()
 

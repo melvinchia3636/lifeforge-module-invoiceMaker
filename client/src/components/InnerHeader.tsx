@@ -27,9 +27,7 @@ function InnerHeader({
 
   const { setIsSidebarOpen } = useModuleSidebarState()
 
-  const clientsQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.clients.list.queryOptions()
-  )
+  const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
   const isFiltered =
     statusFilter !== null || clientFilter !== null || searchQuery.trim() !== ''

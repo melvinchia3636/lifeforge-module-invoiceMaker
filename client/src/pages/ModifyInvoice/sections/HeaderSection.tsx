@@ -19,7 +19,7 @@ function Header() {
   const { open } = useModalStore()
 
   const invoiceQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.invoices.getById
+    forgeAPI.invoices.getById
       .input({ id: id || '' })
       .queryOptions({ enabled: !!id })
   )

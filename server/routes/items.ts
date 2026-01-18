@@ -1,9 +1,9 @@
-import { SCHEMAS } from '@schema'
 import z from 'zod'
 
-import { forgeController, forgeRouter } from '@functions/routes'
+import forge from '../forge'
+import schemas from '../schema'
 
-const listByInvoice = forgeController
+export const listByInvoice = forge
   .query()
   .description('List all items for an invoice')
   .input({
@@ -12,54 +12,47 @@ const listByInvoice = forgeController
     })
   })
   .existenceCheck('query', {
-    invoiceId: 'melvinchia3636$invoiceMaker__invoices'
+    invoiceId: 'invoices'
   })
   .callback(async ({ pb, query: { invoiceId } }) =>
     pb.getFullList
-      .collection('melvinchia3636$invoiceMaker__items')
+      .collection('items')
       .filter([{ field: 'invoice', operator: '=', value: invoiceId }])
       .sort(['order'])
       .execute()
   )
 
-const create = forgeController
+export const create = forge
   .mutation()
   .description('Create a new line item')
   .input({
-    body: SCHEMAS.melvinchia3636$invoiceMaker.items.schema
+    body: schemas.items
   })
   .existenceCheck('body', {
-    invoice: 'melvinchia3636$invoiceMaker__invoices'
+    invoice: 'invoices'
   })
   .statusCode(201)
   .callback(async ({ pb, body }) =>
-    pb.create
-      .collection('melvinchia3636$invoiceMaker__items')
-      .data(body)
-      .execute()
+    pb.create.collection('items').data(body).execute()
   )
 
-const update = forgeController
+export const update = forge
   .mutation()
   .description('Update an existing line item')
   .input({
     query: z.object({
       id: z.string()
     }),
-    body: SCHEMAS.melvinchia3636$invoiceMaker.items.schema.partial()
+    body: schemas.items.partial()
   })
   .existenceCheck('query', {
-    id: 'melvinchia3636$invoiceMaker__items'
+    id: 'items'
   })
   .callback(async ({ pb, query: { id }, body }) =>
-    pb.update
-      .collection('melvinchia3636$invoiceMaker__items')
-      .id(id)
-      .data(body)
-      .execute()
+    pb.update.collection('items').id(id).data(body).execute()
   )
 
-const remove = forgeController
+export const remove = forge
   .mutation()
   .description('Delete a line item')
   .input({
@@ -68,14 +61,14 @@ const remove = forgeController
     })
   })
   .existenceCheck('query', {
-    id: 'melvinchia3636$invoiceMaker__items'
+    id: 'items'
   })
   .statusCode(204)
   .callback(({ pb, query: { id } }) =>
-    pb.delete.collection('melvinchia3636$invoiceMaker__items').id(id).execute()
+    pb.delete.collection('items').id(id).execute()
   )
 
-const reorder = forgeController
+export const reorder = forge
   .mutation()
   .description('Reorder line items')
   .input({
@@ -85,21 +78,15 @@ const reorder = forgeController
     })
   })
   .existenceCheck('body', {
-    invoiceId: 'melvinchia3636$invoiceMaker__invoices'
+    invoiceId: 'invoices'
   })
   .callback(async ({ pb, body: { itemIds } }) => {
     // Update each item's order based on its position in the array
     const updates = itemIds.map((id, index) =>
-      pb.update
-        .collection('melvinchia3636$invoiceMaker__items')
-        .id(id)
-        .data({ order: index })
-        .execute()
+      pb.update.collection('items').id(id).data({ order: index }).execute()
     )
 
     await Promise.all(updates)
 
     return { success: true }
   })
-
-export default forgeRouter({ listByInvoice, create, update, remove, reorder })

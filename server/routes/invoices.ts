@@ -1,8 +1,8 @@
 import z from 'zod'
 
-import { forgeController, forgeRouter } from '@functions/routes'
+import forge from '../forge'
 
-const list = forgeController
+export const list = forge
   .query()
   .description('List all invoices')
   .input({
@@ -15,10 +15,10 @@ const list = forgeController
   })
   .callback(async ({ pb, query }) => {
     let builder = pb.getFullList
-      .collection('melvinchia3636$invoiceMaker__invoices_aggregated')
+      .collection('invoices_aggregated')
       .sort(['-date', '-created'])
       .expand({
-        bill_to: 'melvinchia3636$invoiceMaker__clients'
+        bill_to: 'clients'
       })
 
     if (query?.status) {
@@ -36,7 +36,7 @@ const list = forgeController
     return builder.execute()
   })
 
-const getById = forgeController
+export const getById = forge
   .query()
   .description('Get invoice by ID with items')
   .input({
@@ -45,19 +45,19 @@ const getById = forgeController
     })
   })
   .existenceCheck('query', {
-    id: 'melvinchia3636$invoiceMaker__invoices'
+    id: 'invoices'
   })
   .callback(async ({ pb, query: { id } }) => {
     const invoice = await pb.getOne
-      .collection('melvinchia3636$invoiceMaker__invoices')
+      .collection('invoices')
       .id(id)
       .expand({
-        bill_to: 'melvinchia3636$invoiceMaker__clients'
+        bill_to: 'clients'
       })
       .execute()
 
     const items = await pb.getFullList
-      .collection('melvinchia3636$invoiceMaker__items')
+      .collection('items')
       .filter([{ field: 'invoice', operator: '=', value: id }])
       .sort(['order'])
       .execute()
@@ -65,7 +65,7 @@ const getById = forgeController
     return { ...invoice, items }
   })
 
-const create = forgeController
+export const create = forge
   .mutation()
   .description('Create a new invoice')
   .input({
@@ -101,9 +101,7 @@ const create = forgeController
     const { items, ...invoiceData } = body
 
     // Get settings to auto-generate invoice number
-    const settings = await pb.getFullList
-      .collection('melvinchia3636$invoiceMaker__settings')
-      .execute()
+    const settings = await pb.getFullList.collection('settings').execute()
 
     let invoiceNumber = '001'
 
@@ -116,7 +114,7 @@ const create = forgeController
 
       // Increment next invoice number
       await pb.update
-        .collection('melvinchia3636$invoiceMaker__settings')
+        .collection('settings')
         .id(settings[0].id)
         .data({ next_invoice_number: nextNum + 1 })
         .execute()
@@ -124,7 +122,7 @@ const create = forgeController
 
     // Create the invoice
     const invoice = await pb.create
-      .collection('melvinchia3636$invoiceMaker__invoices')
+      .collection('invoices')
       .data({
         ...invoiceData,
         invoice_number: invoiceNumber
@@ -136,7 +134,7 @@ const create = forgeController
       await Promise.all(
         items.map(item =>
           pb.create
-            .collection('melvinchia3636$invoiceMaker__items')
+            .collection('items')
             .data({
               ...item,
               invoice: invoice.id
@@ -149,7 +147,7 @@ const create = forgeController
     return invoice
   })
 
-const update = forgeController
+export const update = forge
   .mutation()
   .description('Update an existing invoice')
   .input({
@@ -188,14 +186,14 @@ const update = forgeController
     })
   })
   .existenceCheck('query', {
-    id: 'melvinchia3636$invoiceMaker__invoices'
+    id: 'invoices'
   })
   .callback(async ({ pb, query: { id }, body }) => {
     const { items, ...invoiceData } = body
 
     // Update the invoice
     const invoice = await pb.update
-      .collection('melvinchia3636$invoiceMaker__invoices')
+      .collection('invoices')
       .id(id)
       .data(invoiceData)
       .execute()
@@ -204,7 +202,7 @@ const update = forgeController
     if (items !== undefined) {
       // Get existing items
       const existingItems = await pb.getFullList
-        .collection('melvinchia3636$invoiceMaker__items')
+        .collection('items')
         .filter([{ field: 'invoice', operator: '=', value: id }])
         .execute()
 
@@ -219,10 +217,7 @@ const update = forgeController
 
       await Promise.all(
         toDelete.map(item =>
-          pb.delete
-            .collection('melvinchia3636$invoiceMaker__items')
-            .id(item.id)
-            .execute()
+          pb.delete.collection('items').id(item.id).execute()
         )
       )
 
@@ -232,7 +227,7 @@ const update = forgeController
           if (item.id && existingIds.has(item.id)) {
             // Update existing item
             return pb.update
-              .collection('melvinchia3636$invoiceMaker__items')
+              .collection('items')
               .id(item.id)
               .data({
                 description: item.description,
@@ -244,7 +239,7 @@ const update = forgeController
           } else {
             // Create new item
             return pb.create
-              .collection('melvinchia3636$invoiceMaker__items')
+              .collection('items')
               .data({
                 invoice: id,
                 description: item.description,
@@ -261,7 +256,7 @@ const update = forgeController
     return invoice
   })
 
-const remove = forgeController
+export const remove = forge
   .mutation()
   .description('Delete an invoice')
   .input({
@@ -270,17 +265,14 @@ const remove = forgeController
     })
   })
   .existenceCheck('query', {
-    id: 'melvinchia3636$invoiceMaker__invoices'
+    id: 'invoices'
   })
   .statusCode(204)
   .callback(({ pb, query: { id } }) =>
-    pb.delete
-      .collection('melvinchia3636$invoiceMaker__invoices')
-      .id(id)
-      .execute()
+    pb.delete.collection('invoices').id(id).execute()
   )
 
-const duplicate = forgeController
+export const duplicate = forge
   .mutation()
   .description('Duplicate an existing invoice')
   .input({
@@ -289,27 +281,22 @@ const duplicate = forgeController
     })
   })
   .existenceCheck('query', {
-    id: 'melvinchia3636$invoiceMaker__invoices'
+    id: 'invoices'
   })
   .statusCode(201)
   .callback(async ({ pb, query: { id } }) => {
     // Get the original invoice
-    const original = await pb.getOne
-      .collection('melvinchia3636$invoiceMaker__invoices')
-      .id(id)
-      .execute()
+    const original = await pb.getOne.collection('invoices').id(id).execute()
 
     // Get the original items
     const originalItems = await pb.getFullList
-      .collection('melvinchia3636$invoiceMaker__items')
+      .collection('items')
       .filter([{ field: 'invoice', operator: '=', value: id }])
       .sort(['order'])
       .execute()
 
     // Get settings for new invoice number
-    const settings = await pb.getFullList
-      .collection('melvinchia3636$invoiceMaker__settings')
-      .execute()
+    const settings = await pb.getFullList.collection('settings').execute()
 
     let invoiceNumber = '001'
 
@@ -322,7 +309,7 @@ const duplicate = forgeController
 
       // Increment next invoice number
       await pb.update
-        .collection('melvinchia3636$invoiceMaker__settings')
+        .collection('settings')
         .id(settings[0].id)
         .data({ next_invoice_number: nextNum + 1 })
         .execute()
@@ -330,7 +317,7 @@ const duplicate = forgeController
 
     // Create the new invoice
     const newInvoice = await pb.create
-      .collection('melvinchia3636$invoiceMaker__invoices')
+      .collection('invoices')
       .data({
         invoice_number: invoiceNumber,
         bill_to: original.bill_to,
@@ -354,7 +341,7 @@ const duplicate = forgeController
     await Promise.all(
       originalItems.map(item =>
         pb.create
-          .collection('melvinchia3636$invoiceMaker__items')
+          .collection('items')
           .data({
             invoice: newInvoice.id,
             description: item.description,
@@ -368,12 +355,3 @@ const duplicate = forgeController
 
     return newInvoice
   })
-
-export default forgeRouter({
-  list,
-  getById,
-  create,
-  update,
-  remove,
-  duplicate
-})

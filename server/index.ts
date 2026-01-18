@@ -1,9 +1,9 @@
-import { forgeRouter } from '@functions/routes'
+import { forgeRouter } from '@lifeforge/server-utils'
 
-import clientsRoutes from './routes/clients'
-import invoicesRoutes from './routes/invoices'
-import itemsRoutes from './routes/items'
-import settingsRoutes from './routes/settings'
+import * as clientsRoutes from './routes/clients'
+import * as invoicesRoutes from './routes/invoices'
+import * as itemsRoutes from './routes/items'
+import * as settingsRoutes from './routes/settings'
 
 export default forgeRouter({
   invoices: invoicesRoutes,

@@ -12,13 +12,11 @@ function CompanyHeader() {
           <img
             alt="Logo"
             className="mb-2 h-16 w-auto"
-            src={
-              forgeAPI.media.input({
-                collectionId: settings.collectionId,
-                recordId: settings.id,
-                fieldId: settings.default_logo
-              }).endpoint
-            }
+            src={forgeAPI.getMedia({
+              collectionId: settings.collectionId,
+              recordId: settings.id,
+              fieldId: settings.default_logo
+            })}
           />
         )}
         <p className="text-[18px] font-semibold">{settings.company_name}</p>

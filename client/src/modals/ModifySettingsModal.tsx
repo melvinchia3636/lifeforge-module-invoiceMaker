@@ -11,12 +11,10 @@ export default function ModifySettingsModal({
 }) {
   const qc = useQueryClient()
 
-  const settingsQuery = useQuery(
-    forgeAPI.melvinchia3636$invoiceMaker.settings.get.queryOptions()
-  )
+  const settingsQuery = useQuery(forgeAPI.settings.get.queryOptions())
 
   const mutation = useMutation(
-    forgeAPI.melvinchia3636$invoiceMaker.settings.update.mutationOptions({
+    forgeAPI.settings.update.mutationOptions({
       onSuccess: () => {
         qc.invalidateQueries({ queryKey: ['invoiceMaker', 'settings'] })
         onClose()
@@ -29,9 +27,7 @@ export default function ModifySettingsModal({
   }
 
   const { formProps } = defineForm<
-    InferInput<
-      typeof forgeAPI.melvinchia3636$invoiceMaker.settings.update
-    >['body']
+    InferInput<typeof forgeAPI.settings.update>['body']
   >({
     title: 'Settings',
     icon: 'tabler:settings',

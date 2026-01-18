@@ -1,17 +1,13 @@
-import { SCHEMAS } from '@schema'
+import forge from '../forge'
+import schemas from '../schema'
 
-import getMedia from '@functions/external/media'
-import { forgeController, forgeRouter } from '@functions/routes'
-
-const get = forgeController
+export const get = forge
   .query()
   .description('Get invoice maker settings')
   .input({})
   .callback(async ({ pb }) => {
     // Try to get existing settings (there should only be one)
-    const existing = await pb.getFullList
-      .collection('melvinchia3636$invoiceMaker__settings')
-      .execute()
+    const existing = await pb.getFullList.collection('settings').execute()
 
     if (existing.length > 0) {
       return existing[0]
@@ -19,7 +15,7 @@ const get = forgeController
 
     // Create default settings if none exist
     return await pb.create
-      .collection('melvinchia3636$invoiceMaker__settings')
+      .collection('settings')
       .data({
         company_name: '',
         company_additional_info: '',
@@ -36,11 +32,11 @@ const get = forgeController
       .execute()
   })
 
-const update = forgeController
+export const update = forge
   .mutation()
   .description('Update invoice maker settings')
   .input({
-    body: SCHEMAS.melvinchia3636$invoiceMaker.settings.schema.partial().omit({
+    body: schemas.settings.partial().omit({
       created: true,
       updated: true,
       default_logo: true
@@ -51,32 +47,37 @@ const update = forgeController
       optional: true
     }
   })
-  .callback(async ({ pb, body, media: { default_logo } }) => {
-    // Get existing settings
-    const existing = await pb.getFullList
-      .collection('melvinchia3636$invoiceMaker__settings')
-      .execute()
+  .callback(
+    async ({
+      pb,
+      body,
+      media: { default_logo },
+      core: {
+        media: { retrieveMedia }
+      }
+    }) => {
+      // Get existing settings
+      const existing = await pb.getFullList.collection('settings').execute()
 
-    if (existing.length === 0) {
-      // Create new settings
-      return await pb.create
-        .collection('melvinchia3636$invoiceMaker__settings')
+      if (existing.length === 0) {
+        // Create new settings
+        return await pb.create
+          .collection('settings')
+          .data({
+            ...body,
+            ...(await retrieveMedia('default_logo', default_logo))
+          })
+          .execute()
+      }
+
+      // Update existing settings
+      return await pb.update
+        .collection('settings')
+        .id(existing[0].id)
         .data({
           ...body,
-          ...(await getMedia('default_logo', default_logo))
+          ...(await retrieveMedia('default_logo', default_logo))
         })
         .execute()
     }
-
-    // Update existing settings
-    return await pb.update
-      .collection('melvinchia3636$invoiceMaker__settings')
-      .id(existing[0].id)
-      .data({
-        ...body,
-        ...(await getMedia('default_logo', default_logo))
-      })
-      .execute()
-  })
-
-export default forgeRouter({ get, update })
+  )

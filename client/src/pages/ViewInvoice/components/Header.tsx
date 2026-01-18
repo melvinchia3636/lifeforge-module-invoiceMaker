@@ -23,8 +23,8 @@ function Header({
   const statusConfig = STATUS_CONFIG[invoice.status || 'draft']
 
   const fontQuery = useQuery(
-    forgeAPI.user.personalization.getGoogleFont
-      .input({
+    forgeAPI
+      .getGoogleFont({
         family: 'Onest'
       })
       .queryOptions()
@@ -38,7 +38,7 @@ function Header({
       ? [
           {
             family: fontQuery.data.items[0].family,
-            source: fontQuery.data.items[0].files.regular
+            source: fontQuery.data.items[0].files.regular || ''
           }
         ]
       : [],
