@@ -2,18 +2,82 @@ import z from 'zod'
 
 import forge from '../forge'
 
+const InvoiceListSchema = z.object({
+  status: z
+    .enum(['draft', 'sent', 'paid', 'overdue', 'cancelled'])
+    .optional(),
+  clientId: z.string().optional()
+})
+
+const CreateInvoiceBodySchema = z.object({
+  bill_to: z.string().optional(),
+  date: z.string(),
+  due_date: z.string(),
+  payment_terms: z.string().optional(),
+  po_number: z.string().optional(),
+  status: z.enum(['draft', 'sent', 'paid', 'overdue', 'cancelled']),
+  shipping_address: z.string().optional(),
+  tax_type: z.enum(['rate', 'fixed']).optional(),
+  tax_amount: z.number().optional(),
+  discount_type: z.enum(['rate', 'fixed']).optional(),
+  discount_amount: z.number().optional(),
+  shipping_amount: z.number().optional(),
+  amount_paid: z.number().optional(),
+  notes: z.string().optional(),
+  items: z
+    .array(
+      z.object({
+        description: z.string(),
+        quantity: z.number(),
+        rate: z.number(),
+        order: z.number()
+      })
+    )
+    .optional()
+})
+
+const UpdateInvoiceBodySchema = z.object({
+  invoice_number: z.string().optional(),
+  bill_to: z.string().optional(),
+  date: z.string().optional(),
+  due_date: z.string().optional(),
+  payment_terms: z.string().optional(),
+  po_number: z.string().optional(),
+  status: z
+    .enum(['draft', 'sent', 'paid', 'overdue', 'cancelled'])
+    .optional(),
+  shipping_address: z.string().optional(),
+  tax_type: z.enum(['rate', 'fixed']).optional(),
+  tax_amount: z.number().optional(),
+  discount_type: z.enum(['rate', 'fixed']).optional(),
+  discount_amount: z.number().optional(),
+  shipping_amount: z.number().optional(),
+  amount_paid: z.number().optional(),
+  notes: z.string().optional(),
+  items: z
+    .array(
+      z.object({
+        id: z.string().optional(),
+        description: z.string(),
+        quantity: z.number(),
+        rate: z.number(),
+        order: z.number()
+      })
+    )
+    .optional()
+})
+
 export const list = forge
-  .query()
-  .description('List all invoices')
-  .input({
-    query: z.object({
-      status: z
-        .enum(['draft', 'sent', 'paid', 'overdue', 'cancelled'])
-        .optional(),
-      clientId: z.string().optional()
-    })
+  .query({
+    description: 'List all invoices',
+    input: {
+      query: InvoiceListSchema
+    },
+    output: {
+      OK: z.any()
+    }
   })
-  .callback(async ({ pb, query }) => {
+  .callback(async ({ pb, query, response }) => {
     let builder = pb.getFullList
       .collection('invoices_aggregated')
       .sort(['-date', '-created'])
@@ -33,21 +97,26 @@ export const list = forge
       ])
     }
 
-    return builder.execute()
+    return response.ok(await builder.execute())
   })
 
 export const getById = forge
-  .query()
-  .description('Get invoice by ID with items')
-  .input({
-    query: z.object({
-      id: z.string()
-    })
+  .query({
+    description: 'Get invoice by ID with items',
+    input: {
+      query: z.object({
+        id: z.string()
+      })
+    },
+    existenceCheck: {
+      query: { id: 'invoices' }
+    },
+    output: {
+      OK: z.any(),
+      NOT_FOUND: true
+    }
   })
-  .existenceCheck('query', {
-    id: 'invoices'
-  })
-  .callback(async ({ pb, query: { id } }) => {
+  .callback(async ({ pb, query: { id }, response }) => {
     const invoice = await pb.getOne
       .collection('invoices')
       .id(id)
@@ -62,45 +131,22 @@ export const getById = forge
       .sort(['order'])
       .execute()
 
-    return { ...invoice, items }
+    return response.ok({ ...invoice, items })
   })
 
 export const create = forge
-  .mutation()
-  .description('Create a new invoice')
-  .input({
-    body: z.object({
-      bill_to: z.string().optional(),
-      date: z.string(),
-      due_date: z.string(),
-      payment_terms: z.string().optional(),
-      po_number: z.string().optional(),
-      status: z.enum(['draft', 'sent', 'paid', 'overdue', 'cancelled']),
-      shipping_address: z.string().optional(),
-      tax_type: z.enum(['rate', 'fixed']).optional(),
-      tax_amount: z.number().optional(),
-      discount_type: z.enum(['rate', 'fixed']).optional(),
-      discount_amount: z.number().optional(),
-      shipping_amount: z.number().optional(),
-      amount_paid: z.number().optional(),
-      notes: z.string().optional(),
-      items: z
-        .array(
-          z.object({
-            description: z.string(),
-            quantity: z.number(),
-            rate: z.number(),
-            order: z.number()
-          })
-        )
-        .optional()
-    })
+  .mutation({
+    description: 'Create a new invoice',
+    input: {
+      body: CreateInvoiceBodySchema
+    },
+    output: {
+      CREATED: z.any()
+    }
   })
-  .statusCode(201)
-  .callback(async ({ pb, body }) => {
+  .callback(async ({ pb, body, response }) => {
     const { items, ...invoiceData } = body
 
-    // Get settings to auto-generate invoice number
     const settings = await pb.getFullList.collection('settings').execute()
 
     let invoiceNumber = '001'
@@ -112,7 +158,6 @@ export const create = forge
 
       invoiceNumber = `${prefix}${String(nextNum).padStart(3, '0')}`
 
-      // Increment next invoice number
       await pb.update
         .collection('settings')
         .id(settings[0].id)
@@ -120,7 +165,6 @@ export const create = forge
         .execute()
     }
 
-    // Create the invoice
     const invoice = await pb.create
       .collection('invoices')
       .data({
@@ -129,7 +173,6 @@ export const create = forge
       })
       .execute()
 
-    // Create line items if provided
     if (items && items.length > 0) {
       await Promise.all(
         items.map(item =>
@@ -144,63 +187,36 @@ export const create = forge
       )
     }
 
-    return invoice
+    return response.created(invoice)
   })
 
 export const update = forge
-  .mutation()
-  .description('Update an existing invoice')
-  .input({
-    query: z.object({
-      id: z.string()
-    }),
-    body: z.object({
-      invoice_number: z.string().optional(),
-      bill_to: z.string().optional(),
-      date: z.string().optional(),
-      due_date: z.string().optional(),
-      payment_terms: z.string().optional(),
-      po_number: z.string().optional(),
-      status: z
-        .enum(['draft', 'sent', 'paid', 'overdue', 'cancelled'])
-        .optional(),
-      shipping_address: z.string().optional(),
-      tax_type: z.enum(['rate', 'fixed']).optional(),
-      tax_amount: z.number().optional(),
-      discount_type: z.enum(['rate', 'fixed']).optional(),
-      discount_amount: z.number().optional(),
-      shipping_amount: z.number().optional(),
-      amount_paid: z.number().optional(),
-      notes: z.string().optional(),
-      items: z
-        .array(
-          z.object({
-            id: z.string().optional(),
-            description: z.string(),
-            quantity: z.number(),
-            rate: z.number(),
-            order: z.number()
-          })
-        )
-        .optional()
-    })
+  .mutation({
+    description: 'Update an existing invoice',
+    input: {
+      query: z.object({
+        id: z.string()
+      }),
+      body: UpdateInvoiceBodySchema
+    },
+    existenceCheck: {
+      query: { id: 'invoices' }
+    },
+    output: {
+      OK: z.any(),
+      NOT_FOUND: true
+    }
   })
-  .existenceCheck('query', {
-    id: 'invoices'
-  })
-  .callback(async ({ pb, query: { id }, body }) => {
+  .callback(async ({ pb, query: { id }, body, response }) => {
     const { items, ...invoiceData } = body
 
-    // Update the invoice
     const invoice = await pb.update
       .collection('invoices')
       .id(id)
       .data(invoiceData)
       .execute()
 
-    // Handle items if provided
     if (items !== undefined) {
-      // Get existing items
       const existingItems = await pb.getFullList
         .collection('items')
         .filter([{ field: 'invoice', operator: '=', value: id }])
@@ -212,7 +228,6 @@ export const update = forge
         items.filter(item => item.id).map(item => item.id)
       )
 
-      // Delete items that are no longer in the list
       const toDelete = existingItems.filter(item => !newItemIds.has(item.id))
 
       await Promise.all(
@@ -221,11 +236,9 @@ export const update = forge
         )
       )
 
-      // Update or create items
       await Promise.all(
         items.map(item => {
           if (item.id && existingIds.has(item.id)) {
-            // Update existing item
             return pb.update
               .collection('items')
               .id(item.id)
@@ -237,7 +250,6 @@ export const update = forge
               })
               .execute()
           } else {
-            // Create new item
             return pb.create
               .collection('items')
               .data({
@@ -253,49 +265,56 @@ export const update = forge
       )
     }
 
-    return invoice
+    return response.ok(invoice)
   })
 
 export const remove = forge
-  .mutation()
-  .description('Delete an invoice')
-  .input({
-    query: z.object({
-      id: z.string()
-    })
+  .mutation({
+    description: 'Delete an invoice',
+    input: {
+      query: z.object({
+        id: z.string()
+      })
+    },
+    existenceCheck: {
+      query: { id: 'invoices' }
+    },
+    output: {
+      NO_CONTENT: true,
+      NOT_FOUND: true
+    }
   })
-  .existenceCheck('query', {
-    id: 'invoices'
+  .callback(async ({ pb, query: { id }, response }) => {
+    await pb.delete.collection('invoices').id(id).execute()
+
+    return response.noContent()
   })
-  .statusCode(204)
-  .callback(({ pb, query: { id } }) =>
-    pb.delete.collection('invoices').id(id).execute()
-  )
 
 export const duplicate = forge
-  .mutation()
-  .description('Duplicate an existing invoice')
-  .input({
-    query: z.object({
-      id: z.string()
-    })
+  .mutation({
+    description: 'Duplicate an existing invoice',
+    input: {
+      query: z.object({
+        id: z.string()
+      })
+    },
+    existenceCheck: {
+      query: { id: 'invoices' }
+    },
+    output: {
+      CREATED: z.any(),
+      NOT_FOUND: true
+    }
   })
-  .existenceCheck('query', {
-    id: 'invoices'
-  })
-  .statusCode(201)
-  .callback(async ({ pb, query: { id } }) => {
-    // Get the original invoice
+  .callback(async ({ pb, query: { id }, response }) => {
     const original = await pb.getOne.collection('invoices').id(id).execute()
 
-    // Get the original items
     const originalItems = await pb.getFullList
       .collection('items')
       .filter([{ field: 'invoice', operator: '=', value: id }])
       .sort(['order'])
       .execute()
 
-    // Get settings for new invoice number
     const settings = await pb.getFullList.collection('settings').execute()
 
     let invoiceNumber = '001'
@@ -307,7 +326,6 @@ export const duplicate = forge
 
       invoiceNumber = `${prefix}${String(nextNum).padStart(3, '0')}`
 
-      // Increment next invoice number
       await pb.update
         .collection('settings')
         .id(settings[0].id)
@@ -315,7 +333,6 @@ export const duplicate = forge
         .execute()
     }
 
-    // Create the new invoice
     const newInvoice = await pb.create
       .collection('invoices')
       .data({
@@ -337,7 +354,6 @@ export const duplicate = forge
       })
       .execute()
 
-    // Duplicate items
     await Promise.all(
       originalItems.map(item =>
         pb.create
@@ -353,5 +369,5 @@ export const duplicate = forge
       )
     )
 
-    return newInvoice
+    return response.created(newInvoice)
   })
