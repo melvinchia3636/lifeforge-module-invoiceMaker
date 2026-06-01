@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
+import { AutoSizer } from 'react-virtualized'
+
 import {
   EmptyStateScreen,
   ModalHeader,
   Scrollbar,
   WithQuery,
   useModalStore
-} from 'lifeforge-ui'
-import { useTranslation } from 'react-i18next'
-import { AutoSizer } from 'react-virtualized'
+} from '@lifeforge/ui'
 
 import forgeAPI from '@/utils/forgeAPI'
 

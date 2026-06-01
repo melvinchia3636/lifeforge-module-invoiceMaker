@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { Button, TagsFilter, useModuleSidebarState } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
+
+import { Button, TagsFilter, useModuleSidebarState } from '@lifeforge/ui'
 
 import forgeAPI from '@/utils/forgeAPI'
 

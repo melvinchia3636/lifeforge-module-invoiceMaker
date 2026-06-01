@@ -1,12 +1,13 @@
 import clsx from 'clsx'
+import { useTranslation } from 'react-i18next'
+
 import {
   Button,
   Card,
   CurrencyInput,
   NumberInput,
   TextInput
-} from 'lifeforge-ui'
-import { useTranslation } from 'react-i18next'
+} from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 

@@ -11,9 +11,9 @@ import {
   SearchInput,
   WithQuery,
   useModalStore
-} from 'lifeforge-ui'
+} from '@lifeforge/ui'
 import { useMemo, useState } from 'react'
-import { type InferOutput, useNavigate } from 'shared'
+import { type InferOutput, useNavigate } from '@lifeforge/shared'
 
 import InnerHeader from './components/InnerHeader'
 import InvoiceCard, { STATUS_CONFIG } from './components/InvoiceCard'

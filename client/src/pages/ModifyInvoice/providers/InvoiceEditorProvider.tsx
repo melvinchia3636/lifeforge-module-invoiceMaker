@@ -10,7 +10,8 @@ import {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
-import { useNavigate, useParams } from 'shared'
+
+import { useNavigate, useParams } from '@lifeforge/shared'
 
 import forgeAPI from '@/utils/forgeAPI'
 

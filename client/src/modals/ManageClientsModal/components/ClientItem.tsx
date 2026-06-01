@@ -5,11 +5,11 @@ import {
   ContextMenu,
   ContextMenuItem,
   useModalStore
-} from 'lifeforge-ui'
+} from '@lifeforge/ui'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
-import type { InferOutput } from 'shared'
+import type { InferOutput } from '@lifeforge/shared'
 
 import forgeAPI from '@/utils/forgeAPI'
 

@@ -1,5 +1,5 @@
-import { Button, GoBackButton } from 'lifeforge-ui'
-import { useNavigate } from 'shared'
+import { Button, GoBackButton } from '@lifeforge/ui'
+import { useNavigate } from '@lifeforge/shared'
 
 import InvoiceEditorProvider, {
   useInvoiceEditor

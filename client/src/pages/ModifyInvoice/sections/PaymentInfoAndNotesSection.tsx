@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { Card, TextAreaInput, WithQuery } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
+
+import { Card, TextAreaInput, WithQuery } from '@lifeforge/ui'
 
 import forgeAPI from '@/utils/forgeAPI'
 

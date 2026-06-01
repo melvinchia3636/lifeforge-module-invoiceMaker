@@ -1,4 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
+
 import {
   SidebarDivider,
   SidebarItem,
@@ -6,8 +8,7 @@ import {
   SidebarWrapper,
   WithQuery,
   useModalStore
-} from 'lifeforge-ui'
-import { useTranslation } from 'react-i18next'
+} from '@lifeforge/ui'
 
 import ManageClientsModal from '@/modals/ManageClientsModal'
 import forgeAPI from '@/utils/forgeAPI'

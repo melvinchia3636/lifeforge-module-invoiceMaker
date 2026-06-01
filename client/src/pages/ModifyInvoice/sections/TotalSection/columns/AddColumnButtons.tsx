@@ -1,5 +1,6 @@
-import { Button } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
+
+import { Button } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '@/pages/ModifyInvoice/providers/InvoiceEditorProvider'
 

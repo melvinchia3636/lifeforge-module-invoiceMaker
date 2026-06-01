@@ -1,5 +1,6 @@
-import { Card } from 'lifeforge-ui'
 import { useTranslation } from 'react-i18next'
+
+import { Card } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '../../providers/InvoiceEditorProvider'
 import AddColumnButtons from './columns/AddColumnButtons'

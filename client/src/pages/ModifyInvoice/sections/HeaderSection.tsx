@@ -1,9 +1,9 @@
 import type { InvoiceEntry } from '@'
 import { Icon } from '@iconify/react'
 import { useQuery } from '@tanstack/react-query'
-import { Button, TagChip, useModalStore } from 'lifeforge-ui'
+import { Button, TagChip, useModalStore } from '@lifeforge/ui'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'shared'
+import { useParams } from '@lifeforge/shared'
 
 import { STATUS_CONFIG } from '@/components/InvoiceCard'
 import ModifyInvoiceMetadataModal from '@/modals/ModifyInvoiceMetadataModal'

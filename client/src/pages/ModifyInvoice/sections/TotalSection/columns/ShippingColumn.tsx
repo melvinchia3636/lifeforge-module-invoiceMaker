@@ -1,4 +1,4 @@
-import { CurrencyInput } from 'lifeforge-ui'
+import { CurrencyInput } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '../../../providers/InvoiceEditorProvider'
 import BaseColumn from './BaseColumn'
