@@ -1,11 +1,10 @@
 import z from 'zod'
 
 import forge from '../forge'
+import schemas from '../schema'
 
 const InvoiceListSchema = z.object({
-  status: z
-    .enum(['draft', 'sent', 'paid', 'overdue', 'cancelled'])
-    .optional(),
+  status: z.enum(['draft', 'sent', 'paid', 'overdue', 'cancelled']).optional(),
   clientId: z.string().optional()
 })
 
@@ -43,9 +42,7 @@ const UpdateInvoiceBodySchema = z.object({
   due_date: z.string().optional(),
   payment_terms: z.string().optional(),
   po_number: z.string().optional(),
-  status: z
-    .enum(['draft', 'sent', 'paid', 'overdue', 'cancelled'])
-    .optional(),
+  status: z.enum(['draft', 'sent', 'paid', 'overdue', 'cancelled']).optional(),
   shipping_address: z.string().optional(),
   tax_type: z.enum(['rate', 'fixed']).optional(),
   tax_amount: z.number().optional(),
@@ -74,7 +71,7 @@ export const list = forge
       query: InvoiceListSchema
     },
     output: {
-      OK: z.any()
+      OK: z.array(schemas.invoices_aggregated)
     }
   })
   .callback(async ({ pb, query, response }) => {
@@ -112,7 +109,9 @@ export const getById = forge
       query: { id: 'invoices' }
     },
     output: {
-      OK: z.any(),
+      OK: schemas.invoices.extend({
+        items: z.array(schemas.items)
+      }),
       NOT_FOUND: true
     }
   })
@@ -141,7 +140,7 @@ export const create = forge
       body: CreateInvoiceBodySchema
     },
     output: {
-      CREATED: z.any()
+      CREATED: schemas.invoices
     }
   })
   .callback(async ({ pb, body, response }) => {
@@ -203,7 +202,7 @@ export const update = forge
       query: { id: 'invoices' }
     },
     output: {
-      OK: z.any(),
+      OK: schemas.invoices,
       NOT_FOUND: true
     }
   })
@@ -302,7 +301,7 @@ export const duplicate = forge
       query: { id: 'invoices' }
     },
     output: {
-      CREATED: z.any(),
+      CREATED: schemas.invoices,
       NOT_FOUND: true
     }
   })
