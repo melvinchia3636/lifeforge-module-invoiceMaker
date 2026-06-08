@@ -11,7 +11,7 @@ import {
 } from '@lifeforge/ui'
 
 import ManageClientsModal from '@/modals/ManageClientsModal'
-import forgeAPI from '@/utils/forgeAPI'
+import { forgeAPI } from '@/manifest'
 
 import { STATUS_CONFIG } from './InvoiceCard'
 

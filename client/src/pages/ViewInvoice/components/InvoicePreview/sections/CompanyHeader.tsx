@@ -1,4 +1,4 @@
-import forgeAPI from '@/utils/forgeAPI'
+import { forgeAPI } from '@/manifest'
 
 import { useInvoiceViewer } from '../../../providers/InvoiceViewerProvider'
 

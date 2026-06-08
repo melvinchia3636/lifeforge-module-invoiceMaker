@@ -13,7 +13,7 @@ import { toast } from 'react-toastify'
 
 import { useNavigate, useParams } from '@lifeforge/shared'
 
-import forgeAPI from '@/utils/forgeAPI'
+import { forgeAPI } from '@/manifest'
 
 interface LineItem {
   id?: string

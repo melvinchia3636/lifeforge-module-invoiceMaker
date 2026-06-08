@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import { FormModal, defineForm } from '@lifeforge/ui'
 
 import { STATUS_CONFIG } from '@/components/InvoiceCard'
-import forgeAPI from '@/utils/forgeAPI'
+import { forgeAPI } from '@/manifest'
 
 interface InvoiceMetadataModalProps {
   data: {

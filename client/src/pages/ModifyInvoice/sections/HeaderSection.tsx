@@ -7,7 +7,7 @@ import { useParams } from '@lifeforge/shared'
 
 import { STATUS_CONFIG } from '@/components/InvoiceCard'
 import ModifyInvoiceMetadataModal from '@/modals/ModifyInvoiceMetadataModal'
-import forgeAPI from '@/utils/forgeAPI'
+import { forgeAPI } from '@/manifest'
 
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 

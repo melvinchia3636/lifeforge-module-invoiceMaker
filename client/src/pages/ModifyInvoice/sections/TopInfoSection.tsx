@@ -13,7 +13,7 @@ import {
 } from '@lifeforge/ui'
 
 import ModifyClientModal from '@/modals/ModifyClientModal'
-import forgeAPI from '@/utils/forgeAPI'
+import { forgeAPI } from '@/manifest'
 
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 

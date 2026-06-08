@@ -6,26 +6,27 @@ import {
   ConfirmationModal,
   ContextMenu,
   ContextMenuItem,
+  TAILWIND_PALETTE,
   TagChip,
   useModalStore
 } from '@lifeforge/ui'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { useNavigate, usePromiseLoading } from '@lifeforge/shared'
-import COLORS from 'tailwindcss/colors'
 
-import forgeAPI from '@/utils/forgeAPI'
+
+import { forgeAPI } from '@/manifest'
 
 export const STATUS_CONFIG = {
-  draft: { color: COLORS.zinc[500], icon: 'tabler:file' },
-  sent: { color: COLORS.blue[500], icon: 'tabler:send' },
-  paid: { color: COLORS.green[500], icon: 'tabler:check' },
+  draft: { color: TAILWIND_PALETTE.zinc[500], icon: 'tabler:file' },
+  sent: { color: TAILWIND_PALETTE.blue[500], icon: 'tabler:send' },
+  paid: { color: TAILWIND_PALETTE.green[500], icon: 'tabler:check' },
   overdue: {
-    color: COLORS.red[500],
+    color: TAILWIND_PALETTE.red[500],
     icon: 'tabler:alert-circle'
   },
   cancelled: {
-    color: COLORS.zinc[400],
+    color: TAILWIND_PALETTE.zinc[400],
     icon: 'tabler:ban'
   }
 } as const

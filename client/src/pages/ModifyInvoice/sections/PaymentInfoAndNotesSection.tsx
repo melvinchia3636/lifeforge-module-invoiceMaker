@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Card, TextAreaInput, WithQuery } from '@lifeforge/ui'
 
-import forgeAPI from '@/utils/forgeAPI'
+import { forgeAPI } from '@/manifest'
 
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 

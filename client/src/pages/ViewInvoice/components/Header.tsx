@@ -5,7 +5,7 @@ import { useReactToPrint } from 'react-to-print'
 import { Link, useNavigate } from '@lifeforge/shared'
 
 import { STATUS_CONFIG } from '@/components/InvoiceCard'
-import forgeAPI from '@/utils/forgeAPI'
+import { forgeAPI } from '@/manifest'
 
 import { useInvoiceViewer } from '../providers/InvoiceViewerProvider'
 

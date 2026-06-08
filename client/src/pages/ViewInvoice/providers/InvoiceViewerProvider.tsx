@@ -3,7 +3,7 @@ import { WithQuery } from '@lifeforge/ui'
 import { createContext, useContext, useMemo } from 'react'
 import type { InferOutput } from '@lifeforge/shared'
 
-import forgeAPI from '@/utils/forgeAPI'
+import { forgeAPI } from '@/manifest'
 
 type Invoice = InferOutput<typeof forgeAPI.invoices.getById>
 type Settings = InferOutput<typeof forgeAPI.settings.get>
