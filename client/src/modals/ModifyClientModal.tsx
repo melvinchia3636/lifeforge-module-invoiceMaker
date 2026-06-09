@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import type { InferInput, InferOutput } from '@lifeforge/api'
-import { FormModal, defineForm , toast } from '@lifeforge/ui'
-import { forgeAPI } from '@/manifest';
+import { FormModal, defineForm, toast } from '@lifeforge/ui'
 
+import { forgeAPI } from '@/manifest'
 
 type Client = InferOutput<typeof forgeAPI.clients.list>[number]
 

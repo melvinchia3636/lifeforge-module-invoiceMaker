@@ -11,7 +11,9 @@ export const list = forge
     }
   })
   .callback(async ({ pb, response }) =>
-    response.ok(await pb.getFullList.collection('clients').sort(['-created']).execute())
+    response.ok(
+      await pb.getFullList.collection('clients').sort(['-created']).execute()
+    )
   )
 
 export const getById = forge
@@ -72,7 +74,9 @@ export const update = forge
     }
   })
   .callback(async ({ pb, query: { id }, body, response }) =>
-    response.ok(await pb.update.collection('clients').id(id).data(body).execute())
+    response.ok(
+      await pb.update.collection('clients').id(id).data(body).execute()
+    )
   )
 
 export const remove = forge

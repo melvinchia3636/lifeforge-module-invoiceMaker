@@ -1,12 +1,13 @@
 import type { InvoiceEntry } from '@'
-import { Icon , Button, TagChip, useModalStore } from '@lifeforge/ui'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
+import { Button, Icon, TagChip, useModalStore } from '@lifeforge/ui'
+
 import { STATUS_CONFIG } from '@/components/InvoiceCard'
-import ModifyInvoiceMetadataModal from '@/modals/ModifyInvoiceMetadataModal'
 import { forgeAPI } from '@/manifest'
+import ModifyInvoiceMetadataModal from '@/modals/ModifyInvoiceMetadataModal'
 
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 

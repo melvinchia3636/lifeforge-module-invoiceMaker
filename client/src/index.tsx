@@ -1,4 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
+import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router'
+
+import { type InferOutput } from '@lifeforge/api'
 import {
   Button,
   ContentWrapperWithSidebar,
@@ -12,9 +16,8 @@ import {
   WithQuery,
   useModalStore
 } from '@lifeforge/ui'
-import { useMemo, useState } from 'react'
-import { type InferOutput } from '@lifeforge/api'
-import { useNavigate } from 'react-router'
+
+import { forgeAPI } from '@/manifest'
 
 import InnerHeader from './components/InnerHeader'
 import InvoiceCard, { STATUS_CONFIG } from './components/InvoiceCard'
@@ -22,7 +25,6 @@ import Sidebar from './components/Sidebar'
 import './index.css'
 import ManageClientsModal from './modals/ManageClientsModal'
 import ModifySettingsModal from './modals/ModifySettingsModal'
-import { forgeAPI } from '@/manifest';
 
 export type InvoiceEntry = InferOutput<typeof forgeAPI.invoices.list>[number]
 

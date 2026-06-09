@@ -1,18 +1,19 @@
-import { Icon ,
+import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
+
+import {
   Button,
   Card,
   DateInput,
+  Icon,
   ListboxInput,
   ListboxOption,
   TextInput,
   useModalStore
 } from '@lifeforge/ui'
-import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next'
 
-
-import ModifyClientModal from '@/modals/ModifyClientModal'
 import { forgeAPI } from '@/manifest'
+import ModifyClientModal from '@/modals/ModifyClientModal'
 
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 

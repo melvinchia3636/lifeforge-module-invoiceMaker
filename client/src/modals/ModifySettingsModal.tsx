@@ -6,8 +6,8 @@ import {
   defineForm,
   getFormFileFieldInitialData
 } from '@lifeforge/ui'
-import { forgeAPI } from '@/manifest'
 
+import { forgeAPI } from '@/manifest'
 
 export default function ModifySettingsModal({
   onClose

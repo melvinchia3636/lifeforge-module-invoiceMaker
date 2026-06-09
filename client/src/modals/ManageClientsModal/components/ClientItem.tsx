@@ -3,12 +3,14 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { InferOutput } from '@lifeforge/api'
-import { Icon ,
+import {
   ConfirmationModal,
   ContextMenu,
   ContextMenuItem,
+  Icon,
+  toast,
   useModalStore
-, toast } from '@lifeforge/ui'
+} from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
 

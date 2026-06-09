@@ -10,8 +10,8 @@ import {
   useModalStore
 } from '@lifeforge/ui'
 
-import ManageClientsModal from '@/modals/ManageClientsModal'
 import { forgeAPI } from '@/manifest'
+import ManageClientsModal from '@/modals/ManageClientsModal'
 
 import { STATUS_CONFIG } from './InvoiceCard'
 
