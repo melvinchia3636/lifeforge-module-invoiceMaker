@@ -22,8 +22,8 @@ function TaxColumn() {
       <NumberInput
         className="w-24"
         min={0}
-        variant="plain"
         value={formData.tax_amount}
+        variant="plain"
         onChange={val => updateField('tax_amount', val || 0)}
       />
       {formData.tax_type === 'rate' && <span className="text-bg-500">%</span>}

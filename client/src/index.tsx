@@ -13,7 +13,8 @@ import {
   useModalStore
 } from '@lifeforge/ui'
 import { useMemo, useState } from 'react'
-import { type InferOutput, useNavigate } from '@lifeforge/shared'
+import { type InferOutput } from '@lifeforge/api'
+import { useNavigate } from 'react-router'
 
 import InnerHeader from './components/InnerHeader'
 import InvoiceCard, { STATUS_CONFIG } from './components/InvoiceCard'

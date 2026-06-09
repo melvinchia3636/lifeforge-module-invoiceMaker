@@ -42,8 +42,8 @@ function LineItemsSection() {
                 </label>
                 <TextInput
                   placeholder="Item description"
-                  variant="plain"
                   value={item.description}
+                  variant="plain"
                   onChange={val => updateLineItem(index, 'description', val)}
                 />
               </div>
@@ -54,8 +54,8 @@ function LineItemsSection() {
                   </label>
                   <NumberInput
                     min={0}
-                    variant="plain"
                     value={item.quantity}
+                    variant="plain"
                     onChange={val =>
                       updateLineItem(index, 'quantity', val || 0)
                     }
@@ -68,8 +68,8 @@ function LineItemsSection() {
                   <CurrencyInput
                     currency={currencySymbol}
                     placeholder="0.00"
-                    variant="plain"
                     value={item.rate}
+                    variant="plain"
                     onChange={val => updateLineItem(index, 'rate', val || 0)}
                   />
                 </div>
@@ -90,16 +90,16 @@ function LineItemsSection() {
               <div className="col-span-6">
                 <TextInput
                   placeholder="Item description"
-                  variant="plain"
                   value={item.description}
+                  variant="plain"
                   onChange={val => updateLineItem(index, 'description', val)}
                 />
               </div>
               <div className="col-span-2 text-center">
                 <NumberInput
                   min={0}
-                  variant="plain"
                   value={item.quantity}
+                  variant="plain"
                   onChange={val => updateLineItem(index, 'quantity', val || 0)}
                 />
               </div>
@@ -107,8 +107,8 @@ function LineItemsSection() {
                 <CurrencyInput
                   currency={currencySymbol}
                   placeholder="0.00"
-                  variant="plain"
                   value={item.rate}
+                  variant="plain"
                   onChange={val => updateLineItem(index, 'rate', val || 0)}
                 />
               </div>

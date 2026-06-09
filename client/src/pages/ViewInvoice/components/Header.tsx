@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Button, GoBackButton, TagChip } from '@lifeforge/ui'
 import { useTranslation } from 'react-i18next'
 import { useReactToPrint } from 'react-to-print'
-import { Link, useNavigate } from '@lifeforge/shared'
+import { Link, useNavigate } from 'react-router'
 
 import { STATUS_CONFIG } from '@/components/InvoiceCard'
 import { forgeAPI } from '@/manifest'

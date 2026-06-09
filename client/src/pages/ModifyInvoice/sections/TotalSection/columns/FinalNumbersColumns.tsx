@@ -34,8 +34,8 @@ function FinalNumbersColumns() {
           <CurrencyInput
             className="w-24"
             placeholder="0.00"
-            variant="plain"
             value={formData.amount_paid}
+            variant="plain"
             onChange={val => updateField('amount_paid', val || 0)}
           />
         </div>

@@ -9,9 +9,9 @@ import {
   useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
 
-import { useNavigate, useParams } from '@lifeforge/shared'
+import { useNavigate, useParams } from 'react-router'
+import { toast } from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
 

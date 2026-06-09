@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-import { useParams } from '@lifeforge/shared'
+import { useParams } from 'react-router'
 
 import Header from './components/Header'
 import InvoicePreview from './components/InvoicePreview'

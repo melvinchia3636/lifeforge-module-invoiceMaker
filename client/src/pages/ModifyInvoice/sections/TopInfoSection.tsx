@@ -1,8 +1,4 @@
-import { Icon } from '@iconify/react'
-import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next'
-
-import {
+import { Icon ,
   Button,
   Card,
   DateInput,
@@ -11,6 +7,9 @@ import {
   TextInput,
   useModalStore
 } from '@lifeforge/ui'
+import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
+
 
 import ModifyClientModal from '@/modals/ModifyClientModal'
 import { forgeAPI } from '@/manifest'
@@ -62,8 +61,8 @@ function TopInfoSection() {
                 )
               })()}
               className="min-w-0 flex-1"
-              variant="plain"
               value={formData.bill_to}
+              variant="plain"
               onChange={val => updateField('bill_to', val)}
             >
               {clients.map(client => (
@@ -94,8 +93,8 @@ function TopInfoSection() {
                 {t('inputs.date')}
               </label>
               <DateInput
-                variant="plain"
                 value={formData.date}
+                variant="plain"
                 onChange={val => val && updateField('date', val)}
               />
             </div>
@@ -104,8 +103,8 @@ function TopInfoSection() {
                 {t('inputs.dueDate')}
               </label>
               <DateInput
-                variant="plain"
                 value={formData.due_date}
+                variant="plain"
                 onChange={val => val && updateField('due_date', val)}
               />
             </div>
@@ -117,8 +116,8 @@ function TopInfoSection() {
               </label>
               <TextInput
                 placeholder="Net 30"
-                variant="plain"
                 value={formData.payment_terms}
+                variant="plain"
                 onChange={e => updateField('payment_terms', e)}
               />
             </div>
@@ -128,8 +127,8 @@ function TopInfoSection() {
               </label>
               <TextInput
                 placeholder="Optional"
-                variant="plain"
                 value={formData.po_number}
+                variant="plain"
                 onChange={e => updateField('po_number', e)}
               />
             </div>

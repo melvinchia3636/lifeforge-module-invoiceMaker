@@ -19,8 +19,8 @@ function ShippingColumn() {
       <CurrencyInput
         className="w-24"
         placeholder="0.00"
-        variant="plain"
         value={formData.shipping_amount}
+        variant="plain"
         onChange={val => updateField('shipping_amount', val || 0)}
       />
     </BaseColumn>

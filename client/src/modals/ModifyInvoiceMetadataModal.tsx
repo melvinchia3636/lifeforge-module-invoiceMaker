@@ -1,9 +1,8 @@
 import type { InvoiceEntry } from '@'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { t } from 'i18next'
-import { toast } from 'react-toastify'
 
-import { FormModal, defineForm } from '@lifeforge/ui'
+import { toast , FormModal, defineForm } from '@lifeforge/ui'
 
 import { STATUS_CONFIG } from '@/components/InvoiceCard'
 import { forgeAPI } from '@/manifest'

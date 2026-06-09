@@ -1,8 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { FormModal, defineForm } from '@lifeforge/ui'
-import { type InferInput, getFormFileFieldInitialData } from '@lifeforge/shared'
 
-import forgeAPI from '../utils/forgeAPI'
+import { type InferInput } from '@lifeforge/api'
+import {
+  FormModal,
+  defineForm,
+  getFormFileFieldInitialData
+} from '@lifeforge/ui'
+import { forgeAPI } from '@/manifest'
+
 
 export default function ModifySettingsModal({
   onClose

@@ -1,15 +1,14 @@
-import { Icon } from '@iconify/react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import {
+import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import type { InferOutput } from '@lifeforge/api'
+import { Icon ,
   ConfirmationModal,
   ContextMenu,
   ContextMenuItem,
   useModalStore
-} from '@lifeforge/ui'
-import { useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
-import type { InferOutput } from '@lifeforge/shared'
+, toast } from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
 
@@ -51,7 +50,7 @@ function ClientItem({ client }: { client: Client }) {
       description: 'Are you sure you want to delete this client?',
       confirmationButton: 'delete',
       onConfirm: async () => {
-        await deleteMutation.mutateAsync({})
+        await deleteMutation.mutateAsync(undefined)
       }
     })
   }, [deleteMutation, open])
