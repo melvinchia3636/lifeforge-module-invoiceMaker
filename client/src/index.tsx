@@ -22,7 +22,7 @@ import Sidebar from './components/Sidebar'
 import './index.css'
 import ManageClientsModal from './modals/ManageClientsModal'
 import ModifySettingsModal from './modals/ModifySettingsModal'
-import forgeAPI from './utils/forgeAPI'
+import { forgeAPI } from '@/manifest';
 
 export type InvoiceEntry = InferOutput<typeof forgeAPI.invoices.list>[number]
 
