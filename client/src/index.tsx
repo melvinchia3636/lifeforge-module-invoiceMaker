@@ -22,7 +22,6 @@ import { forgeAPI } from '@/manifest'
 import InnerHeader from './components/InnerHeader'
 import InvoiceCard, { STATUS_CONFIG } from './components/InvoiceCard'
 import Sidebar from './components/Sidebar'
-import './index.css'
 import ManageClientsModal from './modals/ManageClientsModal'
 import ModifySettingsModal from './modals/ModifySettingsModal'
 
