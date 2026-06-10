@@ -71,7 +71,6 @@ function InvoiceMaker() {
           <Button
             className="hidden md:flex"
             icon="tabler:plus"
-            namespace="apps.melvinchia3636$invoiceMaker"
             onClick={() => navigate('/invoice-maker/modify')}
           >
             New Invoice
@@ -83,13 +82,11 @@ function InvoiceMaker() {
               <ContextMenuItem
                 icon="tabler:users"
                 label="manageClients"
-                namespace="apps.melvinchia3636$invoiceMaker"
                 onClick={() => open(ManageClientsModal, {})}
               />
               <ContextMenuItem
                 icon="tabler:settings"
                 label="settings"
-                namespace="apps.melvinchia3636$invoiceMaker"
                 onClick={() => open(ModifySettingsModal, {})}
               />
             </>
@@ -115,7 +112,6 @@ function InvoiceMaker() {
           />
           <div className="mt-4 mb-6">
             <SearchInput
-              namespace="apps.melvinchia3636$invoiceMaker"
               searchTarget="invoice"
               value={searchQuery}
               onChange={setSearchQuery}
@@ -128,8 +124,7 @@ function InvoiceMaker() {
                   <EmptyStateScreen
                     icon="tabler:file-off"
                     message={{
-                      id: 'invoice',
-                      namespace: 'apps.melvinchia3636$invoiceMaker'
+                      id: 'invoice'
                     }}
                   />
                 )
@@ -139,8 +134,7 @@ function InvoiceMaker() {
                 <EmptyStateScreen
                   icon="tabler:search-off"
                   message={{
-                    id: 'search',
-                    namespace: 'apps.melvinchia3636$invoiceMaker'
+                    id: 'search'
                   }}
                 />
               ) : (

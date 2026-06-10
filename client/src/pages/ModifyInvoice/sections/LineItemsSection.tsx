@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import { useModuleTranslation } from '@lifeforge/localization'
 
+import { useModuleTranslation } from '@lifeforge/localization'
 import {
   Button,
   Card,

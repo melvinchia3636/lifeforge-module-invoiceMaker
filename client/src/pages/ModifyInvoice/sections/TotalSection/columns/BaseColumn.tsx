@@ -1,5 +1,4 @@
 import { useModuleTranslation } from '@lifeforge/localization'
-
 import { Button } from '@lifeforge/ui'
 
 interface ColumnProps {

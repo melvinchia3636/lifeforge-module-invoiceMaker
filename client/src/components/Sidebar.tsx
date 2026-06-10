@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { useModuleTranslation } from '@lifeforge/localization'
 
+import { useModuleTranslation } from '@lifeforge/localization'
 import {
   SidebarDivider,
   SidebarItem,
@@ -38,7 +38,6 @@ export default function Sidebar({
         active={statusFilter === null && clientFilter === null}
         icon="tabler:file-invoice"
         label="All Invoices"
-        namespace="apps.melvinchia3636$invoiceMaker"
         onClick={() => {
           onStatusFilterChange(null)
           onClientFilterChange(null)
@@ -52,7 +51,6 @@ export default function Sidebar({
           active={statusFilter === key}
           icon={value.icon}
           label={t(`statuses.${key}`)}
-          namespace="apps.melvinchia3636$invoiceMaker"
           sideStripColor={value.color}
           onCancelButtonClick={() => onStatusFilterChange(null)}
           onClick={() => onStatusFilterChange(key)}

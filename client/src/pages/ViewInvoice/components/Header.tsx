@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import { useModuleTranslation } from '@lifeforge/localization'
 import { Link, useNavigate } from 'react-router'
 import { useReactToPrint } from 'react-to-print'
 
+import { useModuleTranslation } from '@lifeforge/localization'
 import { Button, GoBackButton, TagChip } from '@lifeforge/ui'
 
 import { STATUS_CONFIG } from '@/components/InvoiceCard'

@@ -30,7 +30,6 @@ function ModifyInvoiceContent() {
           className="w-full"
           icon={isEditMode ? 'tabler:device-floppy' : 'tabler:plus'}
           loading={isLoading}
-          namespace="apps.melvinchia3636$invoiceMaker"
           onClick={handleSubmit}
         >
           {isEditMode ? 'Save Invoice' : 'Create Invoice'}

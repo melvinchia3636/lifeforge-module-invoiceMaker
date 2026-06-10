@@ -1,5 +1,4 @@
 import { useModuleTranslation } from '@lifeforge/localization'
-
 import { CurrencyInput } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '@/pages/ModifyInvoice/providers/InvoiceEditorProvider'

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { useModuleTranslation } from '@lifeforge/localization'
 import { AutoSizer } from 'react-virtualized'
 
+import { useModuleTranslation } from '@lifeforge/localization'
 import {
   EmptyStateScreen,
   ModalHeader,
@@ -32,7 +32,6 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
           }
         }}
         icon="tabler:users"
-        namespace="apps.melvinchia3636$invoiceMaker"
         title="clients.manage"
         onClose={onClose}
       />
@@ -72,8 +71,7 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
                 }}
                 icon="tabler:users-off"
                 message={{
-                  id: 'clients',
-                  namespace: 'apps.melvinchia3636$invoiceMaker'
+                  id: 'clients'
                 }}
               />
             </div>

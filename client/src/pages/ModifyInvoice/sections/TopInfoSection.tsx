@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { useModuleTranslation } from '@lifeforge/localization'
 
+import { useModuleTranslation } from '@lifeforge/localization'
 import {
   Button,
   Card,

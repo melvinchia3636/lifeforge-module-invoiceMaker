@@ -1,10 +1,10 @@
 import type { InvoiceEntry } from '@'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
-import { useModuleTranslation } from '@lifeforge/localization'
 import { useNavigate } from 'react-router'
 
 import { usePromiseLoading } from '@lifeforge/api'
+import { useModuleTranslation } from '@lifeforge/localization'
 import {
   Card,
   ConfirmationModal,
@@ -133,7 +133,6 @@ export default function InvoiceCard({
           icon="tabler:files"
           label="duplicate"
           loading={loading}
-          namespace="apps.melvinchia3636$invoiceMaker"
           onClick={onDuplicate}
         />
         <ContextMenuItem

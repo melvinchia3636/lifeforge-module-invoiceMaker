@@ -1,5 +1,4 @@
 import { useModuleTranslation } from '@lifeforge/localization'
-
 import { Card } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '../../providers/InvoiceEditorProvider'

@@ -8,9 +8,9 @@ import {
   useMemo,
   useState
 } from 'react'
-import { useModuleTranslation } from '@lifeforge/localization'
 import { useNavigate, useParams } from 'react-router'
 
+import { useModuleTranslation } from '@lifeforge/localization'
 import { toast } from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
