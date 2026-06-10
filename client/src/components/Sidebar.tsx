@@ -29,9 +29,7 @@ export default function Sidebar({
   onClientFilterChange
 }: SidebarProps) {
   const { t } = useModuleTranslation()
-
   const { open } = useModalStore()
-
   const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
   return (

@@ -16,9 +16,7 @@ function Header({
   invoiceRef: React.RefObject<HTMLDivElement | null>
 }) {
   const navigate = useNavigate()
-
   const { t } = useModuleTranslation()
-
   const { invoice } = useInvoiceViewer()
 
   const statusConfig = STATUS_CONFIG[invoice.status || 'draft']

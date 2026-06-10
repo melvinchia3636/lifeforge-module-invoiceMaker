@@ -15,7 +15,6 @@ export default function ModifySettingsModal({
   onClose: () => void
 }) {
   const qc = useQueryClient()
-
   const settingsQuery = useQuery(forgeAPI.settings.get.queryOptions())
 
   const mutation = useMutation(

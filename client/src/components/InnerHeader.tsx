@@ -25,9 +25,7 @@ function InnerHeader({
   onClientFilterChange
 }: HeaderProps) {
   const { t } = useModuleTranslation()
-
   const { setIsSidebarOpen } = useModuleSidebarState()
-
   const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
   const isFiltered =

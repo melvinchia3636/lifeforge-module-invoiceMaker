@@ -19,9 +19,7 @@ import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 
 function TopInfoSection() {
   const { t } = useModuleTranslation()
-
   const { open } = useModalStore()
-
   const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
   const clients = clientsQuery.data || []

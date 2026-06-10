@@ -13,7 +13,6 @@ import TotalSection from './sections/TotalSection'
 
 function ModifyInvoiceContent() {
   const navigate = useNavigate()
-
   const { isEditMode, handleSubmit, isLoading } = useInvoiceEditor()
 
   return (

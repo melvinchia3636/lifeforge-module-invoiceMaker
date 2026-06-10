@@ -89,21 +89,15 @@ const InvoiceEditorContext = createContext<InvoiceEditorContext | null>(null)
 
 function InvoiceEditorProvider({ children }: { children: React.ReactNode }) {
   const qc = useQueryClient()
-
   const { t } = useModuleTranslation()
-
   const navigate = useNavigate()
-
   const { id } = useParams<{ id: string }>()
 
   const isEditMode = !!id
 
   const [formData, setFormData] = useState<InvoiceFormData>(INITIAL_FORM_DATA)
-
   const [showDiscount, setShowDiscount] = useState(false)
-
   const [showTax, setShowTax] = useState(false)
-
   const [showShipping, setShowShipping] = useState(false)
 
   const invoiceQuery = useQuery(

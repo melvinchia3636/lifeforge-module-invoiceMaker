@@ -17,9 +17,7 @@ import ClientItem from './components/ClientItem'
 
 function ManageClientsModal({ onClose }: { onClose: () => void }) {
   const { open } = useModalStore()
-
   const { t } = useModuleTranslation()
-
   const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
   return (

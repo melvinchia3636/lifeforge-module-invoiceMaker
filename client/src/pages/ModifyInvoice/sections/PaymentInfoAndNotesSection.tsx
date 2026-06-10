@@ -9,9 +9,7 @@ import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 
 function PaymentInfoAndNotesSection() {
   const { t } = useModuleTranslation()
-
   const settingsQuery = useQuery(forgeAPI.settings.get.queryOptions())
-
   const { formData, updateField } = useInvoiceEditor()
 
   return (

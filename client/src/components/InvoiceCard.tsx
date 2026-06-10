@@ -40,11 +40,8 @@ export default function InvoiceCard({
   currencySymbol: string
 }) {
   const qc = useQueryClient()
-
   const { open } = useModalStore()
-
   const navigate = useNavigate()
-
   const { t } = useModuleTranslation()
 
   const statusConfig = STATUS_CONFIG[invoice.status || 'draft']

@@ -20,9 +20,7 @@ type Client = InferOutput<typeof forgeAPI.clients.list>[number]
 
 function ClientItem({ client }: { client: Client }) {
   const queryClient = useQueryClient()
-
   const { open } = useModalStore()
-
   const { t } = useModuleTranslation()
 
   const handleEditClient = useCallback(() => {

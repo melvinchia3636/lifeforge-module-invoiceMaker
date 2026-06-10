@@ -13,9 +13,7 @@ import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 
 function Header() {
   const { id } = useParams<{ id?: string }>()
-
   const { t } = useModuleTranslation()
-
   const { open } = useModalStore()
 
   const invoiceQuery = useQuery(

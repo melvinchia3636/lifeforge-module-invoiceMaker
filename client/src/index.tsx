@@ -29,13 +29,9 @@ export type InvoiceEntry = InferOutput<typeof forgeAPI.invoices.list>[number]
 
 function InvoiceMaker() {
   const navigate = useNavigate()
-
   const { open } = useModalStore()
-
   const [statusFilter, setStatusFilter] = useState<string | null>(null)
-
   const [clientFilter, setClientFilter] = useState<string | null>(null)
-
   const [searchQuery, setSearchQuery] = useState('')
 
   const invoicesQuery = useQuery(
