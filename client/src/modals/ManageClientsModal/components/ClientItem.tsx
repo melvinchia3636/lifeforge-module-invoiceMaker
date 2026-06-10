@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 
 import type { InferOutput } from '@lifeforge/api'
 import {
@@ -23,7 +23,7 @@ function ClientItem({ client }: { client: Client }) {
 
   const { open } = useModalStore()
 
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   const handleEditClient = useCallback(() => {
     open(ClientModal, {

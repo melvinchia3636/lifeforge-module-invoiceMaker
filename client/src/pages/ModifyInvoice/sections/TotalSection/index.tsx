@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 
 import { Card } from '@lifeforge/ui'
 
@@ -10,7 +10,7 @@ import ShippingColumn from './columns/ShippingColumn'
 import TaxColumn from './columns/TaxColumn'
 
 function TotalSection() {
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   const {
     currencySymbol,

@@ -1,6 +1,6 @@
 import type { InvoiceEntry } from '@'
 import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 import { useParams } from 'react-router'
 
 import { Button, Icon, TagChip, useModalStore } from '@lifeforge/ui'
@@ -14,7 +14,7 @@ import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 function Header() {
   const { id } = useParams<{ id?: string }>()
 
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   const { open } = useModalStore()
 

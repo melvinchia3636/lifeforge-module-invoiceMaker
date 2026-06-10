@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 
 import { Button, TagsFilter, useModuleSidebarState } from '@lifeforge/ui'
 
@@ -24,7 +24,7 @@ function InnerHeader({
   onStatusFilterChange,
   onClientFilterChange
 }: HeaderProps) {
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   const { setIsSidebarOpen } = useModuleSidebarState()
 

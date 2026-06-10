@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 import { AutoSizer } from 'react-virtualized'
 
 import {
@@ -18,7 +18,7 @@ import ClientItem from './components/ClientItem'
 function ManageClientsModal({ onClose }: { onClose: () => void }) {
   const { open } = useModalStore()
 
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 

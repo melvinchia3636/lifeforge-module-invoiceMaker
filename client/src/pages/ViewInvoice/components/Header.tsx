@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 import { Link, useNavigate } from 'react-router'
 import { useReactToPrint } from 'react-to-print'
 
@@ -17,7 +17,7 @@ function Header({
 }) {
   const navigate = useNavigate()
 
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   const { invoice } = useInvoiceViewer()
 

@@ -1,11 +1,11 @@
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 
 import { CurrencyInput } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '@/pages/ModifyInvoice/providers/InvoiceEditorProvider'
 
 function FinalNumbersColumns() {
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   const {
     formData,

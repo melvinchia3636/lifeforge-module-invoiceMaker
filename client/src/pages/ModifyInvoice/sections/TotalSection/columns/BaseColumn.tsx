@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 
 import { Button } from '@lifeforge/ui'
 
@@ -9,7 +9,7 @@ interface ColumnProps {
 }
 
 function BaseColumn({ children, type, onHide }: ColumnProps) {
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   return (
     <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">

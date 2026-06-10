@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 
 import { Card, TextAreaInput, WithQuery } from '@lifeforge/ui'
 
@@ -8,7 +8,7 @@ import { forgeAPI } from '@/manifest'
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 
 function PaymentInfoAndNotesSection() {
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   const settingsQuery = useQuery(forgeAPI.settings.get.queryOptions())
 

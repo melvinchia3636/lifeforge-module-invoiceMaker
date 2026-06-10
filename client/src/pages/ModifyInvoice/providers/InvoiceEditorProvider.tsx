@@ -8,7 +8,7 @@ import {
   useMemo,
   useState
 } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 import { useNavigate, useParams } from 'react-router'
 
 import { toast } from '@lifeforge/ui'
@@ -90,7 +90,7 @@ const InvoiceEditorContext = createContext<InvoiceEditorContext | null>(null)
 function InvoiceEditorProvider({ children }: { children: React.ReactNode }) {
   const qc = useQueryClient()
 
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   const navigate = useNavigate()
 

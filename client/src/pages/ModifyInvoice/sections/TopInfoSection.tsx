@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 
 import {
   Button,
@@ -18,7 +18,7 @@ import ModifyClientModal from '@/modals/ModifyClientModal'
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 
 function TopInfoSection() {
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   const { open } = useModalStore()
 

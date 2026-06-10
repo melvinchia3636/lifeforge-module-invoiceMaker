@@ -1,7 +1,7 @@
 import type { InvoiceEntry } from '@'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
-import { useTranslation } from 'react-i18next'
+import { useModuleTranslation } from '@lifeforge/localization'
 import { useNavigate } from 'react-router'
 
 import { usePromiseLoading } from '@lifeforge/api'
@@ -45,7 +45,7 @@ export default function InvoiceCard({
 
   const navigate = useNavigate()
 
-  const { t } = useTranslation('apps.melvinchia3636$invoiceMaker')
+  const { t } = useModuleTranslation()
 
   const statusConfig = STATUS_CONFIG[invoice.status || 'draft']
 
