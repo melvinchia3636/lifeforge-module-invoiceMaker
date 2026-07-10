@@ -44,7 +44,7 @@ export default function Sidebar({
         }}
       />
       <SidebarDivider />
-      <SidebarTitle label={t('sidebar.status')} />
+      <SidebarTitle label="status" />
       {Object.entries(STATUS_CONFIG).map(([key, value]) => (
         <SidebarItem
           key={key}
@@ -64,7 +64,7 @@ export default function Sidebar({
             open(ManageClientsModal, {})
           }
         }}
-        label={t('sidebar.clients')}
+        label="clients"
       />
       <WithQuery query={clientsQuery}>
         {clients => (
@@ -74,7 +74,7 @@ export default function Sidebar({
                 <SidebarItem
                   active={clientFilter === null}
                   icon="tabler:users"
-                  label={t('sidebar.allClients')}
+                  label="allClients"
                   onClick={() => onClientFilterChange(null)}
                 />
                 {clients.map(client => (

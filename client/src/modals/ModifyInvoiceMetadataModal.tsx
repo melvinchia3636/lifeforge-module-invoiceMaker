@@ -1,7 +1,7 @@
 import type { InvoiceEntry } from '@'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { t } from 'i18next'
 
+import { useModuleTranslation } from '@lifeforge/localization'
 import { FormModal, defineForm, toast } from '@lifeforge/ui'
 
 import { STATUS_CONFIG } from '@/components/InvoiceCard'
@@ -19,6 +19,7 @@ export default function ModifyInvoiceMetadataModal({
   onClose
 }: InvoiceMetadataModalProps) {
   const { invoice } = data
+  const { t } = useModuleTranslation()
 
   const qc = useQueryClient()
 
