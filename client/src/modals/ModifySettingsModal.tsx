@@ -126,7 +126,6 @@ export default function ModifySettingsModal({
       )
     })
     .onSubmit(async data => {
-      console.log(data)
       await mutation.mutateAsync(data)
     })
     .build()
