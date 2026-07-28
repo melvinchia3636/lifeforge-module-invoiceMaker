@@ -111,9 +111,9 @@ function InvoiceEditorProvider({ children }: { children: React.ReactNode }) {
   const createMutation = useMutation(
     forgeAPI.invoices.create.mutationOptions({
       onSuccess: () => {
-        qc.invalidateQueries({ queryKey: ['invoiceMaker', 'invoices'] })
+        qc.invalidateQueries({ queryKey: forgeAPI.invoices.key })
         toast.success(t('toast.invoiceCreated'))
-        navigate('/invoice-maker')
+        navigate('/melvinchia3636--invoice-maker')
       }
     })
   )
@@ -125,9 +125,9 @@ function InvoiceEditorProvider({ children }: { children: React.ReactNode }) {
       })
       .mutationOptions({
         onSuccess: () => {
-          qc.invalidateQueries({ queryKey: ['invoiceMaker', 'invoices'] })
+          qc.invalidateQueries({ queryKey: forgeAPI.invoices.key })
           toast.success(t('toast.invoiceUpdated'))
-          navigate('/invoice-maker')
+          navigate('/melvinchia3636--invoice-maker')
         }
       })
   )

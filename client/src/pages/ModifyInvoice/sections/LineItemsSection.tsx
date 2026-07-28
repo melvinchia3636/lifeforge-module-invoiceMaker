@@ -9,7 +9,7 @@ import {
   NumberInput,
   Stack,
   Text,
-  TextInput,
+  TextAreaInput,
   WithDivide
 } from '@lifeforge/ui'
 
@@ -93,7 +93,7 @@ function LineItemsSection() {
                   >
                     {t('inputs.item')}
                   </Text>
-                  <TextInput
+                  <TextAreaInput
                     placeholder="Item description"
                     value={item.description}
                     variant="plain"
@@ -159,7 +159,7 @@ function LineItemsSection() {
                 templateCols="repeat(12, 1fr)"
               >
                 <Box gridColumnSpan={6}>
-                  <TextInput
+                  <TextAreaInput
                     placeholder="Item description"
                     value={item.description}
                     variant="plain"

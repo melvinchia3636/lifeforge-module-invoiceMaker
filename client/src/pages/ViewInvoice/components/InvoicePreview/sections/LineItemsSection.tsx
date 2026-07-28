@@ -55,7 +55,7 @@ function LineItemsSection() {
             }}
           >
             <Box asChild flex="6">
-              <Text>{item.description}</Text>
+              <Text whiteSpace="pre-wrap">{item.description}</Text>
             </Box>
             <Box asChild flex="2">
               <Text align="center">{item.quantity}</Text>
