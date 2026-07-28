@@ -41,6 +41,9 @@ export const create = forge
     description: 'Create a new client',
     input: {
       body: schemas.clients.omit({
+        id: true,
+        collectionId: true,
+        collectionName: true,
         created: true,
         updated: true
       })
@@ -60,7 +63,10 @@ export const update = forge
       query: z.object({
         id: z.string()
       }),
-      body: schemas.clients.partial().omit({
+      body: schemas.clients.omit({
+        id: true,
+        collectionId: true,
+        collectionName: true,
         created: true,
         updated: true
       })

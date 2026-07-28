@@ -1,38 +1,85 @@
+import { Box, Flex, Text } from '@lifeforge/ui'
+
 import { useInvoiceViewer } from '../../../providers/InvoiceViewerProvider'
 
 function LineItemsSection() {
   const { invoice, currencySymbol } = useInvoiceViewer()
 
   return (
-    <div className="mb-8 overflow-hidden rounded-lg border border-zinc-200">
-      <div className="grid grid-cols-12 gap-4 bg-black p-4 text-[14px] font-medium text-white">
-        <div className="col-span-6">Item</div>
-        <div className="col-span-2 text-center">Quantity</div>
-        <div className="col-span-2 text-center">Rate</div>
-        <div className="col-span-2 text-right">Amount</div>
-      </div>
+    <Flex
+      direction="column"
+      mb="lg"
+      style={{
+        border: '1px solid #e4e4e7',
+        borderRadius: '0.5rem',
+        overflow: 'hidden'
+      }}
+    >
+      <Flex
+        bg="bg-950"
+        gap="md"
+        p="md"
+        style={{ fontSize: '14px', fontWeight: 500 }}
+      >
+        <Box asChild flex="6">
+          <Text color="bg-50">Item</Text>
+        </Box>
+        <Box asChild flex="2">
+          <Text align="center" color="bg-50">
+            Quantity
+          </Text>
+        </Box>
+        <Box asChild flex="2">
+          <Text align="center" color="bg-50">
+            Rate
+          </Text>
+        </Box>
+        <Box asChild flex="2">
+          <Text align="right" color="bg-50">
+            Amount
+          </Text>
+        </Box>
+      </Flex>
 
-      <div className="divide-y divide-zinc-200 dark:divide-zinc-700">
-        {invoice.items?.map((item: any, index: number) => (
-          <div key={index} className="grid grid-cols-12 gap-4 p-4">
-            <div className="col-span-6">{item.description}</div>
-            <div className="col-span-2 text-center">{item.quantity}</div>
-            <div className="col-span-2 text-center">
-              {currencySymbol}{' '}
-              {item.rate.toLocaleString('en-MY', {
-                minimumFractionDigits: 2
-              })}
-            </div>
-            <div className="col-span-2 text-right">
-              {currencySymbol}{' '}
-              {(item.quantity * item.rate).toLocaleString('en-MY', {
-                minimumFractionDigits: 2
-              })}
-            </div>
-          </div>
+      <Flex direction="column" width="100%">
+        {invoice.items?.map((item, index) => (
+          <Flex
+            key={index}
+            gap="md"
+            p="md"
+            style={{
+              borderBottom:
+                index < invoice.items.length - 1
+                  ? '1px solid #e4e4e7'
+                  : undefined
+            }}
+          >
+            <Box asChild flex="6">
+              <Text>{item.description}</Text>
+            </Box>
+            <Box asChild flex="2">
+              <Text align="center">{item.quantity}</Text>
+            </Box>
+            <Box asChild flex="2">
+              <Text align="center">
+                {currencySymbol}{' '}
+                {item.rate.toLocaleString('en-MY', {
+                  minimumFractionDigits: 2
+                })}
+              </Text>
+            </Box>
+            <Box asChild flex="2">
+              <Text align="right">
+                {currencySymbol}{' '}
+                {(item.quantity * item.rate).toLocaleString('en-MY', {
+                  minimumFractionDigits: 2
+                })}
+              </Text>
+            </Box>
+          </Flex>
         ))}
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   )
 }
 

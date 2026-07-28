@@ -46,17 +46,23 @@
     "email": "Emel",
     "phone": "Telefon",
     "companyName": "Nama Syarikat",
-    "companyAdditionalInfo": "Info Tambahan",
+    "companyAddress": "Alamat Syarikat",
+    "companyRegNo": "Nombor Pendaftaran Syarikat",
+    "companyEmail": "E-mel Syarikat",
+    "companyTelNo": "Nombor Telefon Syarikat",
     "defaultLogo": "Logo Default",
     "defaultPaymentTerms": "Syarat Pembayaran Default",
     "defaultNotes": "Nota Default",
     "defaultTaxRate": "Kadar Cukai Default (%)",
     "bankName": "Nama Bank",
     "bankAccount": "Nombor Akaun Bank",
+    "bankAccountName": "Nama Pemegang Akaun Bank",
     "currency": "Kod Mata Wang",
     "currencySymbol": "Simbol Mata Wang",
     "invoicePrefix": "Awalan Nombor Invois",
-    "nextInvoiceNumber": "Nombor Invois Seterusnya"
+    "nextInvoiceNumber": "Nombor Invois Seterusnya",
+    "invoiceNumber": "Nombor Invois",
+    "status": "Status"
   },
   "modals": {
     "clients": {
@@ -69,7 +75,8 @@
       "message": "Adakah anda pasti mahu memadam invois ini? Tindakan ini tidak boleh dibatalkan.",
       "confirm": "Padam"
     },
-    "settings": "Tetapan"
+    "settings": "Tetapan",
+    "editInvoiceMetadata": "Sunting Metadata Invois"
   },
   "toast": {
     "invoiceCreated": "Invois berjaya dicipta",

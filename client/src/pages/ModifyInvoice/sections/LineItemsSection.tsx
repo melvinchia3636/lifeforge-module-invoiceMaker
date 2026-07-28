@@ -1,12 +1,16 @@
-import clsx from 'clsx'
-
 import { useModuleTranslation } from '@lifeforge/localization'
 import {
+  Box,
   Button,
   Card,
   CurrencyInput,
+  Flex,
+  Grid,
   NumberInput,
-  TextInput
+  Stack,
+  Text,
+  TextInput,
+  WithDivide
 } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
@@ -25,34 +29,147 @@ function LineItemsSection() {
   return (
     <Card>
       {/* Desktop header - hidden on mobile */}
-      <div className="bg-bg-300 dark:bg-bg-700 text-bg-800 dark:text-bg-100 hidden grid-cols-12 gap-4 p-4 text-sm font-medium lg:grid">
-        <div className="col-span-6">{t('inputs.item')}</div>
-        <div className="col-span-2 text-center">{t('inputs.quantity')}</div>
-        <div className="col-span-2 text-center">{t('inputs.rate')}</div>
-        <div className="col-span-2 pr-16 text-right">{t('inputs.amount')}</div>
-      </div>
-      <div className="divide-bg-200 dark:divide-bg-700/50 divide-y px-4 lg:pt-4">
+      <Box
+        bg={{ base: 'bg-300', dark: 'bg-700' }}
+        display={{ base: 'none', lg: 'block' }}
+        p="md"
+      >
+        <Grid gap="md" templateCols="repeat(12, 1fr)">
+          <Box gridColumnSpan={6}>
+            <Text
+              color={{ base: 'bg-800', dark: 'bg-100' }}
+              size="sm"
+              weight="medium"
+            >
+              {t('inputs.item')}
+            </Text>
+          </Box>
+          <Box gridColumnSpan={2}>
+            <Text
+              align="center"
+              color={{ base: 'bg-800', dark: 'bg-100' }}
+              size="sm"
+              weight="medium"
+            >
+              {t('inputs.quantity')}
+            </Text>
+          </Box>
+          <Box gridColumnSpan={2}>
+            <Text
+              align="center"
+              color={{ base: 'bg-800', dark: 'bg-100' }}
+              size="sm"
+              weight="medium"
+            >
+              {t('inputs.rate')}
+            </Text>
+          </Box>
+          <Box gridColumnSpan={2} pr="xl">
+            <Text
+              align="right"
+              color={{ base: 'bg-800', dark: 'bg-100' }}
+              size="sm"
+              weight="medium"
+            >
+              {t('inputs.amount')}
+            </Text>
+          </Box>
+        </Grid>
+      </Box>
+
+      <Stack gap="none" pt={{ base: 'none', lg: 'md' }}>
         {formData.items.map((item, index) => (
-          <div key={index} className="group relative py-6 lg:py-4">
-            {/* Mobile layout - stacked */}
-            <div className="flex flex-col gap-3 lg:hidden">
-              <div>
-                <label className="text-bg-500 mb-1 block text-sm">
-                  {t('inputs.item')}
-                </label>
-                <TextInput
-                  placeholder="Item description"
-                  value={item.description}
-                  variant="plain"
-                  onChange={val => updateLineItem(index, 'description', val)}
-                />
-              </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div>
-                  <label className="text-bg-500 mb-1 block text-sm">
-                    {t('inputs.quantity')}
-                  </label>
+          <WithDivide key={index} axis="y">
+            <Box position="relative" py={{ base: 'lg', lg: 'md' }}>
+              {/* Mobile layout - stacked */}
+              <Stack display={{ base: 'flex', lg: 'none' }} gap="sm">
+                <Box>
+                  <Text
+                    as="label"
+                    color="muted"
+                    display="block"
+                    mb="xs"
+                    size="sm"
+                  >
+                    {t('inputs.item')}
+                  </Text>
+                  <TextInput
+                    placeholder="Item description"
+                    value={item.description}
+                    variant="plain"
+                    onChange={val => updateLineItem(index, 'description', val)}
+                  />
+                </Box>
+                <Grid gap="sm" templateCols={{ base: 1, sm: 2 }}>
+                  <Box>
+                    <Text
+                      as="label"
+                      color="muted"
+                      display="block"
+                      mb="xs"
+                      size="sm"
+                    >
+                      {t('inputs.quantity')}
+                    </Text>
+                    <NumberInput
+                      icon=""
+                      label=""
+                      min={0}
+                      value={item.quantity}
+                      variant="plain"
+                      onChange={val =>
+                        updateLineItem(index, 'quantity', val || 0)
+                      }
+                    />
+                  </Box>
+                  <Box>
+                    <Text
+                      as="label"
+                      color="muted"
+                      display="block"
+                      mb="xs"
+                      size="sm"
+                    >
+                      {t('inputs.rate')}
+                    </Text>
+                    <CurrencyInput
+                      prefix={currencySymbol}
+                      value={item.rate}
+                      variant="plain"
+                      onChange={val => updateLineItem(index, 'rate', val || 0)}
+                    />
+                  </Box>
+                </Grid>
+                <Flex align="center" justify="between">
+                  <Text color="muted">{t('inputs.amount')}:</Text>
+                  <Text weight="medium">
+                    {currencySymbol}{' '}
+                    {(item.quantity * item.rate).toLocaleString('en-MY', {
+                      minimumFractionDigits: 2
+                    })}
+                  </Text>
+                </Flex>
+              </Stack>
+
+              {/* Desktop layout - grid */}
+              <Grid
+                align="center"
+                display={{ base: 'none', lg: 'grid' }}
+                gap="md"
+                templateCols="repeat(12, 1fr)"
+              >
+                <Box gridColumnSpan={6}>
+                  <TextInput
+                    placeholder="Item description"
+                    value={item.description}
+                    variant="plain"
+                    onChange={val => updateLineItem(index, 'description', val)}
+                  />
+                </Box>
+                <Box gridColumnSpan={2}>
                   <NumberInput
+                    icon=""
+                    label=""
                     min={0}
                     value={item.quantity}
                     variant="plain"
@@ -60,91 +177,56 @@ function LineItemsSection() {
                       updateLineItem(index, 'quantity', val || 0)
                     }
                   />
-                </div>
-                <div>
-                  <label className="text-bg-500 mb-1 block text-sm">
-                    {t('inputs.rate')}
-                  </label>
+                </Box>
+                <Box gridColumnSpan={2}>
                   <CurrencyInput
-                    currency={currencySymbol}
-                    placeholder="0.00"
+                    icon=""
+                    label=""
+                    prefix={currencySymbol}
                     value={item.rate}
                     variant="plain"
                     onChange={val => updateLineItem(index, 'rate', val || 0)}
                   />
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-bg-500">{t('inputs.amount')}:</span>
-                <span className="font-medium">
-                  {currencySymbol}{' '}
-                  {(item.quantity * item.rate).toLocaleString('en-MY', {
-                    minimumFractionDigits: 2
-                  })}
-                </span>
-              </div>
-            </div>
+                </Box>
+                <Box gridColumnSpan={2} pr="xl">
+                  <Text align="right" weight="medium">
+                    {currencySymbol}{' '}
+                    {(item.quantity * item.rate).toLocaleString('en-MY', {
+                      minimumFractionDigits: 2
+                    })}
+                  </Text>
+                </Box>
+              </Grid>
 
-            {/* Desktop layout - grid */}
-            <div className="hidden grid-cols-12 items-center gap-4 lg:grid">
-              <div className="col-span-6">
-                <TextInput
-                  placeholder="Item description"
-                  value={item.description}
+              {/* Delete button */}
+              <Box
+                position="absolute"
+                right="0"
+                style={{
+                  transform: 'translateY(-50%)'
+                }}
+                top="50%"
+              >
+                <Button
+                  icon="tabler:trash"
                   variant="plain"
-                  onChange={val => updateLineItem(index, 'description', val)}
+                  onClick={() => removeLineItem(index)}
                 />
-              </div>
-              <div className="col-span-2 text-center">
-                <NumberInput
-                  min={0}
-                  value={item.quantity}
-                  variant="plain"
-                  onChange={val => updateLineItem(index, 'quantity', val || 0)}
-                />
-              </div>
-              <div className="col-span-2 text-center">
-                <CurrencyInput
-                  currency={currencySymbol}
-                  placeholder="0.00"
-                  value={item.rate}
-                  variant="plain"
-                  onChange={val => updateLineItem(index, 'rate', val || 0)}
-                />
-              </div>
-              <div className="col-span-2 flex items-center justify-end pr-16 text-right">
-                <span className="font-medium">
-                  {currencySymbol}{' '}
-                  {(item.quantity * item.rate).toLocaleString('en-MY', {
-                    minimumFractionDigits: 2
-                  })}
-                </span>
-              </div>
-            </div>
-
-            {/* Delete button */}
-            <Button
-              className={clsx(
-                'absolute top-0 right-0 text-red-500 md:opacity-0 md:transition-opacity md:group-hover:opacity-100',
-                formData.items.length === 1 && 'invisible'
-              )}
-              icon="tabler:trash"
-              variant="plain"
-              onClick={() => removeLineItem(index)}
-            />
-          </div>
+              </Box>
+            </Box>
+          </WithDivide>
         ))}
-      </div>
-      <div className="p-4">
+      </Stack>
+      <Box p="md">
         <Button
-          className="w-full"
           icon="tabler:plus"
           variant="secondary"
+          width="100%"
           onClick={addLineItem}
         >
-          {t('inputs.addLineItem')}
+          inputs.addLineItem
         </Button>
-      </div>
+      </Box>
     </Card>
   )
 }

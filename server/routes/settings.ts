@@ -20,12 +20,16 @@ export const get = forge
         .collection('settings')
         .data({
           company_name: '',
-          company_additional_info: '',
+          company_address: '',
+          company_reg_no: '',
+          company_email: '',
+          company_tel_no: '',
           default_payment_terms: 'Net 30',
           default_notes: '',
           default_tax_rate: 0,
           bank_name: '',
           bank_account: '',
+          bank_account_name: '',
           currency: 'MYR',
           currency_symbol: 'RM',
           invoice_prefix: '',

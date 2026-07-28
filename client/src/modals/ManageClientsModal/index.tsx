@@ -3,6 +3,7 @@ import { AutoSizer } from 'react-virtualized'
 
 import { useModuleTranslation } from '@lifeforge/localization'
 import {
+  Button,
   EmptyStateScreen,
   ModalHeader,
   Scrollbar,
@@ -23,14 +24,16 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex min-h-[80vh] min-w-[40vw] flex-col">
       <ModalHeader
-        actionButtonProps={{
-          icon: 'tabler:plus',
-          onClick: () => {
-            open(ClientModal, {
-              type: 'create'
-            })
-          }
-        }}
+        headerActions={
+          <Button
+            icon="tabler:plus"
+            onClick={() => {
+              open(ClientModal, {
+                type: 'create'
+              })
+            }}
+          />
+        }
         icon="tabler:users"
         title="clients.manage"
         onClose={onClose}

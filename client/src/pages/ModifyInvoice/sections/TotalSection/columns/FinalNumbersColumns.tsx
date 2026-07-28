@@ -1,5 +1,5 @@
 import { useModuleTranslation } from '@lifeforge/localization'
-import { CurrencyInput } from '@lifeforge/ui'
+import { Box, CurrencyInput, Flex, Text } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '@/pages/ModifyInvoice/providers/InvoiceEditorProvider'
 
@@ -15,41 +15,46 @@ function FinalNumbersColumns() {
 
   return (
     <>
-      <div className="border-bg-200 dark:border-bg-700 border-t pt-3">
-        <div className="flex justify-between font-semibold">
-          <span>{t('inputs.total')}</span>
-          <span>
+      <Box pt="sm" style={{ borderTop: '1px solid var(--color-bg-200)' }}>
+        <Flex justify="between">
+          <Text weight="semibold">{t('inputs.total')}</Text>
+          <Text weight="semibold">
             {currencySymbol}{' '}
             {total.toLocaleString('en-MY', {
               minimumFractionDigits: 2
             })}
-          </span>
-        </div>
-      </div>
-      <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
-        <span className="text-bg-500">{t('inputs.amountPaid')}</span>
-        <div className="flex items-center gap-2">
-          <span className="text-bg-500">{currencySymbol}</span>
+          </Text>
+        </Flex>
+      </Box>
+      <Flex
+        align={{ sm: 'center' }}
+        direction={{ base: 'column', sm: 'row' }}
+        gap="sm"
+        justify="between"
+      >
+        <Text color="muted">{t('inputs.amountPaid')}</Text>
+        <Box width="8rem">
           <CurrencyInput
-            className="w-24"
-            placeholder="0.00"
+            prefix={currencySymbol}
             value={formData.amount_paid}
             variant="plain"
             onChange={val => updateField('amount_paid', val || 0)}
           />
-        </div>
-      </div>
-      <div className="border-bg-200 dark:border-bg-700 border-t pt-3">
-        <div className="flex justify-between text-lg font-bold">
-          <span>{t('inputs.balanceDue')}</span>
-          <span className="text-custom-500">
+        </Box>
+      </Flex>
+      <Box pt="sm" style={{ borderTop: '1px solid var(--color-bg-200)' }}>
+        <Flex justify="between">
+          <Text size="lg" weight="bold">
+            {t('inputs.balanceDue')}
+          </Text>
+          <Text color="custom-500" size="lg" weight="bold">
             {currencySymbol}{' '}
             {balanceDue.toLocaleString('en-MY', {
               minimumFractionDigits: 2
             })}
-          </span>
-        </div>
-      </div>
+          </Text>
+        </Flex>
+      </Box>
     </>
   )
 }

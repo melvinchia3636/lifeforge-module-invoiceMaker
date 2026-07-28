@@ -1,36 +1,45 @@
+import { Flex, Text } from '@lifeforge/ui'
+
 import { useInvoiceViewer } from '../../../providers/InvoiceViewerProvider'
 
 function PaymentAndNotesSection() {
   const { invoice, settings } = useInvoiceViewer()
 
   return (
-    <>
+    <Flex direction="column" gap="lg" mt="3xl">
       {(settings.bank_name || settings.bank_account) && (
-        <div>
-          <h3 className="mb-2 text-[14px] font-medium text-zinc-500">
+        <Flex direction="column" gap="none">
+          <Text color="muted" mb="sm" weight="medium">
             Payment Information:
-          </h3>
+          </Text>
           {settings.bank_name && (
-            <p>
-              Bank: <span className="font-medium">{settings.bank_name}</span>
-            </p>
+            <Text>
+              Bank: <Text weight="medium">{settings.bank_name}</Text>
+            </Text>
           )}
           {settings.bank_account && (
-            <p>
-              A/C No.:{' '}
-              <span className="font-medium">{settings.bank_account}</span>
-            </p>
+            <Text>
+              A/C No.: <Text weight="medium">{settings.bank_account}</Text>
+            </Text>
           )}
-        </div>
+          {settings.bank_account_name && (
+            <Text>
+              A/C Name:{' '}
+              <Text weight="medium">{settings.bank_account_name}</Text>
+            </Text>
+          )}
+        </Flex>
       )}
 
       {invoice.notes && (
-        <div>
-          <h3 className="mb-2 text-[14px] font-medium text-zinc-500">Notes:</h3>
-          <p className="whitespace-pre-wrap">{invoice.notes}</p>
-        </div>
+        <Flex direction="column" gap="none">
+          <Text color="muted" mb="sm" weight="medium">
+            Notes:
+          </Text>
+          <Text style={{ whiteSpace: 'pre-wrap' }}>{invoice.notes}</Text>
+        </Flex>
       )}
-    </>
+    </Flex>
   )
 }
 

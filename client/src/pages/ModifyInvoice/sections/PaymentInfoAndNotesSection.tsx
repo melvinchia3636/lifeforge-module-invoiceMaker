@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { useModuleTranslation } from '@lifeforge/localization'
-import { Card, TextAreaInput, WithQuery } from '@lifeforge/ui'
+import { Card, Stack, Text, TextAreaInput, WithQuery } from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
 
@@ -15,22 +15,34 @@ function PaymentInfoAndNotesSection() {
   return (
     <WithQuery query={settingsQuery}>
       {settings => (
-        <div className="space-y-4">
+        <Stack gap="md">
           <Card>
-            <h3 className="mb-3 font-medium">{t('inputs.paymentInfo')}</h3>
-            <p className="text-bg-500">
+            <Text as="h3" mb="sm" weight="medium">
+              {t('inputs.paymentInfo')}
+            </Text>
+            <Text color="muted">
               {settings.bank_name && (
                 <>
                   Bank: {settings.bank_name}
                   <br />
                 </>
               )}
-              {settings.bank_account && <>A/C No.: {settings.bank_account}</>}
-            </p>
+              {settings.bank_account && (
+                <>
+                  A/C No.: {settings.bank_account}
+                  <br />
+                </>
+              )}
+              {settings.bank_account_name && (
+                <>A/C Name: {settings.bank_account_name}</>
+              )}
+            </Text>
           </Card>
 
           <Card>
-            <h3 className="mb-3 font-medium">{t('inputs.notes')}</h3>
+            <Text as="h3" mb="sm" weight="medium">
+              {t('inputs.notes')}
+            </Text>
             <TextAreaInput
               icon="tabler:note"
               label="Notes"
@@ -40,7 +52,7 @@ function PaymentInfoAndNotesSection() {
               onChange={e => updateField('notes', e)}
             />
           </Card>
-        </div>
+        </Stack>
       )}
     </WithQuery>
   )

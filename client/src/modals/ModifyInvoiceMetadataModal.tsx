@@ -1,11 +1,24 @@
 import type { InvoiceEntry } from '@'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import z from 'zod'
 
+import { useForgeMutation } from '@lifeforge/api'
 import { useModuleTranslation } from '@lifeforge/localization'
-import { FormModal, defineForm, toast } from '@lifeforge/ui'
+import {
+  FormModal,
+  ListboxField,
+  TextField,
+  createDefaultValues
+} from '@lifeforge/ui'
 
 import { STATUS_CONFIG } from '@/components/InvoiceCard'
 import { forgeAPI } from '@/manifest'
+
+const schema = z.object({
+  invoice_number: z.string().min(1, 'Required'),
+  status: z.enum(['draft', 'sent', 'paid', 'overdue', 'cancelled'])
+})
 
 interface InvoiceMetadataModalProps {
   data: {
@@ -15,75 +28,69 @@ interface InvoiceMetadataModalProps {
 }
 
 export default function ModifyInvoiceMetadataModal({
-  data,
+  data: { invoice },
   onClose
 }: InvoiceMetadataModalProps) {
-  const { invoice } = data
   const { t } = useModuleTranslation()
 
-  const qc = useQueryClient()
-
-  const updateMutation = useMutation(
-    forgeAPI.invoices.update
-      .input({
-        id: invoice.id
-      })
-      .mutationOptions({
-        onSuccess: () => {
-          qc.invalidateQueries({ queryKey: ['invoiceMaker', 'invoices'] })
-          onClose()
-        },
-        onError: () => {
-          toast.error('Failed to update invoice metadata')
-        }
-      })
+  const updateMutation = useForgeMutation(
+    forgeAPI.invoices.update.input({ id: invoice.id }),
+    {
+      action: 'update',
+      queryKey: forgeAPI.key,
+      onSuccess: () => {
+        onClose()
+      }
+    }
   )
 
-  const { formProps } = defineForm<{
-    invoice_number: string
-    status: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled'
-  }>({
-    title: 'Edit Invoice Metadata',
-    icon: 'tabler:file-invoice',
-    namespace: 'apps.melvinchia3636$invoiceMaker',
-    onClose,
-    submitButton: {
-      icon: 'tabler:device-floppy',
-      children: 'Save'
-    }
-  })
-    .typesMap({
-      invoice_number: 'text',
-      status: 'listbox'
-    })
-    .setupFields({
-      invoice_number: {
-        icon: 'tabler:hash',
-        label: 'Invoice Number',
-        placeholder: '001',
-        required: true
-      },
-      status: {
-        icon: 'tabler:info-circle',
-        label: 'Status',
-        required: true,
-        multiple: false,
-        options: Object.entries(STATUS_CONFIG).map(([key, status]) => ({
-          icon: status.icon,
-          text: t(`apps.melvinchia3636$invoiceMaker:statuses.${key}`),
-          color: status.color,
-          value: key as 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled'
-        }))
-      }
-    })
-    .initialData({
+  const form = useForm({
+    defaultValues: {
+      ...createDefaultValues(schema),
       invoice_number: invoice.invoice_number,
       status: invoice.status || 'draft'
-    })
-    .onSubmit(async data => {
-      await updateMutation.mutateAsync(data)
-    })
-    .build()
+    },
+    resolver: zodResolver(schema)
+  })
 
-  return <FormModal {...formProps} />
+  return (
+    <FormModal
+      form={form}
+      submissionConfig={{
+        label: 'Save',
+        icon: 'tabler:device-floppy',
+        handler: async data => {
+          await updateMutation.mutateAsync(data)
+        }
+      }}
+      uiConfig={{
+        icon: 'tabler:file-invoice',
+        title: 'Edit Invoice Metadata',
+        namespace: 'apps.melvinchia3636$invoiceMaker',
+        onClose
+      }}
+    >
+      <TextField
+        required
+        control={form.control}
+        icon="tabler:hash"
+        label="Invoice Number"
+        name="invoice_number"
+        placeholder="001"
+      />
+      <ListboxField
+        required
+        control={form.control}
+        icon="tabler:info-circle"
+        label="Status"
+        name="status"
+        options={Object.entries(STATUS_CONFIG).map(([key, status]) => ({
+          icon: status.icon,
+          text: t(`statuses.${key}`),
+          color: status.color,
+          value: key as 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled'
+        }))}
+      />
+    </FormModal>
+  )
 }

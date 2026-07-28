@@ -1,9 +1,24 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import z from 'zod'
 
-import type { InferInput, InferOutput } from '@lifeforge/api'
-import { FormModal, defineForm, toast } from '@lifeforge/ui'
+import { useForgeMutation } from '@lifeforge/api'
+import type { InferOutput } from '@lifeforge/api'
+import {
+  FormModal,
+  TextAreaField,
+  TextField,
+  createDefaultValues
+} from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
+
+const schema = z.object({
+  name: z.string().min(1, 'Required'),
+  address: z.string(),
+  email: z.string(),
+  phone: z.string()
+})
 
 type Client = InferOutput<typeof forgeAPI.clients.list>[number]
 
@@ -19,86 +34,81 @@ export default function ModifyClientModal({
   data: { type, initialData },
   onClose
 }: ClientModalProps) {
-  const qc = useQueryClient()
-
-  const createMutation = useMutation(
-    forgeAPI.clients.create.mutationOptions({
-      onSuccess: () => {
-        qc.invalidateQueries({ queryKey: ['invoiceMaker', 'clients'] })
-        toast.success('Client created successfully')
-        onClose()
-      },
-      onError: error => {
-        toast.error(`Failed to create client: ${error.message}`)
-      }
-    })
-  )
-
-  const updateMutation = useMutation(
-    forgeAPI.clients.update
-      .input({
-        id: initialData?.id || ''
-      })
-      .mutationOptions({
-        onSuccess: () => {
-          qc.invalidateQueries({ queryKey: ['invoiceMaker', 'clients'] })
-          toast.success('Client updated successfully')
-          onClose()
-        },
-        onError: error => {
-          toast.error(`Failed to update client: ${error.message}`)
-        }
-      })
-  )
-
-  const { formProps } = defineForm<
-    InferInput<typeof forgeAPI.clients.create>['body']
-  >({
-    title:
-      type === 'update' ? 'modals.clients.update' : 'modals.clients.create',
-    icon: type === 'update' ? 'tabler:pencil' : 'tabler:plus',
-    namespace: 'apps.melvinchia3636$invoiceMaker',
-    submitButton: type === 'update' ? 'update' : 'create',
-    onClose
+  const createMutation = useForgeMutation(forgeAPI.clients.create, {
+    action: 'create',
+    queryKey: forgeAPI.key,
+    onSuccess: () => {
+      onClose()
+    }
   })
-    .typesMap({
-      name: 'text',
-      address: 'textarea',
-      email: 'text',
-      phone: 'text'
-    })
-    .setupFields({
-      name: {
-        icon: 'tabler:building',
-        label: 'inputs.name',
-        placeholder: 'Company or individual name',
-        required: true
-      },
-      address: {
-        icon: 'tabler:map-pin',
-        label: 'inputs.address',
-        placeholder: 'Full billing address'
-      },
-      email: {
-        icon: 'tabler:mail',
-        label: 'inputs.email',
-        placeholder: 'client@example.com'
-      },
-      phone: {
-        icon: 'tabler:phone',
-        label: 'inputs.phone',
-        placeholder: '+60 12-345 6789'
-      }
-    })
-    .initialData(initialData)
-    .onSubmit(async data => {
-      if (type === 'update') {
-        await updateMutation.mutateAsync(data)
-      } else {
-        await createMutation.mutateAsync(data)
-      }
-    })
-    .build()
 
-  return <FormModal {...formProps} />
+  const updateMutation = useForgeMutation(
+    forgeAPI.clients.update.input({ id: initialData?.id || '' }),
+    {
+      action: 'update',
+      queryKey: forgeAPI.key,
+      onSuccess: () => {
+        onClose()
+      }
+    }
+  )
+
+  const form = useForm({
+    defaultValues: {
+      ...createDefaultValues(schema),
+      ...initialData
+    },
+    resolver: zodResolver(schema)
+  })
+
+  return (
+    <FormModal
+      form={form}
+      submissionConfig={{
+        template: type,
+        handler: async data => {
+          await (
+            type === 'update' ? updateMutation : createMutation
+          ).mutateAsync(data)
+        }
+      }}
+      uiConfig={{
+        icon: type === 'update' ? 'tabler:pencil' : 'tabler:plus',
+        title:
+          type === 'update' ? 'modals.clients.update' : 'modals.clients.create',
+        namespace: 'apps.melvinchia3636$invoiceMaker',
+        onClose
+      }}
+    >
+      <TextField
+        required
+        control={form.control}
+        icon="tabler:building"
+        label="inputs.name"
+        name="name"
+        placeholder="Company or individual name"
+      />
+      <TextAreaField
+        control={form.control}
+        icon="tabler:map-pin"
+        label="inputs.address"
+        name="address"
+        placeholder="Full billing address"
+      />
+      <TextField
+        control={form.control}
+        icon="tabler:mail"
+        label="inputs.email"
+        name="email"
+        placeholder="client@example.com"
+      />
+      <TextField
+        control={form.control}
+        icon="tabler:phone"
+        label="inputs.phone"
+        name="phone"
+        placeholder="+60 12-345 6789"
+      />
+    </FormModal>
+  )
 }

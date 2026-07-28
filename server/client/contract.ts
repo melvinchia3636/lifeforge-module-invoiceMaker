@@ -495,56 +495,6 @@ export const contract = {
                 ],
                 "additionalProperties": false
               }
-            },
-            "expand": {
-              "type": "object",
-              "properties": {
-                "bill_to": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "address": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "phone": {
-                      "type": "string"
-                    },
-                    "created": {
-                      "type": "string"
-                    },
-                    "updated": {
-                      "type": "string"
-                    },
-                    "id": {
-                      "type": "string"
-                    },
-                    "collectionId": {
-                      "type": "string"
-                    },
-                    "collectionName": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "address",
-                    "email",
-                    "phone",
-                    "created",
-                    "updated",
-                    "id",
-                    "collectionId",
-                    "collectionName"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "additionalProperties": false
             }
           },
           "required": [
@@ -609,182 +559,120 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "array",
           "items": {
-            "allOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "invoice_number": {
-                    "type": "string"
-                  },
-                  "bill_to": {
-                    "type": "string"
-                  },
-                  "date": {
-                    "type": "string"
-                  },
-                  "due_date": {
-                    "type": "string"
-                  },
-                  "payment_terms": {
-                    "type": "string"
-                  },
-                  "po_number": {
-                    "type": "string"
-                  },
-                  "status": {
-                    "type": "string",
-                    "enum": [
-                      "draft",
-                      "sent",
-                      "paid",
-                      "overdue",
-                      "cancelled",
-                      ""
-                    ]
-                  },
-                  "shipping_address": {
-                    "type": "string"
-                  },
-                  "tax_type": {
-                    "type": "string",
-                    "enum": [
-                      "rate",
-                      "fixed",
-                      ""
-                    ]
-                  },
-                  "tax_amount": {
-                    "type": "number"
-                  },
-                  "discount_type": {
-                    "type": "string",
-                    "enum": [
-                      "rate",
-                      "fixed",
-                      ""
-                    ]
-                  },
-                  "discount_amount": {
-                    "type": "number"
-                  },
-                  "shipping_amount": {
-                    "type": "number"
-                  },
-                  "amount_paid": {
-                    "type": "number"
-                  },
-                  "notes": {
-                    "type": "string"
-                  },
-                  "created": {
-                    "type": "string"
-                  },
-                  "updated": {
-                    "type": "string"
-                  },
-                  "subtotal": {},
-                  "item_count": {},
-                  "calculated_tax": {},
-                  "calculated_discount": {},
-                  "calculated_shipping": {},
-                  "id": {
-                    "type": "string"
-                  },
-                  "collectionId": {
-                    "type": "string"
-                  },
-                  "collectionName": {
-                    "type": "string"
-                  },
-                  "expand": {
-                    "type": "object",
-                    "properties": {
-                      "bill_to": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "address": {
-                            "type": "string"
-                          },
-                          "email": {
-                            "type": "string"
-                          },
-                          "phone": {
-                            "type": "string"
-                          },
-                          "created": {
-                            "type": "string"
-                          },
-                          "updated": {
-                            "type": "string"
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "collectionId": {
-                            "type": "string"
-                          },
-                          "collectionName": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "address",
-                          "email",
-                          "phone",
-                          "created",
-                          "updated",
-                          "id",
-                          "collectionId",
-                          "collectionName"
-                        ]
-                      }
-                    }
-                  }
-                },
-                "required": [
-                  "invoice_number",
-                  "bill_to",
-                  "date",
-                  "due_date",
-                  "payment_terms",
-                  "po_number",
-                  "status",
-                  "shipping_address",
-                  "tax_type",
-                  "tax_amount",
-                  "discount_type",
-                  "discount_amount",
-                  "shipping_amount",
-                  "amount_paid",
-                  "notes",
-                  "created",
-                  "updated",
-                  "subtotal",
-                  "item_count",
-                  "calculated_tax",
-                  "calculated_discount",
-                  "calculated_shipping",
-                  "id",
-                  "collectionId",
-                  "collectionName"
+            "type": "object",
+            "properties": {
+              "invoice_number": {
+                "type": "string"
+              },
+              "bill_to": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "due_date": {
+                "type": "string"
+              },
+              "payment_terms": {
+                "type": "string"
+              },
+              "po_number": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "draft",
+                  "sent",
+                  "paid",
+                  "overdue",
+                  "cancelled",
+                  ""
                 ]
               },
-              {
-                "type": "object",
-                "properties": {
-                  "subtotal": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "subtotal"
+              "shipping_address": {
+                "type": "string"
+              },
+              "tax_type": {
+                "type": "string",
+                "enum": [
+                  "rate",
+                  "fixed",
+                  ""
                 ]
+              },
+              "tax_amount": {
+                "type": "number"
+              },
+              "discount_type": {
+                "type": "string",
+                "enum": [
+                  "rate",
+                  "fixed",
+                  ""
+                ]
+              },
+              "discount_amount": {
+                "type": "number"
+              },
+              "shipping_amount": {
+                "type": "number"
+              },
+              "amount_paid": {
+                "type": "number"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "updated": {
+                "type": "string"
+              },
+              "subtotal": {},
+              "item_count": {},
+              "calculated_tax": {},
+              "calculated_discount": {},
+              "calculated_shipping": {},
+              "id": {
+                "type": "string"
+              },
+              "collectionId": {
+                "type": "string"
+              },
+              "collectionName": {
+                "type": "string"
               }
-            ]
+            },
+            "required": [
+              "invoice_number",
+              "bill_to",
+              "date",
+              "due_date",
+              "payment_terms",
+              "po_number",
+              "status",
+              "shipping_address",
+              "tax_type",
+              "tax_amount",
+              "discount_type",
+              "discount_amount",
+              "shipping_amount",
+              "amount_paid",
+              "notes",
+              "created",
+              "updated",
+              "subtotal",
+              "item_count",
+              "calculated_tax",
+              "calculated_discount",
+              "calculated_shipping",
+              "id",
+              "collectionId",
+              "collectionName"
+            ],
+            "additionalProperties": false
           }
         }
       }
@@ -1409,13 +1297,25 @@ export const contract = {
             },
             "phone": {
               "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "collectionId": {
+              "type": "string"
+            },
+            "collectionName": {
+              "type": "string"
             }
           },
           "required": [
             "name",
             "address",
             "email",
-            "phone"
+            "phone",
+            "id",
+            "collectionId",
+            "collectionName"
           ],
           "additionalProperties": false
         }
@@ -1662,14 +1562,17 @@ export const contract = {
             },
             "phone": {
               "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "collectionId": {
+              "type": "string"
+            },
+            "collectionName": {
+              "type": "string"
             }
           },
-          "required": [
-            "name",
-            "address",
-            "email",
-            "phone"
-          ],
           "additionalProperties": false
         }
       },
@@ -1770,9 +1673,6 @@ export const contract = {
             "bank_account": {
               "type": "string"
             },
-            "bank_account_name": {
-              "type": "string"
-            },
             "currency": {
               "type": "string"
             },
@@ -1813,7 +1713,6 @@ export const contract = {
             "default_tax_rate",
             "bank_name",
             "bank_account",
-            "bank_account_name",
             "currency",
             "currency_symbol",
             "invoice_prefix",
@@ -1872,9 +1771,6 @@ export const contract = {
               "type": "string"
             },
             "bank_account": {
-              "type": "string"
-            },
-            "bank_account_name": {
               "type": "string"
             },
             "currency": {
@@ -1940,9 +1836,6 @@ export const contract = {
             "bank_account": {
               "type": "string"
             },
-            "bank_account_name": {
-              "type": "string"
-            },
             "currency": {
               "type": "string"
             },
@@ -1983,7 +1876,6 @@ export const contract = {
             "default_tax_rate",
             "bank_name",
             "bank_account",
-            "bank_account_name",
             "currency",
             "currency_symbol",
             "invoice_prefix",

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router'
 import { useReactToPrint } from 'react-to-print'
 
 import { useModuleTranslation } from '@lifeforge/localization'
-import { Button, GoBackButton, TagChip } from '@lifeforge/ui'
+import { Box, Button, Flex, GoBackButton, TagChip, Text } from '@lifeforge/ui'
 
 import { STATUS_CONFIG } from '@/components/InvoiceCard'
 import { forgeAPI } from '@/manifest'
@@ -47,29 +47,30 @@ function Header({
   return (
     <>
       <GoBackButton onClick={() => navigate(-1)} />
-      <header className="mt-4 mb-6 flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-semibold">
-              <span className="text-bg-500">{t(`items.invoice`)}</span> #
-              {invoice.invoice_number}
-            </h1>
+      <Flex align="center" justify="between" mb="lg" mt="md">
+        <Box>
+          <Flex align="center" gap="md">
+            <Text size="2xl" weight="semibold">
+              <Text as="span" color="muted">
+                {t(`items.invoice`)}
+              </Text>{' '}
+              #{invoice.invoice_number}
+            </Text>
             <TagChip
-              className="text-xs!"
               color={statusConfig.color}
               icon={statusConfig.icon}
               label={t(`statuses.${invoice.status}`)}
             />
-          </div>
-          <p className="text-bg-500 mt-1">
+          </Flex>
+          <Text color="muted" mt="xs">
             For {invoice.expand?.bill_to?.name}
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
+          </Text>
+        </Box>
+        <Flex align="center" gap="xs">
           <Button
             as={Link}
             icon="tabler:pencil"
-            to={`/invoice-maker/modify/${invoice.id}`}
+            to={`/melvinchia3636--invoice-maker/modify/${invoice.id}`}
             variant="secondary"
           >
             Edit
@@ -81,8 +82,8 @@ function Header({
           >
             Print
           </Button>
-        </div>
-      </header>
+        </Flex>
+      </Flex>
     </>
   )
 }

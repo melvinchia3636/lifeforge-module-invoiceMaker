@@ -1,4 +1,4 @@
-import { Button, NumberInput } from '@lifeforge/ui'
+import { Box, Button, NumberInput, Text } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '../../../providers/InvoiceEditorProvider'
 import BaseColumn from './BaseColumn'
@@ -17,18 +17,19 @@ function DiscountColumn() {
       }}
     >
       {formData.discount_type === 'fixed' && (
-        <span className="text-bg-500">{currencySymbol}</span>
+        <Text color="muted">{currencySymbol}</Text>
       )}
-      <NumberInput
-        className="w-24"
-        min={0}
-        value={formData.discount_amount}
-        variant="plain"
-        onChange={val => updateField('discount_amount', val || 0)}
-      />
-      {formData.discount_type === 'rate' && (
-        <span className="text-bg-500">%</span>
-      )}
+      <Box width="6rem">
+        <NumberInput
+          icon=""
+          label=""
+          min={0}
+          value={formData.discount_amount}
+          variant="plain"
+          onChange={val => updateField('discount_amount', val || 0)}
+        />
+      </Box>
+      {formData.discount_type === 'rate' && <Text color="muted">%</Text>}
       <Button
         icon="tabler:exchange"
         variant="secondary"

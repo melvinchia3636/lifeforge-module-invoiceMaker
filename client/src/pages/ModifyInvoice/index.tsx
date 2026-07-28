@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router'
 
-import { Button, GoBackButton } from '@lifeforge/ui'
+import { Box, Button, GoBackButton, Stack } from '@lifeforge/ui'
 
 import InvoiceEditorProvider, {
   useInvoiceEditor
@@ -17,24 +17,30 @@ function ModifyInvoiceContent() {
 
   return (
     <>
-      <GoBackButton onClick={() => navigate('/invoice-maker')} />
+      <GoBackButton
+        onClick={() => navigate('/melvinchia3636--invoice-maker')}
+      />
       <Header />
-      <div className="w-full space-y-6 pb-8">
+      <Stack gap="lg" pb="lg" width="100%">
         <TopInfoSection />
         <LineItemsSection />
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <PaymentInfoAndNotesSection />
-          <TotalSection />
-        </div>
+        <Stack direction={{ base: 'column', md: 'row' }} gap="lg" width="100%">
+          <Box flex="1" minWidth="0">
+            <PaymentInfoAndNotesSection />
+          </Box>
+          <Box flex="1" minWidth="0">
+            <TotalSection />
+          </Box>
+        </Stack>
         <Button
-          className="w-full"
+          display="flex"
           icon={isEditMode ? 'tabler:device-floppy' : 'tabler:plus'}
           loading={isLoading}
           onClick={handleSubmit}
         >
           {isEditMode ? 'Save Invoice' : 'Create Invoice'}
         </Button>
-      </div>
+      </Stack>
     </>
   )
 }

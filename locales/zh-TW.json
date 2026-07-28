@@ -46,17 +46,23 @@
     "email": "電子郵件",
     "phone": "電話",
     "companyName": "公司名稱",
-    "companyAdditionalInfo": "公司額外信息",
+    "companyAddress": "公司地址",
+    "companyRegNo": "公司註冊號",
+    "companyEmail": "公司電子郵件",
+    "companyTelNo": "公司電話號碼",
     "defaultLogo": "預設標誌",
     "defaultPaymentTerms": "預設付款條款",
     "defaultNotes": "預設備註",
     "defaultTaxRate": "預設稅率 (%)",
     "bankName": "銀行名稱",
     "bankAccount": "銀行帳號",
+    "bankAccountName": "銀行開戶姓名",
     "currency": "貨幣代碼",
     "currencySymbol": "貨幣符號",
     "invoicePrefix": "發票號碼前綴",
-    "nextInvoiceNumber": "下一發票號碼"
+    "nextInvoiceNumber": "下一發票號碼",
+    "invoiceNumber": "發票號碼",
+    "status": "狀態"
   },
   "modals": {
     "clients": {
@@ -69,7 +75,8 @@
       "message": "確定要刪除此發票嗎？此操作無法撤銷。",
       "confirm": "刪除"
     },
-    "settings": "設定"
+    "settings": "設定",
+    "editInvoiceMetadata": "編輯發票元數據"
   },
   "toast": {
     "invoiceCreated": "發票建立成功",

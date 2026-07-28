@@ -13,6 +13,7 @@ import {
   ModuleHeader,
   Scrollbar,
   SearchInput,
+  Stack,
   WithQuery,
   useModalStore
 } from '@lifeforge/ui'
@@ -69,9 +70,9 @@ function InvoiceMaker() {
       <ModuleHeader
         actionButton={
           <Button
-            className="hidden md:flex"
+            display={{ base: 'none', md: 'flex' }}
             icon="tabler:plus"
-            onClick={() => navigate('/invoice-maker/modify')}
+            onClick={() => navigate('/melvinchia3636--invoice-maker/modify')}
           >
             New Invoice
           </Button>
@@ -110,13 +111,12 @@ function InvoiceMaker() {
             onClientFilterChange={setClientFilter}
             onStatusFilterChange={setStatusFilter}
           />
-          <div className="mt-4 mb-6">
-            <SearchInput
-              searchTarget="invoice"
-              value={searchQuery}
-              onChange={setSearchQuery}
-            />
-          </div>
+          <SearchInput
+            mb="lg"
+            searchTarget="invoice"
+            value={searchQuery}
+            onChange={setSearchQuery}
+          />
           <WithQuery query={invoicesQuery}>
             {data => {
               if (data.length === 0) {
@@ -139,7 +139,7 @@ function InvoiceMaker() {
                 />
               ) : (
                 <Scrollbar>
-                  <div className="space-y-2 pb-8">
+                  <Stack pb="lg">
                     {filteredInvoices.map(invoice => (
                       <InvoiceCard
                         key={invoice.id}
@@ -147,7 +147,7 @@ function InvoiceMaker() {
                         invoice={invoice}
                       />
                     ))}
-                  </div>
+                  </Stack>
                 </Scrollbar>
               )
             }}
@@ -156,9 +156,8 @@ function InvoiceMaker() {
       </LayoutWithSidebar>
 
       <FAB
-        className="fixed right-6 bottom-6 md:hidden"
         icon="tabler:plus"
-        onClick={() => navigate('/invoice-maker/modify')}
+        onClick={() => navigate('/melvinchia3636--invoice-maker/modify')}
       />
     </>
   )

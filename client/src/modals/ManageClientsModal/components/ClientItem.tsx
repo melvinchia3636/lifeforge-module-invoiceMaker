@@ -1,14 +1,17 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
 
+import { useForgeMutation } from '@lifeforge/api'
 import type { InferOutput } from '@lifeforge/api'
-import { useModuleTranslation } from '@lifeforge/localization'
 import {
+  Box,
+  Card,
   ConfirmationModal,
   ContextMenu,
   ContextMenuItem,
+  Flex,
   Icon,
-  toast,
+  Text,
+  colorWithOpacity,
   useModalStore
 } from '@lifeforge/ui'
 
@@ -19,9 +22,7 @@ import ClientModal from '../../ModifyClientModal'
 type Client = InferOutput<typeof forgeAPI.clients.list>[number]
 
 function ClientItem({ client }: { client: Client }) {
-  const queryClient = useQueryClient()
   const { open } = useModalStore()
-  const { t } = useModuleTranslation()
 
   const handleEditClient = useCallback(() => {
     open(ClientModal, {
@@ -30,18 +31,9 @@ function ClientItem({ client }: { client: Client }) {
     })
   }, [client, open])
 
-  const deleteMutation = useMutation(
-    forgeAPI.clients.remove.input({ id: client.id }).mutationOptions({
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ['invoiceMaker', 'clients']
-        })
-        toast.success(t('toast.clientDeleted'))
-      },
-      onError: () => {
-        toast.error('Failed to delete client')
-      }
-    })
+  const deleteMutation = useForgeMutation(
+    forgeAPI.clients.remove.input({ id: client.id }),
+    { action: 'delete', queryKey: forgeAPI.key }
   )
 
   const handleDeleteClient = useCallback(() => {
@@ -56,20 +48,27 @@ function ClientItem({ client }: { client: Client }) {
   }, [deleteMutation, open])
 
   return (
-    <li className="flex-between component-bg-lighter bg-bg-50 shadow-custom flex gap-3 rounded-md p-4">
-      <div className="flex w-full min-w-0 items-center gap-3">
-        <div className="bg-bg-500/20 rounded-md p-2">
-          <Icon className="text-bg-500 size-7" icon="tabler:user" />
-        </div>
-        <div className="w-full min-w-0">
-          <p className="w-full min-w-0 truncate text-lg font-medium">
+    <Card as="li" direction="row" gap="md" justify="between" p="md">
+      <Flex align="center" gap="md" minWidth="0" width="100%">
+        <Flex
+          align="center"
+          bg={colorWithOpacity('bg-500', '20%')}
+          flexShrink="0"
+          justify="center"
+          p="sm"
+          r="md"
+        >
+          <Icon color="muted" icon="tabler:user" size="1.75em" />
+        </Flex>
+        <Box minWidth="0" width="100%">
+          <Text truncate weight="medium">
             {client.name}
-          </p>
+          </Text>
           {(client.email || client.phone) && (
-            <p className="text-bg-500">{client.email || client.phone}</p>
+            <Text color="muted">{client.email || client.phone}</Text>
           )}
-        </div>
-      </div>
+        </Box>
+      </Flex>
       <ContextMenu>
         <ContextMenuItem
           icon="tabler:pencil"
@@ -83,7 +82,7 @@ function ClientItem({ client }: { client: Client }) {
           onClick={handleDeleteClient}
         />
       </ContextMenu>
-    </li>
+    </Card>
   )
 }
 

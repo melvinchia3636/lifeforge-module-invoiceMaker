@@ -1,57 +1,74 @@
 import dayjs from 'dayjs'
 
+import { Flex, Text } from '@lifeforge/ui'
+
 import { useInvoiceViewer } from '../../../providers/InvoiceViewerProvider'
 
 function TopInfoSection() {
   const { invoice, currencySymbol, calculations } = useInvoiceViewer()
 
   return (
-    <div className="mb-8 grid grid-cols-2 gap-8">
-      <div>
-        <h3 className="mb-2 text-[14px] font-medium text-zinc-500">Bill To:</h3>
+    <Flex gap="lg" mb="lg" width="100%">
+      <Flex direction="column" flex="1" gap="none">
+        <Text
+          mb="xs"
+          style={{ color: '#71717a', fontSize: '14px', fontWeight: 500 }}
+        >
+          Bill To:
+        </Text>
         {invoice.expand?.bill_to ? (
           <>
-            <p className="text-[18px] font-semibold">
+            <Text size="xl" weight="semibold">
               {invoice.expand.bill_to.name}
-            </p>
-            <p className="mt-1 whitespace-pre-wrap">
+            </Text>
+            <Text mt="xs" style={{ whiteSpace: 'pre-wrap' }}>
               {invoice.expand.bill_to.address}
-            </p>
+            </Text>
           </>
         ) : (
-          <p className="text-zinc-400 italic">No client specified</p>
+          <Text style={{ color: '#a1a1aa', fontStyle: 'italic' }}>
+            No client specified
+          </Text>
         )}
-      </div>
-      <div className="space-y-2 text-right">
-        <div className="flex justify-between">
-          <span className="text-zinc-500">Date:</span>
-          <span>{dayjs(invoice.date).format('MMM D, YYYY')}</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-zinc-500">Payment Terms:</span>
-          <span>{invoice.payment_terms || '-'}</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-zinc-500">Due Date:</span>
-          <span>{dayjs(invoice.due_date).format('MMM D, YYYY')}</span>
-        </div>
+      </Flex>
+      <Flex direction="column" flex="1" gap="sm">
+        <Flex justify="between">
+          <Text style={{ color: '#71717a' }}>Invoice Number:</Text>
+          <Text>{invoice.invoice_number}</Text>
+        </Flex>
+        <Flex justify="between">
+          <Text style={{ color: '#71717a' }}>Date:</Text>
+          <Text>{dayjs(invoice.date).format('DD MMM YYYY')}</Text>
+        </Flex>
+        <Flex justify="between">
+          <Text style={{ color: '#71717a' }}>Payment Terms:</Text>
+          <Text>{invoice.payment_terms || '-'}</Text>
+        </Flex>
+        <Flex justify="between">
+          <Text style={{ color: '#71717a' }}>Due Date:</Text>
+          <Text>{dayjs(invoice.due_date).format('DD MMM YYYY')}</Text>
+        </Flex>
         {invoice.po_number && (
-          <div className="flex justify-between">
-            <span className="text-zinc-500">PO Number:</span>
-            <span>{invoice.po_number}</span>
-          </div>
+          <Flex justify="between">
+            <Text style={{ color: '#71717a' }}>PO Number:</Text>
+            <Text>{invoice.po_number}</Text>
+          </Flex>
         )}
-        <div className="mt-6 flex justify-between text-[20px] font-semibold">
-          <span>Balance Due:</span>
-          <span>
+        <Flex
+          justify="between"
+          mt="lg"
+          style={{ fontSize: '20px', fontWeight: 600 }}
+        >
+          <Text>Balance Due:</Text>
+          <Text>
             {currencySymbol}{' '}
             {calculations.balanceDue.toLocaleString('en-MY', {
               minimumFractionDigits: 2
             })}
-          </span>
-        </div>
-      </div>
-    </div>
+          </Text>
+        </Flex>
+      </Flex>
+    </Flex>
   )
 }
 

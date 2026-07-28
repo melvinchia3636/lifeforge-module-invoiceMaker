@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { useModuleTranslation } from '@lifeforge/localization'
 import {
   SidebarDivider,
   SidebarItem,
@@ -28,7 +27,6 @@ export default function Sidebar({
   clientFilter,
   onClientFilterChange
 }: SidebarProps) {
-  const { t } = useModuleTranslation()
   const { open } = useModalStore()
   const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
@@ -50,7 +48,7 @@ export default function Sidebar({
           key={key}
           active={statusFilter === key}
           icon={value.icon}
-          label={t(`statuses.${key}`)}
+          label={`statuses.${key}`}
           sideStripColor={value.color}
           onCancelButtonClick={() => onStatusFilterChange(null)}
           onClick={() => onStatusFilterChange(key)}
@@ -83,6 +81,7 @@ export default function Sidebar({
                     active={clientFilter === client.id}
                     icon="tabler:user"
                     label={client.name}
+                    namespace={false}
                     onCancelButtonClick={() => onClientFilterChange(null)}
                     onClick={() => onClientFilterChange(client.id)}
                   />

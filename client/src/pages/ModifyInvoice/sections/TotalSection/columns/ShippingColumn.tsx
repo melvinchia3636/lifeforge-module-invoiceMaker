@@ -1,4 +1,4 @@
-import { CurrencyInput } from '@lifeforge/ui'
+import { Box, CurrencyInput, Text } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '../../../providers/InvoiceEditorProvider'
 import BaseColumn from './BaseColumn'
@@ -15,14 +15,14 @@ function ShippingColumn() {
         updateField('shipping_amount', 0)
       }}
     >
-      <span className="text-bg-500">{currencySymbol}</span>
-      <CurrencyInput
-        className="w-24"
-        placeholder="0.00"
-        value={formData.shipping_amount}
-        variant="plain"
-        onChange={val => updateField('shipping_amount', val || 0)}
-      />
+      <Text color="muted">{currencySymbol}</Text>
+      <Box width="6rem">
+        <CurrencyInput
+          value={formData.shipping_amount}
+          variant="plain"
+          onChange={val => updateField('shipping_amount', val || 0)}
+        />
+      </Box>
     </BaseColumn>
   )
 }

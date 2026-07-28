@@ -1,5 +1,5 @@
 import { useModuleTranslation } from '@lifeforge/localization'
-import { Card } from '@lifeforge/ui'
+import { Card, Flex, Stack, Text, surface } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '../../providers/InvoiceEditorProvider'
 import AddColumnButtons from './columns/AddColumnButtons'
@@ -20,23 +20,23 @@ function TotalSection() {
   } = useInvoiceEditor()
 
   return (
-    <Card className="bg-bg-50 dark:bg-bg-800/50 rounded-lg p-4">
-      <div className="space-y-3">
-        <div className="flex justify-between">
-          <span className="text-bg-500">{t('inputs.subtotal')}</span>
-          <span>
+    <Card bg={surface.default} p="md" r="lg">
+      <Stack gap="sm">
+        <Flex align="center" justify="between">
+          <Text color="muted">{t('inputs.subtotal')}</Text>
+          <Text>
             {currencySymbol}{' '}
             {subtotal.toLocaleString('en-MY', {
               minimumFractionDigits: 2
             })}
-          </span>
-        </div>
+          </Text>
+        </Flex>
         <AddColumnButtons />
         {showDiscount && <DiscountColumn />}
         {showTax && <TaxColumn />}
         {showShipping && <ShippingColumn />}
         <FinalNumbersColumns />
-      </div>
+      </Stack>
     </Card>
   )
 }

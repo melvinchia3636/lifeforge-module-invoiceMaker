@@ -1,30 +1,52 @@
-import { forwardRef } from 'react'
+import { Box, Card, Flex, PrintArea } from '@lifeforge/ui'
 
 import CompanyHeader from './sections/CompanyHeader'
+import FooterSection from './sections/FooterSection'
 import LineItemsSection from './sections/LineItemsSection'
 import PaymentAndNotesSection from './sections/PaymentAndNotesSection'
 import TopInfoSection from './sections/TopInfoSection'
 import TotalsSection from './sections/TotalsSection'
 
-const InvoicePreview = forwardRef<HTMLDivElement>((_, ref) => {
+export default function InvoicePreview({
+  ref
+}: {
+  ref: React.RefObject<HTMLDivElement | null>
+}) {
   return (
-    <div className="no-print-margin mx-auto w-full max-w-4xl pb-8 font-[Onest] text-black">
-      <div
-        ref={ref}
-        className="aspect-[1/1.414] w-full rounded-lg bg-white p-12 shadow-lg print:shadow-none print:[--radius-2xl:1rem] print:[--radius-3xl:1.5rem] print:[--radius-lg:0.5rem] print:[--radius-md:0.375rem] print:[--radius-sm:0.125rem] print:[--radius-xl:0.75rem] print:**:[--spacing:0.25rem]"
-      >
-        <CompanyHeader />
-        <TopInfoSection />
-        <LineItemsSection />
-        <div className="space-y-8">
-          <TotalsSection />
-          <PaymentAndNotesSection />
-        </div>
-      </div>
-    </div>
+    <Box
+      pb="lg"
+      style={{
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        maxWidth: '56rem'
+      }}
+      width="100%"
+    >
+      <PrintArea contentRef={ref}>
+        <Card
+          height="100%"
+          p="xl"
+          r="lg"
+          style={{
+            aspectRatio: '1 / 1.414',
+            backgroundColor: '#fff',
+            color: '#000',
+            fontFamily: 'Onest'
+          }}
+          width="100%"
+        >
+          <Flex direction="column" gap="sm" height="100%" width="100%">
+            <CompanyHeader />
+            <TopInfoSection />
+            <LineItemsSection />
+            <Flex direction="column" gap="lg">
+              <TotalsSection />
+              <PaymentAndNotesSection />
+            </Flex>
+            <FooterSection />
+          </Flex>
+        </Card>
+      </PrintArea>
+    </Box>
   )
-})
-
-InvoicePreview.displayName = 'InvoicePreview'
-
-export default InvoicePreview
+}

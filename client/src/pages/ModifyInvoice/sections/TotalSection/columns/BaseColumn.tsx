@@ -1,5 +1,5 @@
 import { useModuleTranslation } from '@lifeforge/localization'
-import { Button } from '@lifeforge/ui'
+import { Button, Flex, Text } from '@lifeforge/ui'
 
 interface ColumnProps {
   children: React.ReactNode
@@ -11,9 +11,14 @@ function BaseColumn({ children, type, onHide }: ColumnProps) {
   const { t } = useModuleTranslation()
 
   return (
-    <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
-      <span className="text-bg-500">{t(`inputs.${type}`)}</span>
-      <div className="flex items-center gap-2">
+    <Flex
+      align={{ sm: 'center' }}
+      direction={{ base: 'column', sm: 'row' }}
+      gap="sm"
+      justify="between"
+    >
+      <Text color="muted">{t(`inputs.${type}`)}</Text>
+      <Flex align="center" gap="sm">
         {children}
         <Button
           dangerous
@@ -21,8 +26,8 @@ function BaseColumn({ children, type, onHide }: ColumnProps) {
           variant="secondary"
           onClick={onHide}
         />
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   )
 }
 

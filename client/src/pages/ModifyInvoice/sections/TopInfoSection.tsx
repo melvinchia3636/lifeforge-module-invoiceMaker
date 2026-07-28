@@ -2,12 +2,16 @@ import { useQuery } from '@tanstack/react-query'
 
 import { useModuleTranslation } from '@lifeforge/localization'
 import {
+  Box,
   Button,
   Card,
   DateInput,
+  Flex,
+  Grid,
   Icon,
   ListboxInput,
   ListboxOption,
+  Text,
   TextInput,
   useModalStore
 } from '@lifeforge/ui'
@@ -28,38 +32,35 @@ function TopInfoSection() {
 
   return (
     <Card>
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <Grid gap="lg" templateCols={{ base: 1, lg: 2 }}>
         {/* Left side - Client */}
-        <div className="min-w-0">
-          <h3 className="text-bg-500 mb-2 text-sm font-medium">
+        <Box minWidth="0">
+          <Text as="h3" color="muted" mb="sm" size="sm" weight="medium">
             {t('inputs.billTo')}
-          </h3>
-          <div className="flex min-w-0 flex-col gap-2 sm:flex-row">
+          </Text>
+          <Flex direction={{ base: 'column', sm: 'row' }} gap="sm" minWidth="0">
             <ListboxInput
-              buttonContent={(() => {
+              renderContent={() => {
                 const targetClient = clients.find(
                   client => client.id === formData.bill_to
                 )
 
                 if (!targetClient) {
                   return (
-                    <div className="text-bg-500 flex items-center gap-2">
-                      <Icon className="size-5 shrink-0" icon="tabler:user" />
-                      <span>Select Client</span>
-                    </div>
+                    <Flex align="center" color="muted" gap="sm">
+                      <Icon icon="tabler:user" size="1.25rem" />
+                      <Text>Select Client</Text>
+                    </Flex>
                   )
                 }
 
                 return (
-                  <div className="flex min-w-0 items-center gap-2">
-                    <Icon className="size-5 shrink-0" icon="tabler:user" />
-                    <span className="min-w-0 truncate">
-                      {targetClient.name}
-                    </span>
-                  </div>
+                  <Flex align="center" gap="sm" minWidth="0">
+                    <Icon icon="tabler:user" size="1.25rem" />
+                    <Text truncate>{targetClient.name}</Text>
+                  </Flex>
                 )
-              })()}
-              className="min-w-0 flex-1"
+              }}
               value={formData.bill_to}
               variant="plain"
               onChange={val => updateField('bill_to', val)}
@@ -81,59 +82,55 @@ function TopInfoSection() {
             >
               New
             </Button>
-          </div>
-        </div>
+          </Flex>
+        </Box>
 
         {/* Right side - Dates & Status */}
-        <div className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <label className="text-bg-500 mb-1 block text-sm">
-                {t('inputs.date')}
-              </label>
-              <DateInput
-                value={formData.date}
-                variant="plain"
-                onChange={val => val && updateField('date', val)}
-              />
-            </div>
-            <div>
-              <label className="text-bg-500 mb-1 block text-sm">
-                {t('inputs.dueDate')}
-              </label>
-              <DateInput
-                value={formData.due_date}
-                variant="plain"
-                onChange={val => val && updateField('due_date', val)}
-              />
-            </div>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <label className="text-bg-500 mb-1 block text-sm">
-                {t('inputs.paymentTerms')}
-              </label>
-              <TextInput
-                placeholder="Net 30"
-                value={formData.payment_terms}
-                variant="plain"
-                onChange={e => updateField('payment_terms', e)}
-              />
-            </div>
-            <div>
-              <label className="text-bg-500 mb-1 block text-sm">
-                {t('inputs.poNumber')}
-              </label>
-              <TextInput
-                placeholder="Optional"
-                value={formData.po_number}
-                variant="plain"
-                onChange={e => updateField('po_number', e)}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+        <Grid gap="md" templateCols={{ base: 1, md: 2 }}>
+          <Box>
+            <Text as="label" color="muted" display="block" mb="xs" size="sm">
+              {t('inputs.date')}
+            </Text>
+            <DateInput
+              value={formData.date}
+              variant="plain"
+              onChange={val => val && updateField('date', val)}
+            />
+          </Box>
+          <Box>
+            <Text as="label" color="muted" display="block" mb="xs" size="sm">
+              {t('inputs.dueDate')}
+            </Text>
+            <DateInput
+              value={formData.due_date}
+              variant="plain"
+              onChange={val => val && updateField('due_date', val)}
+            />
+          </Box>
+          <Box>
+            <Text as="label" color="muted" display="block" mb="xs" size="sm">
+              {t('inputs.paymentTerms')}
+            </Text>
+            <TextInput
+              placeholder="Net 30"
+              value={formData.payment_terms}
+              variant="plain"
+              onChange={e => updateField('payment_terms', e)}
+            />
+          </Box>
+          <Box>
+            <Text as="label" color="muted" display="block" mb="xs" size="sm">
+              {t('inputs.poNumber')}
+            </Text>
+            <TextInput
+              placeholder="Optional"
+              value={formData.po_number}
+              variant="plain"
+              onChange={e => updateField('po_number', e)}
+            />
+          </Box>
+        </Grid>
+      </Grid>
     </Card>
   )
 }

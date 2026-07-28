@@ -1,11 +1,8 @@
-import { useModuleTranslation } from '@lifeforge/localization'
-import { Button } from '@lifeforge/ui'
+import { Button, Flex } from '@lifeforge/ui'
 
 import { useInvoiceEditor } from '@/pages/ModifyInvoice/providers/InvoiceEditorProvider'
 
 function AddColumnButtons() {
-  const { t } = useModuleTranslation()
-
   const {
     showDiscount,
     setShowDiscount,
@@ -17,7 +14,7 @@ function AddColumnButtons() {
   } = useInvoiceEditor()
 
   return (
-    <div className="flex flex-wrap justify-center gap-4">
+    <Flex gap="md" justify="center" wrap="wrap">
       {(
         [
           [
@@ -34,7 +31,7 @@ function AddColumnButtons() {
           !show && (
             <Button
               key={type}
-              className="flex-1"
+              flex="1"
               icon="tabler:plus"
               variant="tertiary"
               onClick={() => {
@@ -42,11 +39,11 @@ function AddColumnButtons() {
                 onClick?.()
               }}
             >
-              {t(`inputs.${type}`)}
+              {`inputs.${type}`}
             </Button>
           )
       )}
-    </div>
+    </Flex>
   )
 }
 

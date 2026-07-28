@@ -1,18 +1,19 @@
 import type { InvoiceEntry } from '@'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router'
 
-import { usePromiseLoading } from '@lifeforge/api'
+import { useForgeMutation, usePromiseLoading } from '@lifeforge/api'
 import { useModuleTranslation } from '@lifeforge/localization'
 import {
-  Card,
+  Box,
   ConfirmationModal,
   ContextMenu,
   ContextMenuItem,
+  Flex,
+  Stack,
   TAILWIND_PALETTE,
   TagChip,
-  toast,
+  Text,
   useModalStore
 } from '@lifeforge/ui'
 
@@ -39,42 +40,20 @@ export default function InvoiceCard({
   invoice: InvoiceEntry
   currencySymbol: string
 }) {
-  const qc = useQueryClient()
   const { open } = useModalStore()
   const navigate = useNavigate()
   const { t } = useModuleTranslation()
 
   const statusConfig = STATUS_CONFIG[invoice.status || 'draft']
 
-  // Mutations
-  const duplicateMutation = useMutation(
-    forgeAPI.invoices.duplicate
-      .input({
-        id: invoice.id
-      })
-      .mutationOptions({
-        onSuccess: () => {
-          qc.invalidateQueries({ queryKey: ['invoiceMaker', 'invoices'] })
-        },
-        onError: () => {
-          toast.error('Failed to duplicate invoice')
-        }
-      })
+  const duplicateMutation = useForgeMutation(
+    forgeAPI.invoices.duplicate.input({ id: invoice.id }),
+    { action: 'create', queryKey: forgeAPI.key }
   )
 
-  const deleteMutation = useMutation(
-    forgeAPI.invoices.remove
-      .input({
-        id: invoice.id
-      })
-      .mutationOptions({
-        onSuccess: () => {
-          qc.invalidateQueries({ queryKey: ['invoiceMaker', 'invoices'] })
-        },
-        onError: () => {
-          toast.error('Failed to delete invoice')
-        }
-      })
+  const deleteMutation = useForgeMutation(
+    forgeAPI.invoices.remove.input({ id: invoice.id }),
+    { action: 'delete', queryKey: forgeAPI.key }
   )
 
   function handleDelete() {
@@ -92,42 +71,53 @@ export default function InvoiceCard({
   })
 
   return (
-    <Card
-      isInteractive
-      className="flex-between gap-4"
-      onClick={() => navigate(`/invoice-maker/view/${invoice.id}`)}
+    <Flex
+      as="li"
+      gap="md"
+      p="md"
+      r="md"
+      style={{
+        cursor: 'pointer',
+        backgroundColor: 'var(--color-bg-50)'
+      }}
+      onClick={() =>
+        navigate(`/melvinchia3636--invoice-maker/view/${invoice.id}`)
+      }
     >
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <span className="text-lg font-medium">#{invoice.invoice_number}</span>
+      <Box flex="1" minWidth="0">
+        <Flex align="center" gap="md">
+          <Text size="lg" weight="semibold">
+            #{invoice.invoice_number}
+          </Text>
           <TagChip
-            className="py-0.5! text-xs!"
             color={statusConfig.color}
+            flexShrink="0"
             icon={statusConfig.icon}
-            iconClassName="size-3!"
             label={t(`statuses.${invoice.status}`)}
           />
-        </div>
-        <p className="text-bg-500 truncate text-sm">
+        </Flex>
+        <Text truncate color="muted" size="sm">
           {invoice.expand?.bill_to?.name || 'No client'}
-        </p>
-      </div>
-      <div className="hidden text-right sm:block">
-        <p className="font-semibold">
+        </Text>
+      </Box>
+      <Stack align="end" gap="xs">
+        <Text weight="semibold">
           {currencySymbol}{' '}
           {invoice.subtotal.toLocaleString('en-MY', {
             minimumFractionDigits: 2
           })}
-        </p>
-        <p className="text-bg-500 text-sm">
+        </Text>
+        <Text color="muted" size="sm">
           {dayjs(invoice.date).format('MMM D, YYYY')}
-        </p>
-      </div>
+        </Text>
+      </Stack>
       <ContextMenu>
         <ContextMenuItem
           icon="tabler:pencil"
           label="edit"
-          onClick={() => navigate(`/invoice-maker/modify/${invoice.id}`)}
+          onClick={() =>
+            navigate(`/melvinchia3636--invoice-maker/modify/${invoice.id}`)
+          }
         />
         <ContextMenuItem
           icon="tabler:files"
@@ -142,6 +132,6 @@ export default function InvoiceCard({
           onClick={handleDelete}
         />
       </ContextMenu>
-    </Card>
+    </Flex>
   )
 }

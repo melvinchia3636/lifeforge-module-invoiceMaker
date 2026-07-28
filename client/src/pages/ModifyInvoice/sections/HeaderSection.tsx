@@ -3,7 +3,16 @@ import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
 
 import { useModuleTranslation } from '@lifeforge/localization'
-import { Button, Icon, TagChip, useModalStore } from '@lifeforge/ui'
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  TagChip,
+  Text,
+  colorWithOpacity,
+  useModalStore
+} from '@lifeforge/ui'
 
 import { STATUS_CONFIG } from '@/components/InvoiceCard'
 import { forgeAPI } from '@/manifest'
@@ -25,16 +34,17 @@ function Header() {
   const { isEditMode } = useInvoiceEditor()
 
   return (
-    <header className="mt-4 mb-6">
+    <Box as="header" mb="lg" mt="md">
       {isEditMode ? (
         <>
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl font-semibold sm:text-2xl">
-              <span className="text-bg-500">{t(`items.invoice`)}</span> #
-              {invoiceQuery.data?.invoice_number}
-            </h1>
+          <Flex align="center" gap="sm">
+            <Text as="h1" size={{ base: 'xl', sm: '2xl' }} weight="semibold">
+              <Text as="span" color="muted">
+                {t('items.invoice')}
+              </Text>{' '}
+              #{invoiceQuery.data?.invoice_number}
+            </Text>
             <Button
-              className="p-2!"
               icon="tabler:edit"
               variant="plain"
               onClick={() => {
@@ -45,26 +55,37 @@ function Header() {
                 }
               }}
             />
-          </div>
-          <p className="text-bg-500 mt-1 flex items-center text-sm sm:text-base">
-            {t(`sidebar.status`)}:
+          </Flex>
+          <Flex align="center" mt="xs">
+            <Text as="span" color="muted" size={{ base: 'sm', sm: 'base' }}>
+              {t('sidebar.status')}:
+            </Text>
             <TagChip
-              className="ml-2 inline-flex! text-sm sm:text-base"
               color={STATUS_CONFIG[invoiceQuery.data?.status || 'draft'].color}
               icon={STATUS_CONFIG[invoiceQuery.data?.status || 'draft'].icon}
               label={t(`statuses.${invoiceQuery.data?.status}`)}
+              ml="sm"
             />
-          </p>
+          </Flex>
         </>
       ) : (
-        <h1 className="flex items-center gap-4 text-2xl font-semibold">
-          <div className="flex-center bg-bg-500/20 text-bg-500 rounded-md p-3">
-            <Icon className="size-6" icon="tabler:invoice" />
-          </div>
-          <span>{t('buttons.newInvoice')}</span>
-        </h1>
+        <Flex align="center" as="h1" gap="md">
+          <Flex
+            align="center"
+            bg={colorWithOpacity('bg-500', '20%')}
+            color="muted"
+            justify="center"
+            p="sm"
+            r="md"
+          >
+            <Icon icon="tabler:invoice" size="1.5rem" />
+          </Flex>
+          <Text as="span" size="2xl" weight="semibold">
+            {t('buttons.newInvoice')}
+          </Text>
+        </Flex>
       )}
-    </header>
+    </Box>
   )
 }
 

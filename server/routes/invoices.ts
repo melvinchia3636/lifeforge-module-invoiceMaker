@@ -71,7 +71,21 @@ export const list = forge
       query: InvoiceListSchema
     },
     output: {
-      OK: z.array(schemas.invoices_aggregated)
+      OK: z.array(
+        schemas.invoices_aggregated
+          .extend({
+            expand: z
+              .object({
+                bill_to: schemas.clients.optional()
+              })
+              .optional()
+          })
+          .and(
+            z.object({
+              subtotal: z.number()
+            })
+          )
+      )
     }
   })
   .callback(async ({ pb, query, response }) => {
@@ -110,7 +124,12 @@ export const getById = forge
     },
     output: {
       OK: schemas.invoices.extend({
-        items: z.array(schemas.items)
+        items: z.array(schemas.items),
+        expand: z
+          .object({
+            bill_to: schemas.clients.optional()
+          })
+          .optional()
       }),
       NOT_FOUND: true
     }

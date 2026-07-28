@@ -1,7 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { useModuleTranslation } from '@lifeforge/localization'
-import { Button, TagsFilter, useModuleSidebarState } from '@lifeforge/ui'
+import {
+  Button,
+  Flex,
+  TagsFilter,
+  Text,
+  useModuleSidebarState
+} from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
 
@@ -33,20 +39,22 @@ function InnerHeader({
 
   return (
     <header>
-      <div className="flex-between flex">
-        <h1 className="text-3xl font-semibold">
+      <Flex align="center" justify="between" mb="md">
+        <Text size="3xl" weight="semibold">
           {t(`sidebar.${isFiltered ? 'filteredInvoices' : 'allInvoices'}`)}{' '}
-          <span className="text-bg-500 text-base">({itemCount})</span>
-        </h1>
+          <Text as="span" color="muted" size="base">
+            ({itemCount})
+          </Text>
+        </Text>
         <Button
-          className="lg:hidden"
+          display={{ base: 'flex', xl: 'none' }}
           icon="tabler:menu"
           variant="plain"
           onClick={() => {
             setIsSidebarOpen(true)
           }}
         />
-      </div>
+      </Flex>
       <TagsFilter
         availableFilters={{
           status: {
