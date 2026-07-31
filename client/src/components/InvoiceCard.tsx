@@ -6,6 +6,7 @@ import { useForgeMutation, usePromiseLoading } from '@lifeforge/api'
 import { useModuleTranslation } from '@lifeforge/localization'
 import {
   Box,
+  Card,
   ConfirmationModal,
   ContextMenu,
   ContextMenuItem,
@@ -71,15 +72,9 @@ export default function InvoiceCard({
   })
 
   return (
-    <Flex
+    <Card
       as="li"
-      gap="md"
-      p="md"
-      r="md"
-      style={{
-        cursor: 'pointer',
-        backgroundColor: 'var(--color-bg-50)'
-      }}
+      direction="row"
       onClick={() =>
         navigate(`/melvinchia3636--invoice-maker/view/${invoice.id}`)
       }
@@ -100,7 +95,7 @@ export default function InvoiceCard({
           {invoice.expand?.bill_to?.name || 'No client'}
         </Text>
       </Box>
-      <Stack align="end" gap="xs">
+      <Stack align="end" gap="xs" mr="md">
         <Text weight="semibold">
           {currencySymbol}{' '}
           {invoice.subtotal.toLocaleString('en-MY', {
@@ -132,6 +127,6 @@ export default function InvoiceCard({
           onClick={handleDelete}
         />
       </ContextMenu>
-    </Flex>
+    </Card>
   )
 }

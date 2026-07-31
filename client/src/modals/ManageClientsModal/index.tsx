@@ -24,7 +24,9 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex min-h-[80vh] min-w-[40vw] flex-col">
       <ModalHeader
-        headerActions={
+        icon="tabler:users"
+        title="clients.manage"
+        trailing={
           <Button
             icon="tabler:plus"
             onClick={() => {
@@ -34,8 +36,6 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
             }}
           />
         }
-        icon="tabler:users"
-        title="clients.manage"
         onClose={onClose}
       />
       <WithQuery query={clientsQuery}>

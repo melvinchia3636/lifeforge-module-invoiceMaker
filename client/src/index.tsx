@@ -6,6 +6,7 @@ import { type InferOutput } from '@lifeforge/api'
 import {
   Button,
   ContentWrapperWithSidebar,
+  ContextMenu,
   ContextMenuItem,
   EmptyStateScreen,
   FAB,
@@ -68,18 +69,16 @@ function InvoiceMaker() {
   return (
     <>
       <ModuleHeader
-        actionButton={
-          <Button
-            display={{ base: 'none', md: 'flex' }}
-            icon="tabler:plus"
-            onClick={() => navigate('/melvinchia3636--invoice-maker/modify')}
-          >
-            New Invoice
-          </Button>
-        }
-        contextMenuProps={{
-          children: (
-            <>
+        trailing={
+          <>
+            <Button
+              display={{ base: 'none', md: 'flex' }}
+              icon="tabler:plus"
+              onClick={() => navigate('/melvinchia3636--invoice-maker/modify')}
+            >
+              New Invoice
+            </Button>
+            <ContextMenu>
               <ContextMenuItem
                 icon="tabler:users"
                 label="manageClients"
@@ -90,9 +89,9 @@ function InvoiceMaker() {
                 label="settings"
                 onClick={() => open(ModifySettingsModal, {})}
               />
-            </>
-          )
-        }}
+            </ContextMenu>
+          </>
+        }
       />
 
       <LayoutWithSidebar>
