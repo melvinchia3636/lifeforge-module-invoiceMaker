@@ -47,10 +47,24 @@ function Header({
   return (
     <>
       <GoBackButton onClick={() => navigate(-1)} />
-      <Flex align="center" justify="between" mb="lg" mt="md">
-        <Box>
-          <Flex align="center" gap="md">
-            <Text size="2xl" weight="semibold">
+      <Flex
+        align="center"
+        direction={{ base: 'column', sm: 'row' }}
+        gapX="2xl"
+        gapY="md"
+        justify="between"
+        mb="lg"
+        minWidth="0"
+        mt="md"
+      >
+        <Box minWidth="0" width="100%">
+          <Flex
+            align={{ base: 'start', md: 'center' }}
+            direction={{ base: 'column-reverse', md: 'row' }}
+            gap="md"
+            minWidth="0"
+          >
+            <Text truncate size="2xl" weight="semibold">
               <Text as="span" color="muted">
                 {t(`items.invoice`)}
               </Text>{' '}
@@ -58,6 +72,7 @@ function Header({
             </Text>
             <TagChip
               color={statusConfig.color}
+              flexShrink="0"
               icon={statusConfig.icon}
               label={t(`statuses.${invoice.status}`)}
             />
@@ -66,18 +81,40 @@ function Header({
             For {invoice.expand?.bill_to?.name}
           </Text>
         </Box>
-        <Flex align="center" gap="xs">
+        <Flex
+          align="center"
+          gap="xs"
+          width={{ base: '100%', sm: 'auto' }}
+          wrap={{ base: 'wrap', sm: 'nowrap' }}
+        >
+          <Button
+            flex="1"
+            icon="tabler:receipt"
+            minWidth="min-content"
+            variant="secondary"
+            onClick={() =>
+              navigate(
+                `/melvinchia3636--invoice-maker/receipts/modify?fromInvoice=${invoice.id}`
+              )
+            }
+          >
+            createReceipt
+          </Button>
           <Button
             as={Link}
+            flex="1"
             icon="tabler:pencil"
+            minWidth="min-content"
             to={`/melvinchia3636--invoice-maker/modify/${invoice.id}`}
             variant="secondary"
           >
             Edit
           </Button>
           <Button
+            flex="1"
             icon="tabler:printer"
             loading={fontQuery.isLoading}
+            minWidth="min-content"
             onClick={reactToPrintFn}
           >
             Print

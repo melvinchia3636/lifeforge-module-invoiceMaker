@@ -1,9 +1,21 @@
 {
-  "title": "发票生成器",
-  "description": "在几秒钟内生成干净、专业的发票。",
+  "title": "发票与收据生成器",
+  "description": "数秒内生成整洁、专业的发票与收据。",
+  "subsections": {
+    "invoices": {
+      "title": "发票",
+      "description": "为您的客户创建和管理发票。"
+    },
+    "receipts": {
+      "title": "收据",
+      "description": "为已完成的交易创建和管理收据。"
+    }
+  },
   "sidebar": {
     "allInvoices": "所有发票",
-    "filteredInvoices": "已过滤的发票",
+    "filteredInvoices": "已筛选发票",
+    "allReceipts": "所有收据",
+    "filteredReceipts": "已筛选收据",
     "status": "状态",
     "clients": "客户",
     "allClients": "所有客户"
@@ -12,21 +24,27 @@
     "newInvoice": "新建发票",
     "createInvoice": "创建发票",
     "saveInvoice": "保存发票",
+    "newReceipt": "新建收据",
+    "createReceipt": "创建收据",
+    "saveReceipt": "保存收据",
     "downloadPdf": "下载 PDF",
-    "duplicate": "克隆发票",
+    "duplicate": "复制",
     "manageClients": "管理客户",
     "settings": "设置"
   },
   "pages": {
     "newInvoice": "新建发票",
-    "editInvoice": "编辑发票"
+    "editInvoice": "编辑发票",
+    "newReceipt": "新建收据",
+    "editReceipt": "编辑收据"
   },
   "inputs": {
-    "billTo": "开票给",
+    "billTo": "付款方",
     "date": "日期",
     "dueDate": "到期日",
-    "paymentTerms": "付款条款",
-    "poNumber": "采购单号",
+    "paymentMethod": "付款方式",
+    "paymentTerms": "付款条件",
+    "poNumber": "采购单号 (PO)",
     "item": "项目",
     "quantity": "数量",
     "rate": "单价",
@@ -35,33 +53,37 @@
     "paymentInfo": "付款信息",
     "notes": "备注",
     "subtotal": "小计",
-    "tax": "税",
+    "tax": "税费",
     "discount": "折扣",
     "shipping": "运费",
     "total": "总计",
     "amountPaid": "已付金额",
     "balanceDue": "应付余额",
-    "name": "客户名称",
+    "name": "客户姓名",
     "address": "地址",
-    "email": "电子邮件",
+    "email": "邮箱",
     "phone": "电话",
     "companyName": "公司名称",
     "companyAddress": "公司地址",
     "companyRegNo": "公司注册号",
-    "companyEmail": "公司电子邮件",
+    "companyEmail": "公司电子邮箱",
     "companyTelNo": "公司电话号码",
-    "defaultLogo": "默认标志",
-    "defaultPaymentTerms": "默认付款条款",
+    "defaultLogo": "默认 Logo",
+    "defaultPaymentTerms": "默认付款条件",
     "defaultNotes": "默认备注",
     "defaultTaxRate": "默认税率 (%)",
     "bankName": "银行名称",
     "bankAccount": "银行账号",
-    "bankAccountName": "银行开户姓名",
+    "bankAccountName": "账户姓名",
     "currency": "货币代码",
     "currencySymbol": "货币符号",
-    "invoicePrefix": "发票号码前缀",
-    "nextInvoiceNumber": "下一发票号码",
-    "invoiceNumber": "发票号码",
+    "invoicePrefix": "发票编号前缀",
+    "nextInvoiceNumber": "下一张发票编号",
+    "receiptPrefix": "收据编号前缀",
+    "nextReceiptNumber": "下一张收据编号",
+    "invoiceNumber": "发票编号",
+    "receiptNumber": "收据编号",
+    "referenceNumber": "参考编号",
     "status": "状态"
   },
   "modals": {
@@ -72,7 +94,12 @@
     },
     "deleteInvoice": {
       "title": "删除发票",
-      "message": "确定要删除此发票吗？此操作无法撤销。",
+      "message": "确定要删除这张发票吗？此操作无法撤销。",
+      "confirm": "删除"
+    },
+    "deleteReceipt": {
+      "title": "删除收据",
+      "message": "确定要删除这张收据吗？此操作无法撤销。",
       "confirm": "删除"
     },
     "settings": "设置",
@@ -80,31 +107,40 @@
   },
   "toast": {
     "invoiceCreated": "发票创建成功",
-    "invoiceUpdated": "发票更新成功"
+    "invoiceUpdated": "发票更新成功",
+    "receiptCreated": "收据创建成功",
+    "receiptUpdated": "收据更新成功",
+    "clientDeleted": "客户删除成功"
   },
   "empty": {
     "invoice": {
-      "title": "没有发票",
-      "description": "创建您的第一张发票开始使用。"
+      "title": "暂无发票",
+      "description": "创建您的第一张发票以开始。"
+    },
+    "receipt": {
+      "title": "暂无收据",
+      "description": "创建您的第一张收据以开始。"
     },
     "search": {
-      "title": "没有找到结果",
-      "description": "尝试不同的关键字或条件。"
+      "title": "无结果",
+      "description": "尝试不同的关键词或条件。"
     },
     "clients": {
-      "title": "没有客户",
-      "description": "创建您的第一个客户开始使用。"
+      "title": "暂无客户",
+      "description": "创建您的第一个客户以开始。"
     }
   },
   "items": {
     "invoice": "发票",
-    "client": "客戶"
+    "receipt": "收据",
+    "client": "客户"
   },
   "statuses": {
     "draft": "草稿",
     "sent": "已发送",
-    "paid": "已支付",
-    "overdue": "过期",
+    "paid": "已付款",
+    "issued": "已开具",
+    "overdue": "已逾期",
     "cancelled": "已取消"
   }
 }

@@ -1,32 +1,50 @@
 {
-  "title": "發票產生器",
-  "description": "在幾秒鐘內產生簡潔、專業的發票。",
+  "title": "發票與收據生成器",
+  "description": "數秒內生成整潔、專業的發票與收據。",
+  "subsections": {
+    "invoices": {
+      "title": "發票",
+      "description": "為您的客戶建立和管理發票。"
+    },
+    "receipts": {
+      "title": "收據",
+      "description": "為已完成的交易建立和管理收據。"
+    }
+  },
   "sidebar": {
     "allInvoices": "所有發票",
-    "filteredInvoices": "已過濾的發票",
+    "filteredInvoices": "已篩選發票",
+    "allReceipts": "所有收據",
+    "filteredReceipts": "已篩選收據",
     "status": "狀態",
     "clients": "客戶",
-    "allClients": "所有客戶",
-    "manageClients": "管理客戶",
-    "settings": "設定"
+    "allClients": "所有客戶"
   },
   "buttons": {
     "newInvoice": "新建發票",
     "createInvoice": "建立發票",
     "saveInvoice": "儲存發票",
+    "newReceipt": "新建收據",
+    "createReceipt": "建立收據",
+    "saveReceipt": "儲存收據",
     "downloadPdf": "下載 PDF",
-    "duplicate": "克隆發票"
+    "duplicate": "複製",
+    "manageClients": "管理客戶",
+    "settings": "設定"
   },
   "pages": {
     "newInvoice": "新建發票",
-    "editInvoice": "編輯發票"
+    "editInvoice": "編輯發票",
+    "newReceipt": "新建收據",
+    "editReceipt": "編輯收據"
   },
   "inputs": {
-    "billTo": "開票給",
+    "billTo": "付款方",
     "date": "日期",
     "dueDate": "到期日",
-    "paymentTerms": "付款條款",
-    "poNumber": "採購單號",
+    "paymentMethod": "付款方式",
+    "paymentTerms": "付款條件",
+    "poNumber": "採購單號 (PO)",
     "item": "項目",
     "quantity": "數量",
     "rate": "單價",
@@ -35,13 +53,13 @@
     "paymentInfo": "付款資訊",
     "notes": "備註",
     "subtotal": "小計",
-    "tax": "稅",
+    "tax": "稅費",
     "discount": "折扣",
     "shipping": "運費",
     "total": "總計",
     "amountPaid": "已付金額",
     "balanceDue": "應付餘額",
-    "name": "客戶名稱",
+    "name": "客戶姓名",
     "address": "地址",
     "email": "電子郵件",
     "phone": "電話",
@@ -50,18 +68,22 @@
     "companyRegNo": "公司註冊號",
     "companyEmail": "公司電子郵件",
     "companyTelNo": "公司電話號碼",
-    "defaultLogo": "預設標誌",
-    "defaultPaymentTerms": "預設付款條款",
+    "defaultLogo": "預設 Logo",
+    "defaultPaymentTerms": "預設付款條件",
     "defaultNotes": "預設備註",
     "defaultTaxRate": "預設稅率 (%)",
     "bankName": "銀行名稱",
     "bankAccount": "銀行帳號",
-    "bankAccountName": "銀行開戶姓名",
+    "bankAccountName": "戶名",
     "currency": "貨幣代碼",
     "currencySymbol": "貨幣符號",
-    "invoicePrefix": "發票號碼前綴",
-    "nextInvoiceNumber": "下一發票號碼",
-    "invoiceNumber": "發票號碼",
+    "invoicePrefix": "發票編號前綴",
+    "nextInvoiceNumber": "下一張發票編號",
+    "receiptPrefix": "收據編號前綴",
+    "nextReceiptNumber": "下一張收據編號",
+    "invoiceNumber": "發票編號",
+    "receiptNumber": "收據編號",
+    "referenceNumber": "參考編號",
     "status": "狀態"
   },
   "modals": {
@@ -72,7 +94,12 @@
     },
     "deleteInvoice": {
       "title": "刪除發票",
-      "message": "確定要刪除此發票嗎？此操作無法撤銷。",
+      "message": "確定要刪除這張發票嗎？此操作無法復原。",
+      "confirm": "刪除"
+    },
+    "deleteReceipt": {
+      "title": "刪除收據",
+      "message": "確定要刪除這張收據嗎？此操作無法復原。",
       "confirm": "刪除"
     },
     "settings": "設定",
@@ -80,31 +107,40 @@
   },
   "toast": {
     "invoiceCreated": "發票建立成功",
-    "invoiceUpdated": "發票更新成功"
+    "invoiceUpdated": "發票更新成功",
+    "receiptCreated": "收據建立成功",
+    "receiptUpdated": "收據更新成功",
+    "clientDeleted": "客戶刪除成功"
   },
   "empty": {
     "invoice": {
-      "title": "還沒有發票",
-      "description": "建立您的第一張發票開始使用。"
+      "title": "暫無發票",
+      "description": "建立您的第一張發票以開始。"
+    },
+    "receipt": {
+      "title": "暫無收據",
+      "description": "建立您的第一張收據以開始。"
     },
     "search": {
-      "title": "沒有找到結果",
+      "title": "無結果",
       "description": "嘗試不同的關鍵字或條件。"
     },
     "clients": {
-      "title": "沒有客戶",
-      "description": "建立您的第一個客戶開始使用。"
+      "title": "暫無客戶",
+      "description": "建立您的第一個客戶以開始。"
     }
   },
   "items": {
     "invoice": "發票",
+    "receipt": "收據",
     "client": "客戶"
   },
   "statuses": {
     "draft": "草稿",
     "sent": "已發送",
-    "paid": "已支付",
-    "overdue": "逾期",
+    "paid": "已付款",
+    "issued": "已開立",
+    "overdue": "已逾期",
     "cancelled": "已取消"
   }
 }

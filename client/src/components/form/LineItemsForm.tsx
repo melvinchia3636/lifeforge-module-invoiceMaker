@@ -13,18 +13,30 @@ import {
   WithDivide
 } from '@lifeforge/ui'
 
-import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
+export interface LineItem {
+  id?: string
+  description: string
+  quantity: number
+  rate: number
+  order: number
+}
 
-function LineItemsSection() {
+interface LineItemsFormProps {
+  items: LineItem[]
+  currencySymbol: string
+  onUpdateLineItem: (index: number, field: keyof LineItem, value: any) => void
+  onRemoveLineItem: (index: number) => void
+  onAddLineItem: () => void
+}
+
+export default function LineItemsForm({
+  items,
+  currencySymbol,
+  onUpdateLineItem,
+  onRemoveLineItem,
+  onAddLineItem
+}: LineItemsFormProps) {
   const { t } = useModuleTranslation()
-
-  const {
-    formData,
-    updateLineItem,
-    currencySymbol,
-    removeLineItem,
-    addLineItem
-  } = useInvoiceEditor()
 
   return (
     <Card>
@@ -78,7 +90,7 @@ function LineItemsSection() {
       </Box>
 
       <Stack gap="none" pt={{ base: 'none', lg: 'md' }}>
-        {formData.items.map((item, index) => (
+        {items.map((item, index) => (
           <WithDivide key={index} axis="y">
             <Box position="relative" py={{ base: 'lg', lg: 'md' }}>
               {/* Mobile layout - stacked */}
@@ -97,7 +109,9 @@ function LineItemsSection() {
                     placeholder="Item description"
                     value={item.description}
                     variant="plain"
-                    onChange={val => updateLineItem(index, 'description', val)}
+                    onChange={val =>
+                      onUpdateLineItem(index, 'description', val)
+                    }
                   />
                 </Box>
                 <Grid gap="sm" templateCols={{ base: 1, sm: 2 }}>
@@ -118,7 +132,7 @@ function LineItemsSection() {
                       value={item.quantity}
                       variant="plain"
                       onChange={val =>
-                        updateLineItem(index, 'quantity', val || 0)
+                        onUpdateLineItem(index, 'quantity', val || 0)
                       }
                     />
                   </Box>
@@ -136,7 +150,9 @@ function LineItemsSection() {
                       prefix={currencySymbol}
                       value={item.rate}
                       variant="plain"
-                      onChange={val => updateLineItem(index, 'rate', val || 0)}
+                      onChange={val =>
+                        onUpdateLineItem(index, 'rate', val || 0)
+                      }
                     />
                   </Box>
                 </Grid>
@@ -163,7 +179,9 @@ function LineItemsSection() {
                     placeholder="Item description"
                     value={item.description}
                     variant="plain"
-                    onChange={val => updateLineItem(index, 'description', val)}
+                    onChange={val =>
+                      onUpdateLineItem(index, 'description', val)
+                    }
                   />
                 </Box>
                 <Box gridColumnSpan={2}>
@@ -174,7 +192,7 @@ function LineItemsSection() {
                     value={item.quantity}
                     variant="plain"
                     onChange={val =>
-                      updateLineItem(index, 'quantity', val || 0)
+                      onUpdateLineItem(index, 'quantity', val || 0)
                     }
                   />
                 </Box>
@@ -185,7 +203,7 @@ function LineItemsSection() {
                     prefix={currencySymbol}
                     value={item.rate}
                     variant="plain"
-                    onChange={val => updateLineItem(index, 'rate', val || 0)}
+                    onChange={val => onUpdateLineItem(index, 'rate', val || 0)}
                   />
                 </Box>
                 <Box gridColumnSpan={2} pr="xl">
@@ -210,7 +228,7 @@ function LineItemsSection() {
                 <Button
                   icon="tabler:trash"
                   variant="plain"
-                  onClick={() => removeLineItem(index)}
+                  onClick={() => onRemoveLineItem(index)}
                 />
               </Box>
             </Box>
@@ -222,7 +240,7 @@ function LineItemsSection() {
           icon="tabler:plus"
           variant="secondary"
           width="100%"
-          onClick={addLineItem}
+          onClick={onAddLineItem}
         >
           inputs.addLineItem
         </Button>
@@ -230,5 +248,3 @@ function LineItemsSection() {
     </Card>
   )
 }
-
-export default LineItemsSection

@@ -1,10 +1,32 @@
 import { Box, Flex, Text } from '@lifeforge/ui'
 
-import { useInvoiceViewer } from '../../../providers/InvoiceViewerProvider'
+interface PreviewTotalsProps {
+  currencySymbol: string
+  taxType?: string
+  taxAmount?: number
+  discountType?: string
+  discountAmount?: number
+  shippingAmount?: number
+  amountPaid?: number
+  calculations: {
+    subtotal: number
+    taxAmount: number
+    discountAmount: number
+    total: number
+    balanceDue: number
+  }
+}
 
-function TotalsSection() {
-  const { invoice, currencySymbol, calculations } = useInvoiceViewer()
-
+export default function PreviewTotals({
+  currencySymbol,
+  taxType,
+  taxAmount,
+  discountType,
+  discountAmount,
+  shippingAmount,
+  amountPaid,
+  calculations
+}: PreviewTotalsProps) {
   function Row({
     label,
     showCurrency = true,
@@ -66,10 +88,10 @@ function TotalsSection() {
 
       <Row
         label={`Tax ${
-          invoice.tax_type !== 'fixed'
-            ? (invoice.tax_amount || 0) === 0
+          taxType !== 'fixed'
+            ? (taxAmount || 0) === 0
               ? '(N/A)'
-              : `(${invoice.tax_amount}%)`
+              : `(${taxAmount}%)`
             : ''
         }`}
         value={calculations.taxAmount.toLocaleString('en-MY', {
@@ -80,17 +102,17 @@ function TotalsSection() {
       {calculations.discountAmount > 0 && (
         <Row
           negative
-          label={`Discount ${invoice.discount_type === 'rate' ? `(${invoice.discount_amount}%)` : ''}`}
+          label={`Discount ${discountType === 'rate' ? `(${discountAmount}%)` : ''}`}
           value={calculations.discountAmount.toLocaleString('en-MY', {
             minimumFractionDigits: 2
           })}
         />
       )}
 
-      {(invoice.shipping_amount || 0) > 0 && (
+      {(shippingAmount || 0) > 0 && (
         <Row
           label="Shipping"
-          value={invoice.shipping_amount.toLocaleString('en-MY', {
+          value={(shippingAmount || 0).toLocaleString('en-MY', {
             minimumFractionDigits: 2
           })}
         />
@@ -112,10 +134,10 @@ function TotalsSection() {
         })}
       />
 
-      {(invoice.amount_paid || 0) > 0 && (
+      {(amountPaid || 0) > 0 && (
         <Row
           label="Amount Paid"
-          value={invoice.amount_paid.toLocaleString('en-MY', {
+          value={(amountPaid || 0).toLocaleString('en-MY', {
             minimumFractionDigits: 2
           })}
         />
@@ -123,5 +145,3 @@ function TotalsSection() {
     </Flex>
   )
 }
-
-export default TotalsSection

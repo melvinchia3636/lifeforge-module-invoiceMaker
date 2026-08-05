@@ -34,7 +34,9 @@ const schema = z.object({
   currency: z.string().min(1, 'Required'),
   currency_symbol: z.string().min(1, 'Required'),
   invoice_prefix: z.string().min(1, 'Required'),
-  next_invoice_number: z.number().nonnegative()
+  next_invoice_number: z.number().nonnegative(),
+  receipt_prefix: z.string().min(1, 'Required'),
+  next_receipt_number: z.number().nonnegative()
 })
 
 export default function ModifySettingsModal({
@@ -208,6 +210,20 @@ export default function ModifySettingsModal({
         icon="tabler:123"
         label="Next Invoice Number"
         name="next_invoice_number"
+      />
+      <TextField
+        required
+        control={form.control}
+        icon="tabler:hash"
+        label="Receipt Prefix"
+        name="receipt_prefix"
+        placeholder="e.g. REC-"
+      />
+      <NumberField
+        control={form.control}
+        icon="tabler:123"
+        label="Next Receipt Number"
+        name="next_receipt_number"
       />
     </FormModal>
   )

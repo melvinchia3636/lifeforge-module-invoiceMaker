@@ -455,6 +455,8 @@ export const schemas = {
       currency_symbol: z.string(),
       invoice_prefix: z.string(),
       next_invoice_number: z.number(),
+      receipt_prefix: z.string(),
+      next_receipt_number: z.number(),
       created: z.string(),
       updated: z.string()
     }),
@@ -684,6 +686,30 @@ export const schemas = {
           max: null,
           min: null,
           name: 'next_invoice_number',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'receipt_prefix',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'next_receipt_number',
           onlyInt: false,
           presentable: false,
           required: false,
@@ -999,6 +1025,603 @@ export const schemas = {
       system: false,
       viewQuery:
         "SELECT \n    i.id,\n    i.invoice_number,\n    i.bill_to,\n    i.date,\n    i.due_date,\n    i.payment_terms,\n    i.po_number,\n    i.status,\n    i.shipping_address,\n    i.tax_type,\n    i.tax_amount,\n    i.discount_type,\n    i.discount_amount,\n    i.shipping_amount,\n    i.amount_paid,\n    i.notes,\n    i.created,\n    i.updated,\n    COALESCE(agg.subtotal, 0) AS subtotal,\n    COALESCE(agg.item_count, 0) AS item_count,\n    IIF(i.tax_type = 'rate', COALESCE(agg.subtotal, 0) * i.tax_amount / 100, IIF(i.tax_type = 'fixed', i.tax_amount, 0)) AS calculated_tax,\n    IIF(i.discount_type = 'rate', COALESCE(agg.subtotal, 0) * i.discount_amount / 100, IIF(i.discount_type = 'fixed', i.discount_amount, 0)) AS calculated_discount,\n    COALESCE(i.shipping_amount, 0) AS calculated_shipping\nFROM melvinchia3636___invoice_maker__invoices i\nLEFT JOIN (\n    SELECT \n        invoice,\n        SUM(quantity * rate) AS subtotal,\n        COUNT(*) AS item_count\n    FROM melvinchia3636___invoice_maker__items\n    GROUP BY invoice\n) agg ON agg.invoice = i.id;"
+    }
+  },
+  receipts: {
+    schema: z.object({
+      receipt_number: z.string(),
+      bill_to: z.string(),
+      date: z.string(),
+      payment_method: z.string(),
+      payment_terms: z.string(),
+      reference_number: z.string(),
+      status: z.enum(['draft', 'issued', 'cancelled', '']),
+      shipping_address: z.string(),
+      tax_type: z.enum(['rate', 'fixed', '']),
+      tax_amount: z.number(),
+      discount_type: z.enum(['rate', 'fixed', '']),
+      discount_amount: z.number(),
+      shipping_amount: z.number(),
+      amount_paid: z.number(),
+      created: z.string(),
+      updated: z.string()
+    }),
+    raw: {
+      listRule: '@request.auth.id != ""',
+      viewRule: '@request.auth.id != ""',
+      createRule: '@request.auth.id != ""',
+      updateRule: '@request.auth.id != ""',
+      deleteRule: '@request.auth.id != ""',
+      name: 'melvinchia3636___invoice_maker__receipts',
+      type: 'base',
+      fields: [
+        {
+          autogeneratePattern: '[a-z0-9]{15}',
+          hidden: false,
+          max: 15,
+          min: 15,
+          name: 'id',
+          pattern: '^[a-z0-9]+$',
+          presentable: false,
+          primaryKey: true,
+          required: true,
+          system: true,
+          type: 'text'
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'receipt_number',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          cascadeDelete: true,
+          collectionId: 'melvinchia3636___invoice_maker__clients',
+          hidden: false,
+          maxSelect: 1,
+          minSelect: 0,
+          name: 'bill_to',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'relation'
+        },
+        {
+          hidden: false,
+          max: '',
+          min: '',
+          name: 'date',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'date'
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'payment_method',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'payment_terms',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'reference_number',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          hidden: false,
+          maxSelect: 1,
+          name: 'status',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'select',
+          values: ['draft', 'issued', 'cancelled']
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'shipping_address',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          hidden: false,
+          maxSelect: 1,
+          name: 'tax_type',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'select',
+          values: ['rate', 'fixed']
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'tax_amount',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        },
+        {
+          hidden: false,
+          maxSelect: 1,
+          name: 'discount_type',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'select',
+          values: ['rate', 'fixed']
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'discount_amount',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'shipping_amount',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'amount_paid',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        },
+
+        {
+          hidden: false,
+          name: 'created',
+          onCreate: true,
+          onUpdate: false,
+          presentable: false,
+          system: false,
+          type: 'autodate'
+        },
+        {
+          hidden: false,
+          name: 'updated',
+          onCreate: true,
+          onUpdate: true,
+          presentable: false,
+          system: false,
+          type: 'autodate'
+        }
+      ],
+      indexes: [],
+      system: false
+    }
+  },
+  receipt_items: {
+    schema: z.object({
+      receipt: z.string(),
+      description: z.string(),
+      quantity: z.number(),
+      rate: z.number(),
+      order: z.number()
+    }),
+    raw: {
+      listRule: '@request.auth.id != ""',
+      viewRule: '@request.auth.id != ""',
+      createRule: '@request.auth.id != ""',
+      updateRule: '@request.auth.id != ""',
+      deleteRule: '@request.auth.id != ""',
+      name: 'melvinchia3636___invoice_maker__receipt_items',
+      type: 'base',
+      fields: [
+        {
+          autogeneratePattern: '[a-z0-9]{15}',
+          hidden: false,
+          max: 15,
+          min: 15,
+          name: 'id',
+          pattern: '^[a-z0-9]+$',
+          presentable: false,
+          primaryKey: true,
+          required: true,
+          system: true,
+          type: 'text'
+        },
+        {
+          cascadeDelete: true,
+          collectionId: 'melvinchia3636___invoice_maker__receipts',
+          hidden: false,
+          maxSelect: 1,
+          minSelect: 0,
+          name: 'receipt',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'relation'
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'description',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'quantity',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'rate',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'order',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        }
+      ],
+      indexes: [],
+      system: false
+    }
+  },
+  receipts_aggregated: {
+    schema: z.object({
+      receipt_number: z.string(),
+      bill_to: z.string(),
+      date: z.string(),
+      payment_method: z.string(),
+      payment_terms: z.string(),
+      reference_number: z.string(),
+      status: z.enum(['draft', 'issued', 'cancelled', '']),
+      shipping_address: z.string(),
+      tax_type: z.enum(['rate', 'fixed', '']),
+      tax_amount: z.number(),
+      discount_type: z.enum(['rate', 'fixed', '']),
+      discount_amount: z.number(),
+      shipping_amount: z.number(),
+      amount_paid: z.number(),
+      created: z.string(),
+      updated: z.string(),
+      subtotal: z.any(),
+      item_count: z.any(),
+      calculated_tax: z.any(),
+      calculated_discount: z.any(),
+      calculated_shipping: z.any()
+    }),
+    raw: {
+      listRule: '@request.auth.id != ""',
+      viewRule: '@request.auth.id != ""',
+      createRule: null,
+      updateRule: null,
+      deleteRule: null,
+      name: 'melvinchia3636___invoice_maker__receipts_aggregated',
+      type: 'view',
+      fields: [
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'id',
+          pattern: '^[a-z0-9]+$',
+          presentable: false,
+          primaryKey: true,
+          required: true,
+          system: true,
+          type: 'text'
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'receipt_number',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          cascadeDelete: true,
+          collectionId: 'melvinchia3636___invoice_maker__clients',
+          hidden: false,
+          maxSelect: 1,
+          minSelect: 0,
+          name: 'bill_to',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'relation'
+        },
+        {
+          hidden: false,
+          max: '',
+          min: '',
+          name: 'date',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'date'
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'payment_method',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'payment_terms',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'reference_number',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          hidden: false,
+          maxSelect: 1,
+          name: 'status',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'select',
+          values: ['draft', 'issued', 'cancelled']
+        },
+        {
+          autogeneratePattern: '',
+          hidden: false,
+          max: 0,
+          min: 0,
+          name: 'shipping_address',
+          pattern: '',
+          presentable: false,
+          primaryKey: false,
+          required: false,
+          system: false,
+          type: 'text'
+        },
+        {
+          hidden: false,
+          maxSelect: 1,
+          name: 'tax_type',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'select',
+          values: ['rate', 'fixed']
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'tax_amount',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        },
+        {
+          hidden: false,
+          maxSelect: 1,
+          name: 'discount_type',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'select',
+          values: ['rate', 'fixed']
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'discount_amount',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'shipping_amount',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        },
+        {
+          hidden: false,
+          max: null,
+          min: null,
+          name: 'amount_paid',
+          onlyInt: false,
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'number'
+        },
+
+        {
+          hidden: false,
+          name: 'created',
+          onCreate: true,
+          onUpdate: false,
+          presentable: false,
+          system: false,
+          type: 'autodate'
+        },
+        {
+          hidden: false,
+          name: 'updated',
+          onCreate: true,
+          onUpdate: true,
+          presentable: false,
+          system: false,
+          type: 'autodate'
+        },
+        {
+          hidden: false,
+          maxSize: 1,
+          name: 'subtotal',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'json'
+        },
+        {
+          hidden: false,
+          maxSize: 1,
+          name: 'item_count',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'json'
+        },
+        {
+          hidden: false,
+          maxSize: 1,
+          name: 'calculated_tax',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'json'
+        },
+        {
+          hidden: false,
+          maxSize: 1,
+          name: 'calculated_discount',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'json'
+        },
+        {
+          hidden: false,
+          maxSize: 1,
+          name: 'calculated_shipping',
+          presentable: false,
+          required: false,
+          system: false,
+          type: 'json'
+        }
+      ],
+      indexes: [],
+      system: false,
+      viewQuery:
+        "SELECT \n    r.id,\n    r.receipt_number,\n    r.bill_to,\n    r.date,\n    r.payment_method,\n    r.payment_terms,\n    r.reference_number,\n    r.status,\n    r.shipping_address,\n    r.tax_type,\n    r.tax_amount,\n    r.discount_type,\n    r.discount_amount,\n    r.shipping_amount,\n    r.amount_paid,\n    r.created,\n    r.updated,\n    COALESCE(agg.subtotal, 0) AS subtotal,\n    COALESCE(agg.item_count, 0) AS item_count,\n    IIF(r.tax_type = 'rate', COALESCE(agg.subtotal, 0) * r.tax_amount / 100, IIF(r.tax_type = 'fixed', r.tax_amount, 0)) AS calculated_tax,\n    IIF(r.discount_type = 'rate', COALESCE(agg.subtotal, 0) * r.discount_amount / 100, IIF(r.discount_type = 'fixed', r.discount_amount, 0)) AS calculated_discount,\n    COALESCE(r.shipping_amount, 0) AS calculated_shipping\nFROM melvinchia3636___invoice_maker__receipts r\nLEFT JOIN (\n    SELECT \n        receipt,\n        SUM(quantity * rate) AS subtotal,\n        COUNT(*) AS item_count\n    FROM melvinchia3636___invoice_maker__receipt_items\n    GROUP BY receipt\n) agg ON agg.receipt = r.id;"
     }
   }
 }

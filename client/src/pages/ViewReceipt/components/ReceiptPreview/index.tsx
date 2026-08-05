@@ -3,18 +3,17 @@ import { Box, Card, Flex, PrintArea } from '@lifeforge/ui'
 import CompanyHeader from '@/components/preview/CompanyHeader'
 import PreviewFooter from '@/components/preview/PreviewFooter'
 import PreviewLineItems from '@/components/preview/PreviewLineItems'
-import PreviewPaymentInfo from '@/components/preview/PreviewPaymentInfo'
 import PreviewTotals from '@/components/preview/PreviewTotals'
 
-import TopInfoSection from './sections/TopInfoSection'
-import { useInvoiceViewer } from '../../providers/InvoiceViewerProvider'
+import { useReceiptViewer } from '../../providers/ReceiptViewerProvider'
+import ReceiptTopInfoSection from './sections/ReceiptTopInfoSection'
 
-export default function InvoicePreview({
+export default function ReceiptPreview({
   ref
 }: {
   ref: React.RefObject<HTMLDivElement | null>
 }) {
-  const { invoice, settings, currencySymbol, calculations } = useInvoiceViewer()
+  const { receipt, settings, currencySymbol, calculations } = useReceiptViewer()
 
   return (
     <Box
@@ -40,24 +39,23 @@ export default function InvoicePreview({
           width="100%"
         >
           <Flex direction="column" gap="sm" height="100%" width="100%">
-            <CompanyHeader settings={settings} title="INVOICE" />
-            <TopInfoSection />
+            <CompanyHeader settings={settings} title="RECEIPT" />
+            <ReceiptTopInfoSection />
             <PreviewLineItems
               currencySymbol={currencySymbol}
-              items={invoice.items || []}
+              items={receipt.items || []}
             />
             <Flex direction="column" gap="lg">
               <PreviewTotals
-                amountPaid={invoice.amount_paid}
+                amountPaid={receipt.amount_paid}
                 calculations={calculations}
                 currencySymbol={currencySymbol}
-                discountAmount={invoice.discount_amount}
-                discountType={invoice.discount_type}
-                shippingAmount={invoice.shipping_amount}
-                taxAmount={invoice.tax_amount}
-                taxType={invoice.tax_type}
+                discountAmount={receipt.discount_amount}
+                discountType={receipt.discount_type}
+                shippingAmount={receipt.shipping_amount}
+                taxAmount={receipt.tax_amount}
+                taxType={receipt.tax_type}
               />
-              <PreviewPaymentInfo notes={invoice.notes} settings={settings} />
             </Flex>
             <PreviewFooter companyName={settings.company_name} />
           </Flex>

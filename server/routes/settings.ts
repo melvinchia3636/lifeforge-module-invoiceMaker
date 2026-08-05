@@ -33,7 +33,9 @@ export const get = forge
           currency: 'MYR',
           currency_symbol: 'RM',
           invoice_prefix: '',
-          next_invoice_number: 1
+          next_invoice_number: 1,
+          receipt_prefix: 'REC-',
+          next_receipt_number: 1
         })
         .execute()
     )

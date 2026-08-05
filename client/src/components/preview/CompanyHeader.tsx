@@ -2,11 +2,26 @@ import { Bordered, Box, Flex, Text } from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
 
-import { useInvoiceViewer } from '../../../providers/InvoiceViewerProvider'
+interface CompanySettings {
+  collectionId: string
+  id: string
+  default_logo?: string
+  company_name?: string
+  company_reg_no?: string
+  company_address?: string
+  company_tel_no?: string
+  company_email?: string
+}
 
-function CompanyHeader() {
-  const { settings } = useInvoiceViewer()
+interface CompanyHeaderProps {
+  settings: CompanySettings
+  title: string
+}
 
+export default function CompanyHeader({
+  settings,
+  title
+}: CompanyHeaderProps) {
   return (
     <Flex direction="column" mb="lg" width="100%">
       <Bordered
@@ -68,10 +83,8 @@ function CompanyHeader() {
           letterSpacing: '0.05em'
         }}
       >
-        INVOICE
+        {title}
       </Text>
     </Flex>
   )
 }
-
-export default CompanyHeader

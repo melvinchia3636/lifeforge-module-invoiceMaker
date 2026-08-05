@@ -1,31 +1,49 @@
 {
-  "title": "Penjana Invois",
-  "description": "Jana invois yang kemas dan profesional dalam beberapa saat.",
+  "title": "Pembuat Invois",
+  "description": "Jana invois dan resit yang kemas dan profesional dalam beberapa saat.",
+  "subsections": {
+    "invoices": {
+      "title": "Invois",
+      "description": "Cipta dan urus invois untuk pelanggan anda."
+    },
+    "receipts": {
+      "title": "Resit",
+      "description": "Cipta dan urus resit untuk transaksi yang telah selesai."
+    }
+  },
   "sidebar": {
     "allInvoices": "Semua Invois",
-    "filteredInvoices": "Invois yang Difilter",
+    "filteredInvoices": "Invois Ditapis",
+    "allReceipts": "Semua Resit",
+    "filteredReceipts": "Resit Ditapis",
     "status": "Status",
     "clients": "Pelanggan",
     "allClients": "Semua Pelanggan"
   },
   "buttons": {
-    "newInvoice": "Invois Baru",
+    "newInvoice": "Invois Baharu",
     "createInvoice": "Cipta Invois",
     "saveInvoice": "Simpan Invois",
+    "newReceipt": "Resit Baharu",
+    "createReceipt": "Cipta Resit",
+    "saveReceipt": "Simpan Resit",
     "downloadPdf": "Muat Turun PDF",
-    "duplicate": "Pendua",
+    "duplicate": "Duplikasi",
     "manageClients": "Urus Pelanggan",
     "settings": "Tetapan"
   },
   "pages": {
-    "newInvoice": "Invois Baru",
-    "editInvoice": "Edit Invois"
+    "newInvoice": "Invois Baharu",
+    "editInvoice": "Sunting Invois",
+    "newReceipt": "Resit Baharu",
+    "editReceipt": "Sunting Resit"
   },
   "inputs": {
     "billTo": "Bil Kepada",
     "date": "Tarikh",
-    "dueDate": "Tarikh Tamat",
-    "paymentTerms": "Syarat Pembayaran",
+    "dueDate": "Tarikh Matang",
+    "paymentMethod": "Kaedah Pembayaran",
+    "paymentTerms": "Terma Pembayaran",
     "poNumber": "Nombor PO",
     "item": "Item",
     "quantity": "Kuantiti",
@@ -34,24 +52,24 @@
     "addLineItem": "Tambah Item",
     "paymentInfo": "Maklumat Pembayaran",
     "notes": "Nota",
-    "subtotal": "Subjumlah",
+    "subtotal": "Jumlah Kecil",
     "tax": "Cukai",
     "discount": "Diskaun",
     "shipping": "Penghantaran",
-    "total": "Jumlah",
+    "total": "Jumlah Besar",
     "amountPaid": "Jumlah Dibayar",
-    "balanceDue": "Baki Tertunggak",
+    "balanceDue": "Baki Kena Bayar",
     "name": "Nama Pelanggan",
     "address": "Alamat",
-    "email": "Emel",
+    "email": "E-mel",
     "phone": "Telefon",
     "companyName": "Nama Syarikat",
     "companyAddress": "Alamat Syarikat",
     "companyRegNo": "Nombor Pendaftaran Syarikat",
-    "companyEmail": "E-mel Syarikat",
+    "companyEmail": "Alamat E-mel Syarikat",
     "companyTelNo": "Nombor Telefon Syarikat",
     "defaultLogo": "Logo Default",
-    "defaultPaymentTerms": "Syarat Pembayaran Default",
+    "defaultPaymentTerms": "Terma Pembayaran Default",
     "defaultNotes": "Nota Default",
     "defaultTaxRate": "Kadar Cukai Default (%)",
     "bankName": "Nama Bank",
@@ -61,18 +79,27 @@
     "currencySymbol": "Simbol Mata Wang",
     "invoicePrefix": "Awalan Nombor Invois",
     "nextInvoiceNumber": "Nombor Invois Seterusnya",
+    "receiptPrefix": "Awalan Nombor Resit",
+    "nextReceiptNumber": "Nombor Resit Seterusnya",
     "invoiceNumber": "Nombor Invois",
+    "receiptNumber": "Nombor Resit",
+    "referenceNumber": "Nombor Rujukan",
     "status": "Status"
   },
   "modals": {
     "clients": {
       "manage": "Urus Pelanggan",
-      "create": "Pelanggan Baru",
-      "update": "Edit Pelanggan"
+      "create": "Pelanggan Baharu",
+      "update": "Sunting Pelanggan"
     },
     "deleteInvoice": {
       "title": "Padam Invois",
-      "message": "Adakah anda pasti mahu memadam invois ini? Tindakan ini tidak boleh dibatalkan.",
+      "message": "Adakah anda pasti ingin memadam invois ini? Tindakan ini tidak boleh dibatalkan.",
+      "confirm": "Padam"
+    },
+    "deleteReceipt": {
+      "title": "Padam Resit",
+      "message": "Adakah anda pasti ingin memadam resit ini? Tindakan ini tidak boleh dibatalkan.",
       "confirm": "Padam"
     },
     "settings": "Tetapan",
@@ -80,7 +107,9 @@
   },
   "toast": {
     "invoiceCreated": "Invois berjaya dicipta",
-    "invoiceUpdated": "Invois berjaya dikemaskini",
+    "invoiceUpdated": "Invois berjaya dikemas kini",
+    "receiptCreated": "Resit berjaya dicipta",
+    "receiptUpdated": "Resit berjaya dikemas kini",
     "clientDeleted": "Pelanggan berjaya dipadam"
   },
   "empty": {
@@ -88,9 +117,13 @@
       "title": "Tiada Invois",
       "description": "Cipta invois pertama anda untuk bermula."
     },
+    "receipt": {
+      "title": "Tiada Resit",
+      "description": "Cipta resit pertama anda untuk bermula."
+    },
     "search": {
-      "title": "Tiada Result",
-      "description": "Cuba kriteria yang berbeza."
+      "title": "Tiada Keputusan",
+      "description": "Cuba kata kunci atau syarat yang berbeza."
     },
     "clients": {
       "title": "Tiada Pelanggan",
@@ -99,13 +132,15 @@
   },
   "items": {
     "invoice": "invois",
+    "receipt": "resit",
     "client": "pelanggan"
   },
   "statuses": {
     "draft": "Draf",
     "sent": "Dihantar",
     "paid": "Dibayar",
-    "overdue": "Tertunggak",
+    "issued": "Dikeluarkan",
+    "overdue": "Tunggak",
     "cancelled": "Dibatalkan"
   }
 }

@@ -2,18 +2,28 @@ import { useNavigate } from 'react-router'
 
 import { Box, Button, GoBackButton, Stack } from '@lifeforge/ui'
 
+import LineItemsForm from '@/components/form/LineItemsForm'
+
 import InvoiceEditorProvider, {
   useInvoiceEditor
 } from './providers/InvoiceEditorProvider'
 import Header from './sections/HeaderSection'
-import LineItemsSection from './sections/LineItemsSection'
 import PaymentInfoAndNotesSection from './sections/PaymentInfoAndNotesSection'
 import TopInfoSection from './sections/TopInfoSection'
 import TotalSection from './sections/TotalSection'
 
 function ModifyInvoiceContent() {
   const navigate = useNavigate()
-  const { isEditMode, handleSubmit, isLoading } = useInvoiceEditor()
+  const {
+    isEditMode,
+    handleSubmit,
+    isLoading,
+    formData,
+    currencySymbol,
+    updateLineItem,
+    removeLineItem,
+    addLineItem
+  } = useInvoiceEditor()
 
   return (
     <>
@@ -23,7 +33,13 @@ function ModifyInvoiceContent() {
       <Header />
       <Stack gap="lg" pb="lg" width="100%">
         <TopInfoSection />
-        <LineItemsSection />
+        <LineItemsForm
+          currencySymbol={currencySymbol}
+          items={formData.items}
+          onAddLineItem={addLineItem}
+          onRemoveLineItem={removeLineItem}
+          onUpdateLineItem={updateLineItem}
+        />
         <Stack direction={{ base: 'column', md: 'row' }} gap="lg" width="100%">
           <Box flex="1" minWidth="0">
             <PaymentInfoAndNotesSection />

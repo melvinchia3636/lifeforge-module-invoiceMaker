@@ -1,10 +1,20 @@
 import { Box, Flex, Text } from '@lifeforge/ui'
 
-import { useInvoiceViewer } from '../../../providers/InvoiceViewerProvider'
+export interface PreviewLineItem {
+  description: string
+  quantity: number
+  rate: number
+}
 
-function LineItemsSection() {
-  const { invoice, currencySymbol } = useInvoiceViewer()
+interface PreviewLineItemsProps {
+  items: PreviewLineItem[]
+  currencySymbol: string
+}
 
+export default function PreviewLineItems({
+  items,
+  currencySymbol
+}: PreviewLineItemsProps) {
   return (
     <Flex
       direction="column"
@@ -42,16 +52,14 @@ function LineItemsSection() {
       </Flex>
 
       <Flex direction="column" width="100%">
-        {invoice.items?.map((item, index) => (
+        {items.map((item, index) => (
           <Flex
             key={index}
             gap="md"
             p="md"
             style={{
               borderBottom:
-                index < invoice.items.length - 1
-                  ? '1px solid #e4e4e7'
-                  : undefined
+                index < items.length - 1 ? '1px solid #e4e4e7' : undefined
             }}
           >
             <Box asChild flex="6">
@@ -82,5 +90,3 @@ function LineItemsSection() {
     </Flex>
   )
 }
-
-export default LineItemsSection

@@ -1,12 +1,10 @@
-import type { InvoiceEntry } from '@'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router'
 
-import { useForgeMutation, usePromiseLoading } from '@lifeforge/api'
+import { type InferOutput, useForgeMutation, usePromiseLoading } from '@lifeforge/api'
 import { useModuleTranslation } from '@lifeforge/localization'
 import {
   Box,
-  Card,
   ConfirmationModal,
   ContextMenu,
   ContextMenuItem,
@@ -20,47 +18,47 @@ import {
 
 import { forgeAPI } from '@/manifest'
 
-export const STATUS_CONFIG = {
+export type ReceiptEntry = InferOutput<typeof forgeAPI.receipts.list>[number]
+
+export const RECEIPT_STATUS_CONFIG = {
   draft: { color: TAILWIND_PALETTE.zinc[500], icon: 'tabler:file' },
-  sent: { color: TAILWIND_PALETTE.blue[500], icon: 'tabler:send' },
-  paid: { color: TAILWIND_PALETTE.green[500], icon: 'tabler:check' },
-  overdue: {
-    color: TAILWIND_PALETTE.red[500],
-    icon: 'tabler:alert-circle'
-  },
+  issued: { color: TAILWIND_PALETTE.green[500], icon: 'tabler:check' },
   cancelled: {
     color: TAILWIND_PALETTE.zinc[400],
     icon: 'tabler:ban'
   }
 } as const
 
-export default function InvoiceCard({
-  invoice,
+export default function ReceiptCard({
+  receipt,
   currencySymbol
 }: {
-  invoice: InvoiceEntry
+  receipt: ReceiptEntry
   currencySymbol: string
 }) {
   const { open } = useModalStore()
   const navigate = useNavigate()
   const { t } = useModuleTranslation()
 
-  const statusConfig = STATUS_CONFIG[invoice.status || 'draft']
+  const statusConfig = RECEIPT_STATUS_CONFIG[receipt.status || 'draft']
 
   const duplicateMutation = useForgeMutation(
-    forgeAPI.invoices.duplicate.input({ id: invoice.id }),
+    forgeAPI.receipts.duplicate.input({ id: receipt.id }),
     { action: 'create', queryKey: forgeAPI.key }
   )
 
   const deleteMutation = useForgeMutation(
-    forgeAPI.invoices.remove.input({ id: invoice.id }),
+    forgeAPI.receipts.remove.input({ id: receipt.id }),
     { action: 'delete', queryKey: forgeAPI.key }
   )
 
   function handleDelete() {
     open(ConfirmationModal, {
-      title: t('modals.deleteInvoice.title'),
-      description: t('modals.deleteInvoice.message'),
+      title: t('modals.deleteReceipt.title', 'Delete Receipt'),
+      description: t(
+        'modals.deleteReceipt.message',
+        'Are you sure you want to delete this receipt? This action cannot be undone.'
+      ),
       onConfirm: async () => {
         await deleteMutation.mutateAsync(undefined)
       }
@@ -72,55 +70,52 @@ export default function InvoiceCard({
   })
 
   return (
-    <Card
+    <Flex
       as="li"
-      direction="row"
+      gap="md"
+      p="md"
+      r="md"
+      style={{
+        cursor: 'pointer',
+        backgroundColor: 'var(--color-bg-50)'
+      }}
       onClick={() =>
-        navigate(`/melvinchia3636--invoice-maker/view/${invoice.id}`)
+        navigate(`/melvinchia3636--invoice-maker/receipts/view/${receipt.id}`)
       }
     >
       <Box flex="1" minWidth="0">
         <Flex align="center" gap="md">
           <Text size="lg" weight="semibold">
-            #{invoice.invoice_number}
+            #{receipt.receipt_number}
           </Text>
           <TagChip
             color={statusConfig.color}
             flexShrink="0"
             icon={statusConfig.icon}
-            label={t(`statuses.${invoice.status}`)}
+            label={t(`statuses.${receipt.status}`, receipt.status)}
           />
         </Flex>
         <Text truncate color="muted" size="sm">
-          {invoice.expand?.bill_to?.name || 'No client'}
+          {receipt.expand?.bill_to?.name || 'No client'}
         </Text>
       </Box>
-      <Stack align="end" gap="xs" mr="md">
+      <Stack align="end" gap="xs">
         <Text weight="semibold">
           {currencySymbol}{' '}
-          {invoice.subtotal.toLocaleString('en-MY', {
+          {(receipt.subtotal || 0).toLocaleString('en-MY', {
             minimumFractionDigits: 2
           })}
         </Text>
         <Text color="muted" size="sm">
-          {dayjs(invoice.date).format('MMM D, YYYY')}
+          {dayjs(receipt.date).format('MMM D, YYYY')}
         </Text>
       </Stack>
       <ContextMenu>
         <ContextMenuItem
-          icon="tabler:receipt"
-          label="createReceipt"
-          onClick={() =>
-            navigate(
-              `/melvinchia3636--invoice-maker/receipts/modify?fromInvoice=${invoice.id}`
-            )
-          }
-        />
-        <ContextMenuItem
           icon="tabler:pencil"
           label="edit"
           onClick={() =>
-            navigate(`/melvinchia3636--invoice-maker/modify/${invoice.id}`)
+            navigate(`/melvinchia3636--invoice-maker/receipts/modify/${receipt.id}`)
           }
         />
         <ContextMenuItem
@@ -136,6 +131,6 @@ export default function InvoiceCard({
           onClick={handleDelete}
         />
       </ContextMenu>
-    </Card>
+    </Flex>
   )
 }
