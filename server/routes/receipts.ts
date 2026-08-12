@@ -5,7 +5,8 @@ import schemas from '../schema'
 
 const ReceiptListSchema = z.object({
   status: z.enum(['draft', 'issued', 'cancelled']).optional(),
-  clientId: z.string().optional()
+  clientId: z.string().optional(),
+  search: z.string().optional()
 })
 
 const CreateReceiptBodySchema = z.object({
@@ -103,6 +104,18 @@ export const list = forge
     if (query?.clientId) {
       builder = builder.filter([
         { field: 'bill_to', operator: '=', value: query.clientId }
+      ])
+    }
+
+    if (query?.search) {
+      builder = builder.filter([
+        {
+          combination: '||',
+          filters: [
+            { field: 'receipt_number', operator: '~', value: query.search },
+            { field: 'bill_to.name', operator: '~', value: query.search }
+          ]
+        }
       ])
     }
 
@@ -316,7 +329,7 @@ export const duplicate = forge
       query: { id: 'receipts' }
     },
     output: {
-      CREATED: schemas.receipts,
+      CREATED: z.null(),
       NOT_FOUND: true
     }
   })
@@ -381,5 +394,5 @@ export const duplicate = forge
       )
     )
 
-    return response.created(newReceipt)
+    return response.created(null)
   })

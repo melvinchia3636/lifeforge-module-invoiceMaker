@@ -1,5 +1,6 @@
 import { useModuleTranslation } from '@lifeforge/localization'
 import {
+  Bordered,
   Box,
   Button,
   Card,
@@ -56,7 +57,7 @@ export default function TotalsForm({
   return (
     <Card bg={surface.default} p="md" r="lg" style={{ width: '100%' }}>
       <Stack gap="sm">
-        <Flex align="center" justify="between">
+        <Flex align="center" justify="between" mb="md">
           <Text color="muted">{t('inputs.subtotal', 'Subtotal')}</Text>
           <Text>
             {currencySymbol}{' '}
@@ -219,7 +220,7 @@ export default function TotalsForm({
           >
             <Text color="muted">{t('inputs.shipping', 'Shipping')}</Text>
             <Flex align="center" gap="sm">
-              <Box width="6rem">
+              <Box width="8rem">
                 <CurrencyInput
                   prefix={currencySymbol}
                   value={formData.shipping_amount}
@@ -241,8 +242,8 @@ export default function TotalsForm({
         )}
 
         {/* Final Numbers */}
-        <Box pt="sm" style={{ borderTop: '1px solid var(--color-bg-200)' }}>
-          <Flex justify="between">
+        <Bordered asChild borderSide="bottom">
+          <Flex justify="between" mb="md" mt="lg" pb="md">
             <Text weight="semibold">{t('inputs.total', 'Total')}</Text>
             <Text weight="semibold">
               {currencySymbol}{' '}
@@ -251,7 +252,7 @@ export default function TotalsForm({
               })}
             </Text>
           </Flex>
-        </Box>
+        </Bordered>
         <Flex
           align={{ sm: 'center' }}
           direction={{ base: 'column', sm: 'row' }}
@@ -268,8 +269,8 @@ export default function TotalsForm({
             />
           </Box>
         </Flex>
-        <Box pt="sm" style={{ borderTop: '1px solid var(--color-bg-200)' }}>
-          <Flex justify="between">
+        <Bordered asChild borderSide="top">
+          <Flex justify="between" mt="md" pt="md">
             <Text size="lg" weight="bold">
               {t('inputs.balanceDue', 'Balance Due')}
             </Text>
@@ -280,7 +281,7 @@ export default function TotalsForm({
               })}
             </Text>
           </Flex>
-        </Box>
+        </Bordered>
       </Stack>
     </Card>
   )

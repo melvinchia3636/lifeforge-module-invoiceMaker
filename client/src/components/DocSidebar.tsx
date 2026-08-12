@@ -13,45 +13,47 @@ import {
 import { forgeAPI } from '@/manifest'
 import ManageClientsModal from '@/modals/ManageClientsModal'
 
-import { STATUS_CONFIG } from './InvoiceCard'
-
-interface SidebarProps {
-  statusFilter: string | null
-  onStatusFilterChange: (status: string | null) => void
-  clientFilter: string | null
-  onClientFilterChange: (clientId: string | null) => void
-}
-
-export default function Sidebar({
+export default function DocSidebar({
   statusFilter,
   onStatusFilterChange,
   clientFilter,
-  onClientFilterChange
-}: SidebarProps) {
+  onClientFilterChange,
+  statusConfig,
+  allItemIcon,
+  allItemLabel
+}: {
+  statusFilter: string
+  onStatusFilterChange: (status: string) => void
+  clientFilter: string
+  onClientFilterChange: (clientId: string) => void
+  statusConfig: Record<string, { color: string; icon: string }>
+  allItemIcon: string
+  allItemLabel: string
+}) {
   const { open } = useModalStore()
   const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
   return (
     <SidebarWrapper>
       <SidebarItem
-        active={statusFilter === null && clientFilter === null}
-        icon="tabler:file-invoice"
-        label="All Invoices"
+        active={statusFilter === '' && clientFilter === ''}
+        icon={allItemIcon}
+        label={allItemLabel}
         onClick={() => {
-          onStatusFilterChange(null)
-          onClientFilterChange(null)
+          onStatusFilterChange('')
+          onClientFilterChange('')
         }}
       />
       <SidebarDivider />
       <SidebarTitle label="status" />
-      {Object.entries(STATUS_CONFIG).map(([key, value]) => (
+      {Object.entries(statusConfig).map(([key, value]) => (
         <SidebarItem
           key={key}
           active={statusFilter === key}
           icon={value.icon}
           label={`statuses.${key}`}
           sideStripColor={value.color}
-          onCancelButtonClick={() => onStatusFilterChange(null)}
+          onCancelButtonClick={() => onStatusFilterChange('')}
           onClick={() => onStatusFilterChange(key)}
         />
       ))}
@@ -71,10 +73,10 @@ export default function Sidebar({
             {clients.length > 0 ? (
               <>
                 <SidebarItem
-                  active={clientFilter === null}
+                  active={clientFilter === ''}
                   icon="tabler:users"
                   label="allClients"
-                  onClick={() => onClientFilterChange(null)}
+                  onClick={() => onClientFilterChange('')}
                 />
                 {clients.map(client => (
                   <SidebarItem
@@ -83,7 +85,7 @@ export default function Sidebar({
                     icon="tabler:user"
                     label={client.name}
                     namespace={false}
-                    onCancelButtonClick={() => onClientFilterChange(null)}
+                    onCancelButtonClick={() => onClientFilterChange('')}
                     onClick={() => onClientFilterChange(client.id)}
                   />
                 ))}
@@ -93,7 +95,7 @@ export default function Sidebar({
                 smaller
                 icon="tabler:user-off"
                 message={{
-                  id: 'clients',
+                  id: 'clients'
                 }}
               />
             )}

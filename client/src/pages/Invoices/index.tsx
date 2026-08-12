@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from 'react-router'
 
 import { type InferOutput } from '@lifeforge/api'
 import {
@@ -10,40 +11,40 @@ import {
 
 import DocCard from '@/components/DocCard'
 import DocWrapper from '@/components/DocWrapper'
-import { RECEIPT_STATUS_CONFIG } from '@/constants/statusConfig'
+import { INVOICE_STATUS_CONFIG } from '@/constants/statusConfig'
 import useFilter from '@/hooks/useFilter'
 import { forgeAPI } from '@/manifest'
 
-export type ReceiptEntry = InferOutput<typeof forgeAPI.receipts.list>[number]
+export type InvoiceEntry = InferOutput<typeof forgeAPI.invoices.list>[number]
 
-export default function ReceiptsPage() {
+export default function InvoiceMaker() {
+  const navigate = useNavigate()
   const { statusFilter, clientFilter, searchQuery } = useFilter()
+  const settingsQuery = useQuery(forgeAPI.settings.get.queryOptions())
 
-  const receiptsQuery = useQuery(
-    forgeAPI.receipts.list
+  const invoicesQuery = useQuery(
+    forgeAPI.invoices.list
       .input({
         status: (statusFilter ||
-          undefined) as keyof typeof RECEIPT_STATUS_CONFIG,
+          undefined) as keyof typeof INVOICE_STATUS_CONFIG,
         clientId: clientFilter || undefined,
         search: searchQuery || undefined
       })
       .queryOptions()
   )
 
-  const settingsQuery = useQuery(forgeAPI.settings.get.queryOptions())
-
   const currencySymbol = settingsQuery.data?.currency_symbol || 'RM'
 
   return (
-    <DocWrapper itemCount={receiptsQuery.data?.length ?? 0} type="receipt">
-      <WithQuery query={receiptsQuery}>
+    <DocWrapper itemCount={invoicesQuery.data?.length ?? 0} type="invoice">
+      <WithQuery query={invoicesQuery}>
         {data => {
           if (data.length === 0) {
             return (
               <EmptyStateScreen
                 icon="tabler:file-off"
                 message={{
-                  id: 'receipt'
+                  id: 'invoice'
                 }}
               />
             )
@@ -52,13 +53,23 @@ export default function ReceiptsPage() {
           return (
             <Scrollbar>
               <Stack pb="lg">
-                {data.map(receipt => (
+                {data.map(invoice => (
                   <DocCard
-                    key={receipt.id}
+                    key={invoice.id}
                     currencySymbol={currencySymbol}
-                    data={receipt}
-                    statusConfig={RECEIPT_STATUS_CONFIG}
-                    type="receipt"
+                    data={invoice}
+                    extraActions={[
+                      {
+                        icon: 'tabler:receipt',
+                        label: 'createReceipt',
+                        onClick: () =>
+                          navigate(
+                            `/melvinchia3636--invoice-maker/receipt/modify?fromInvoice=${invoice.id}`
+                          )
+                      }
+                    ]}
+                    statusConfig={INVOICE_STATUS_CONFIG}
+                    type="invoice"
                   />
                 ))}
               </Stack>

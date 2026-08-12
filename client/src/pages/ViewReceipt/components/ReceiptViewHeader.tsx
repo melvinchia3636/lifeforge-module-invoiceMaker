@@ -5,7 +5,7 @@ import { useReactToPrint } from 'react-to-print'
 import { useModuleTranslation } from '@lifeforge/localization'
 import { Box, Button, Flex, GoBackButton, TagChip, Text } from '@lifeforge/ui'
 
-import { RECEIPT_STATUS_CONFIG } from '@/pages/Receipts/components/ReceiptCard'
+import { RECEIPT_STATUS_CONFIG } from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
 
 import { useReceiptViewer } from '../providers/ReceiptViewerProvider'
@@ -70,7 +70,7 @@ function ReceiptViewHeader({
           <Button
             as={Link}
             icon="tabler:pencil"
-            to={`/melvinchia3636--invoice-maker/receipts/modify/${receipt.id}`}
+            to={`/melvinchia3636--invoice-maker/receipt/modify/${receipt.id}`}
             variant="secondary"
           >
             Edit

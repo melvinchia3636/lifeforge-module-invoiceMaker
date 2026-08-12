@@ -13,9 +13,10 @@ import {
   useModalStore
 } from '@lifeforge/ui'
 
-import { RECEIPT_STATUS_CONFIG, type ReceiptEntry } from '@/pages/Receipts/components/ReceiptCard'
+import { RECEIPT_STATUS_CONFIG } from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
 import ModifyReceiptMetadataModal from '@/modals/ModifyReceiptMetadataModal'
+import type { ReceiptEntry } from '@/pages/Receipts'
 
 import { useReceiptEditor } from '../providers/ReceiptEditorProvider'
 

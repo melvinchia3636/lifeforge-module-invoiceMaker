@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import _ from 'lodash'
 
 import { useModuleTranslation } from '@lifeforge/localization'
 import {
@@ -9,39 +10,42 @@ import {
   useModuleSidebarState
 } from '@lifeforge/ui'
 
+import useFilter from '@/hooks/useFilter'
 import { forgeAPI } from '@/manifest'
 
-import { RECEIPT_STATUS_CONFIG } from './ReceiptCard'
-
-interface ReceiptHeaderProps {
-  itemCount: number
-  statusFilter: string | null
-  clientFilter: string | null
-  searchQuery: string
-  onStatusFilterChange: (status: string | null) => void
-  onClientFilterChange: (clientId: string | null) => void
-}
-
-function ReceiptInnerHeader({
+function DocInnerHeader({
+  type,
   itemCount,
-  statusFilter,
-  clientFilter,
-  searchQuery,
-  onStatusFilterChange,
-  onClientFilterChange
-}: ReceiptHeaderProps) {
-  const { t } = useModuleTranslation()
+  statusConfig
+}: {
+  type: 'invoice' | 'receipt'
+  itemCount: number
+  statusConfig: Record<string, { color: string; icon: string }>
+}) {
   const { setIsSidebarOpen } = useModuleSidebarState()
+  const { t } = useModuleTranslation()
   const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
+  const {
+    statusFilter,
+    setStatusFilter,
+    clientFilter,
+    setClientFilter,
+    searchQuery
+  } = useFilter()
+
   const isFiltered =
-    statusFilter !== null || clientFilter !== null || searchQuery.trim() !== ''
+    statusFilter !== '' || clientFilter !== '' || searchQuery.trim() !== ''
+
+  const title = t(
+    `sidebar.${isFiltered ? 'filtered' : 'all'}${_.upperFirst(type)}s`
+  )
 
   return (
     <header>
       <Flex align="center" justify="between" mb="md">
         <Text size="3xl" weight="semibold">
-          {t(`sidebar.${isFiltered ? 'filteredReceipts' : 'allReceipts'}`, isFiltered ? 'Filtered Receipts' : 'All Receipts')}{' '}
+          {title}{' '}
           <Text as="span" color="muted" size="base">
             ({itemCount})
           </Text>
@@ -59,9 +63,9 @@ function ReceiptInnerHeader({
         availableFilters={{
           status: {
             isColored: true,
-            data: Object.entries(RECEIPT_STATUS_CONFIG).map(([key, config]) => ({
+            data: Object.entries(statusConfig).map(([key, config]) => ({
               id: key,
-              label: t(`statuses.${key}`, key),
+              label: t(`statuses.${key}`),
               icon: config.icon,
               color: config.color
             }))
@@ -75,19 +79,18 @@ function ReceiptInnerHeader({
               })) ?? []
           }
         }}
+        mb="md"
         values={{
-          status: statusFilter ?? '',
-          client: clientFilter ?? ''
+          status: statusFilter,
+          client: clientFilter
         }}
         onChange={{
-          status: value =>
-            onStatusFilterChange((value || null) as string | null),
-          client: value =>
-            onClientFilterChange((value || null) as string | null)
+          status: value => setStatusFilter(value || ''),
+          client: value => setClientFilter(value || '')
         }}
       />
     </header>
   )
 }
 
-export default ReceiptInnerHeader
+export default DocInnerHeader

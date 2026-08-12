@@ -11,8 +11,9 @@ import {
   createDefaultValues
 } from '@lifeforge/ui'
 
-import { RECEIPT_STATUS_CONFIG, type ReceiptEntry } from '@/pages/Receipts/components/ReceiptCard'
+import { RECEIPT_STATUS_CONFIG } from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
+import type { ReceiptEntry } from '@/pages/Receipts'
 
 const schema = z.object({
   receipt_number: z.string().min(1, 'Required'),

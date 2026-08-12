@@ -136,7 +136,7 @@ export default function ReceiptEditorProvider({
       onSuccess: () => {
         qc.invalidateQueries({ queryKey: forgeAPI.key })
         toast.success(t('toast.receiptCreated', 'Receipt created successfully'))
-        navigate('/melvinchia3636--invoice-maker/receipts')
+        navigate('/melvinchia3636--invoice-maker/receipt')
       }
     })
   )
@@ -150,7 +150,7 @@ export default function ReceiptEditorProvider({
         onSuccess: () => {
           qc.invalidateQueries({ queryKey: forgeAPI.key })
           toast.success(t('toast.receiptUpdated', 'Receipt updated successfully'))
-          navigate('/melvinchia3636--invoice-maker/receipts')
+          navigate('/melvinchia3636--invoice-maker/receipt')
         }
       })
   )

@@ -5,7 +5,7 @@ import { useReactToPrint } from 'react-to-print'
 import { useModuleTranslation } from '@lifeforge/localization'
 import { Box, Button, Flex, GoBackButton, TagChip, Text } from '@lifeforge/ui'
 
-import { STATUS_CONFIG } from '@/components/InvoiceCard'
+import { INVOICE_STATUS_CONFIG } from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
 
 import { useInvoiceViewer } from '../providers/InvoiceViewerProvider'
@@ -19,7 +19,7 @@ function Header({
   const { t } = useModuleTranslation()
   const { invoice } = useInvoiceViewer()
 
-  const statusConfig = STATUS_CONFIG[invoice.status || 'draft']
+  const statusConfig = INVOICE_STATUS_CONFIG[invoice.status || 'draft']
 
   const fontQuery = useQuery(
     forgeAPI
@@ -94,7 +94,7 @@ function Header({
             variant="secondary"
             onClick={() =>
               navigate(
-                `/melvinchia3636--invoice-maker/receipts/modify?fromInvoice=${invoice.id}`
+                `/melvinchia3636--invoice-maker/receipt/modify?fromInvoice=${invoice.id}`
               )
             }
           >
@@ -105,7 +105,7 @@ function Header({
             flex="1"
             icon="tabler:pencil"
             minWidth="min-content"
-            to={`/melvinchia3636--invoice-maker/modify/${invoice.id}`}
+            to={`/melvinchia3636--invoice-maker/receipt/modify/${invoice.id}`}
             variant="secondary"
           >
             Edit

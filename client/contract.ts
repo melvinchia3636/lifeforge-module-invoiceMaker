@@ -240,110 +240,7 @@ export const contract = {
       "output": {
         "CREATED": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "type": "object",
-          "properties": {
-            "invoice_number": {
-              "type": "string"
-            },
-            "bill_to": {
-              "type": "string"
-            },
-            "date": {
-              "type": "string"
-            },
-            "due_date": {
-              "type": "string"
-            },
-            "payment_terms": {
-              "type": "string"
-            },
-            "po_number": {
-              "type": "string"
-            },
-            "status": {
-              "type": "string",
-              "enum": [
-                "draft",
-                "sent",
-                "paid",
-                "overdue",
-                "cancelled",
-                ""
-              ]
-            },
-            "shipping_address": {
-              "type": "string"
-            },
-            "tax_type": {
-              "type": "string",
-              "enum": [
-                "rate",
-                "fixed",
-                ""
-              ]
-            },
-            "tax_amount": {
-              "type": "number"
-            },
-            "discount_type": {
-              "type": "string",
-              "enum": [
-                "rate",
-                "fixed",
-                ""
-              ]
-            },
-            "discount_amount": {
-              "type": "number"
-            },
-            "shipping_amount": {
-              "type": "number"
-            },
-            "amount_paid": {
-              "type": "number"
-            },
-            "notes": {
-              "type": "string"
-            },
-            "created": {
-              "type": "string"
-            },
-            "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "invoice_number",
-            "bill_to",
-            "date",
-            "due_date",
-            "payment_terms",
-            "po_number",
-            "status",
-            "shipping_address",
-            "tax_type",
-            "tax_amount",
-            "discount_type",
-            "discount_amount",
-            "shipping_amount",
-            "amount_paid",
-            "notes",
-            "created",
-            "updated",
-            "id",
-            "collectionId",
-            "collectionName"
-          ],
-          "additionalProperties": false
+          "type": "null"
         },
         "NOT_FOUND": true
       }
@@ -598,6 +495,9 @@ export const contract = {
               ]
             },
             "clientId": {
+              "type": "string"
+            },
+            "search": {
               "type": "string"
             }
           },
@@ -1614,104 +1514,7 @@ export const contract = {
       "output": {
         "CREATED": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
-          "type": "object",
-          "properties": {
-            "receipt_number": {
-              "type": "string"
-            },
-            "bill_to": {
-              "type": "string"
-            },
-            "date": {
-              "type": "string"
-            },
-            "payment_method": {
-              "type": "string"
-            },
-            "payment_terms": {
-              "type": "string"
-            },
-            "reference_number": {
-              "type": "string"
-            },
-            "status": {
-              "type": "string",
-              "enum": [
-                "draft",
-                "issued",
-                "cancelled",
-                ""
-              ]
-            },
-            "shipping_address": {
-              "type": "string"
-            },
-            "tax_type": {
-              "type": "string",
-              "enum": [
-                "rate",
-                "fixed",
-                ""
-              ]
-            },
-            "tax_amount": {
-              "type": "number"
-            },
-            "discount_type": {
-              "type": "string",
-              "enum": [
-                "rate",
-                "fixed",
-                ""
-              ]
-            },
-            "discount_amount": {
-              "type": "number"
-            },
-            "shipping_amount": {
-              "type": "number"
-            },
-            "amount_paid": {
-              "type": "number"
-            },
-            "created": {
-              "type": "string"
-            },
-            "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "receipt_number",
-            "bill_to",
-            "date",
-            "payment_method",
-            "payment_terms",
-            "reference_number",
-            "status",
-            "shipping_address",
-            "tax_type",
-            "tax_amount",
-            "discount_type",
-            "discount_amount",
-            "shipping_amount",
-            "amount_paid",
-            "created",
-            "updated",
-            "id",
-            "collectionId",
-            "collectionName"
-          ],
-          "additionalProperties": false
+          "type": "null"
         },
         "NOT_FOUND": true
       }
@@ -1958,6 +1761,9 @@ export const contract = {
               ]
             },
             "clientId": {
+              "type": "string"
+            },
+            "search": {
               "type": "string"
             }
           },

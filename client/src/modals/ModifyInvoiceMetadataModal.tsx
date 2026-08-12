@@ -1,4 +1,3 @@
-import type { InvoiceEntry } from '@'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
@@ -12,8 +11,9 @@ import {
   createDefaultValues
 } from '@lifeforge/ui'
 
-import { STATUS_CONFIG } from '@/components/InvoiceCard'
+import { INVOICE_STATUS_CONFIG } from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
+import type { InvoiceEntry } from '@/pages/Invoices'
 
 const schema = z.object({
   invoice_number: z.string().min(1, 'Required'),
@@ -84,7 +84,7 @@ export default function ModifyInvoiceMetadataModal({
         icon="tabler:info-circle"
         label="Status"
         name="status"
-        options={Object.entries(STATUS_CONFIG).map(([key, status]) => ({
+        options={Object.entries(INVOICE_STATUS_CONFIG).map(([key, status]) => ({
           icon: status.icon,
           text: t(`statuses.${key}`),
           color: status.color,

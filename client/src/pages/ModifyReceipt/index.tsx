@@ -27,7 +27,7 @@ function ModifyReceiptContent() {
   return (
     <>
       <GoBackButton
-        onClick={() => navigate('/melvinchia3636--invoice-maker/receipts')}
+        onClick={() => navigate('/melvinchia3636--invoice-maker/receipt')}
       />
       <ReceiptHeaderSection />
       <Stack gap="lg" pb="lg" width="100%">

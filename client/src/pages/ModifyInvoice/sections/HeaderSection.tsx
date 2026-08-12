@@ -1,4 +1,3 @@
-import type { InvoiceEntry } from '@'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
 
@@ -14,9 +13,10 @@ import {
   useModalStore
 } from '@lifeforge/ui'
 
-import { STATUS_CONFIG } from '@/components/InvoiceCard'
+import { INVOICE_STATUS_CONFIG } from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
 import ModifyInvoiceMetadataModal from '@/modals/ModifyInvoiceMetadataModal'
+import type { InvoiceEntry } from '@/pages/Invoices'
 
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
 
@@ -61,8 +61,13 @@ function Header() {
               {t('sidebar.status')}:
             </Text>
             <TagChip
-              color={STATUS_CONFIG[invoiceQuery.data?.status || 'draft'].color}
-              icon={STATUS_CONFIG[invoiceQuery.data?.status || 'draft'].icon}
+              color={
+                INVOICE_STATUS_CONFIG[invoiceQuery.data?.status || 'draft']
+                  .color
+              }
+              icon={
+                INVOICE_STATUS_CONFIG[invoiceQuery.data?.status || 'draft'].icon
+              }
               label={t(`statuses.${invoiceQuery.data?.status}`)}
               ml="sm"
             />

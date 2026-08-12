@@ -6,18 +6,19 @@ import contract from './contract'
 
 const { forgeAPI, ...manifest } = createForgeModule({
   subsection: [
-    { label: 'Invoices', icon: 'tabler:file-invoice', path: '' },
-    { label: 'Receipts', icon: 'tabler:receipt', path: 'receipts' }
+    { label: 'Invoices', icon: 'tabler:file-invoice', path: 'invoice' },
+    { label: 'Receipts', icon: 'tabler:receipt', path: 'receipt' }
   ],
   routes: {
-    '/': lazy(() => import('@')),
-    '/view/:id': lazy(() => import('@/pages/ViewInvoice')),
-    '/modify': lazy(() => import('@/pages/ModifyInvoice')),
-    '/modify/:id': lazy(() => import('@/pages/ModifyInvoice')),
-    '/receipts': lazy(() => import('@/pages/Receipts')),
-    '/receipts/view/:id': lazy(() => import('@/pages/ViewReceipt')),
-    '/receipts/modify': lazy(() => import('@/pages/ModifyReceipt')),
-    '/receipts/modify/:id': lazy(() => import('@/pages/ModifyReceipt'))
+    '/': lazy(() => import('@/pages')),
+    '/invoice': lazy(() => import('@/pages/Invoices')),
+    '/invoice/view/:id': lazy(() => import('@/pages/ViewInvoice')),
+    '/invoice/modify': lazy(() => import('@/pages/ModifyInvoice')),
+    '/invoice/modify/:id': lazy(() => import('@/pages/ModifyInvoice')),
+    '/receipt': lazy(() => import('@/pages/Receipts')),
+    '/receipt/view/:id': lazy(() => import('@/pages/ViewReceipt')),
+    '/receipt/modify': lazy(() => import('@/pages/ModifyReceipt')),
+    '/receipt/modify/:id': lazy(() => import('@/pages/ModifyReceipt'))
   },
   contract
 })
