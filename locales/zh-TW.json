@@ -32,6 +32,12 @@
     "manageClients": "管理客戶",
     "settings": "設定"
   },
+  "tabs": {
+    "company": "公司",
+    "defaults": "預設",
+    "bank": "銀行",
+    "numbering": "編號"
+  },
   "pages": {
     "newInvoice": "新建發票",
     "editInvoice": "編輯發票",

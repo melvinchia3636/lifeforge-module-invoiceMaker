@@ -32,6 +32,12 @@
     "manageClients": "Manage Clients",
     "settings": "Settings"
   },
+  "tabs": {
+    "company": "Company",
+    "defaults": "Defaults",
+    "bank": "Bank",
+    "numbering": "Numbering"
+  },
   "pages": {
     "newInvoice": "New Invoice",
     "editInvoice": "Edit Invoice",

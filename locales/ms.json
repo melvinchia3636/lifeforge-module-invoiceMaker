@@ -32,6 +32,12 @@
     "manageClients": "Urus Pelanggan",
     "settings": "Tetapan"
   },
+  "tabs": {
+    "company": "Syarikat",
+    "defaults": "Default",
+    "bank": "Bank",
+    "numbering": "Penomboran"
+  },
   "pages": {
     "newInvoice": "Invois Baharu",
     "editInvoice": "Sunting Invois",

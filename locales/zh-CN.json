@@ -32,6 +32,12 @@
     "manageClients": "管理客户",
     "settings": "设置"
   },
+  "tabs": {
+    "company": "公司",
+    "defaults": "默认",
+    "bank": "银行",
+    "numbering": "编号"
+  },
   "pages": {
     "newInvoice": "新建发票",
     "editInvoice": "编辑发票",
