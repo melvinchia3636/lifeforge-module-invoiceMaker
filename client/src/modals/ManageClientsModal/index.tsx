@@ -3,10 +3,13 @@ import { AutoSizer } from 'react-virtualized'
 
 import { useModuleTranslation } from '@lifeforge/localization'
 import {
+  Box,
   Button,
   EmptyStateScreen,
+  Flex,
   ModalHeader,
   Scrollbar,
+  Stack,
   WithQuery,
   useModalStore
 } from '@lifeforge/ui'
@@ -22,13 +25,14 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
   const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
   return (
-    <div className="flex min-h-[80vh] min-w-[40vw] flex-col">
+    <Flex direction="column" minHeight="80vh" minWidth="40vw">
       <ModalHeader
         icon="tabler:users"
         title="clients.manage"
         trailing={
           <Button
             icon="tabler:plus"
+            variant="plain"
             onClick={() => {
               open(ClientModal, {
                 type: 'create'
@@ -41,7 +45,7 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
       <WithQuery query={clientsQuery}>
         {clients =>
           clients.length > 0 ? (
-            <div className="mt-4 flex-1">
+            <Box flex="1" mt="md">
               <AutoSizer>
                 {({ width, height }) => (
                   <Scrollbar
@@ -50,17 +54,17 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
                       height
                     }}
                   >
-                    <ul className="space-y-3">
+                    <Stack gap="sm">
                       {clients.map(client => (
                         <ClientItem key={client.id} client={client} />
                       ))}
-                    </ul>
+                    </Stack>
                   </Scrollbar>
                 )}
               </AutoSizer>
-            </div>
+            </Box>
           ) : (
-            <div className="flex-center flex-1">
+            <Flex centered flex="1">
               <EmptyStateScreen
                 CTAButtonProps={{
                   children: 'new',
@@ -77,11 +81,11 @@ function ManageClientsModal({ onClose }: { onClose: () => void }) {
                   id: 'clients'
                 }}
               />
-            </div>
+            </Flex>
           )
         }
       </WithQuery>
-    </div>
+    </Flex>
   )
 }
 

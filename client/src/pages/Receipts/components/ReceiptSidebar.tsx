@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import {
+  EmptyStateScreen,
   SidebarDivider,
   SidebarItem,
   SidebarTitle,
@@ -88,7 +89,13 @@ export default function ReceiptSidebar({
                 ))}
               </>
             ) : (
-              <p className="text-bg-500 text-center">No clients found</p>
+              <EmptyStateScreen
+                smaller
+                icon="tabler:user-off"
+                message={{
+                  id: 'clients'
+                }}
+              />
             )}
           </>
         )}

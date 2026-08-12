@@ -12,6 +12,7 @@ import {
   Icon,
   Text,
   colorWithOpacity,
+  surface,
   useModalStore
 } from '@lifeforge/ui'
 
@@ -48,7 +49,14 @@ function ClientItem({ client }: { client: Client }) {
   }, [deleteMutation, open])
 
   return (
-    <Card as="li" direction="row" gap="md" justify="between" p="md">
+    <Card
+      as="li"
+      bg={surface.light}
+      direction="row"
+      gap="md"
+      justify="between"
+      p="md"
+    >
       <Flex align="center" gap="md" minWidth="0" width="100%">
         <Flex
           align="center"
