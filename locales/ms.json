@@ -116,7 +116,15 @@
     "invoiceUpdated": "Invois berjaya dikemas kini",
     "receiptCreated": "Resit berjaya dicipta",
     "receiptUpdated": "Resit berjaya dikemas kini",
-    "clientDeleted": "Pelanggan berjaya dipadam"
+    "clientDeleted": "Pelanggan berjaya dipadam",
+    "clientRequired": "Pelanggan diperlukan",
+    "dateRequired": "Tarikh diperlukan",
+    "dueDateRequired": "Tarikh matang diperlukan",
+    "itemsRequired": "Sekurang-kurangnya satu item diperlukan",
+    "paymentMethodRequired": "Kaedah pembayaran diperlukan"
+  },
+  "tooltips": {
+    "paymentTerms": "100% upfront / Full payment in advance: Bayar penuh sebelum kerja/penghantaran bermula.\nDeposit + baki: Deposit + baki tertunggak. Cth., 30% deposit, 70% selepas siap.\nBayaran Milestone: Bayaran berdasarkan pencapaian projek.\nCOD (Cash on Delivery): Bayar semasa penghantaran fizikal.\nNet 7 / Net 30 / Net 60: Bayaran perlu dibuat dalam tempoh 7/30/60 hari selepas menerima invois.\n50/50: 50% sebelum mula, 50% selepas siap/penyerahan.\nBayaran Progresif: Bayaran mengikut fasa kemajuan kerja.\nBayaran semasa penyerahan: Bayaran semasa penyerahan dibuat.\nBayaran selepas penerimaan: Bayaran selepas pemeriksaan dan penerimaan pelanggan.\nRetainer: Bayaran pendahuluan amaun tetap untuk perkhidmatan/pembangunan berterusan, ditolak daripada baki kemudian.\nPengebilan Berulang: Pengebilan automatik secara bulanan/suku tahunan/tahunan, cth., SaaS.\nSurat Kredit (L/C): Surat kredit, biasa dalam perdagangan antarabangsa.\nEskrow: Pegangan pihak ketiga, dana dilepaskan selepas kedua-dua pihak memenuhi syarat yang dipersetujui.\nPay-when-paid: Bayaran kepada subkontraktor hanya dibuat selepas menerima bayaran daripada pelanggan, biasa dalam industri pembinaan."
   },
   "empty": {
     "invoice": {

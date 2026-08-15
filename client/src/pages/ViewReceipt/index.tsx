@@ -1,16 +1,19 @@
 import { useRef } from 'react'
 import { useParams } from 'react-router'
 
+import DocumentViewHeader from '@/components/DocumentViewHeader'
 import ReceiptPreview from './components/ReceiptPreview'
-import ReceiptViewHeader from './components/ReceiptViewHeader'
-import ReceiptViewerProvider from './providers/ReceiptViewerProvider'
+import ReceiptViewerProvider, {
+  useReceiptViewer
+} from './providers/ReceiptViewerProvider'
 
 function ViewReceiptContent() {
   const receiptRef = useRef<HTMLDivElement>(null)
+  const { receipt } = useReceiptViewer()
 
   return (
     <>
-      <ReceiptViewHeader receiptRef={receiptRef} />
+      <DocumentViewHeader data={receipt} contentRef={receiptRef} />
       <ReceiptPreview ref={receiptRef} />
     </>
   )

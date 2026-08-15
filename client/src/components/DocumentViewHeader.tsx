@@ -2,24 +2,35 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useNavigate } from 'react-router'
 import { useReactToPrint } from 'react-to-print'
 
+import type { InferOutput } from '@lifeforge/api'
 import { useModuleTranslation } from '@lifeforge/localization'
 import { Box, Button, Flex, GoBackButton, TagChip, Text } from '@lifeforge/ui'
 
-import { INVOICE_STATUS_CONFIG } from '@/constants/statusConfig'
+import { INVOICE_STATUS_CONFIG, RECEIPT_STATUS_CONFIG } from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
 
-import { useInvoiceViewer } from '../providers/InvoiceViewerProvider'
+type Invoice = InferOutput<typeof forgeAPI.invoices.getById>
+type Receipt = InferOutput<typeof forgeAPI.receipts.getById>
 
-function Header({
-  invoiceRef
-}: {
-  invoiceRef: React.RefObject<HTMLDivElement | null>
-}) {
+interface DocumentViewHeaderProps {
+  data: Invoice | Receipt
+  contentRef: React.RefObject<HTMLDivElement | null>
+}
+
+export default function DocumentViewHeader({
+  data,
+  contentRef
+}: DocumentViewHeaderProps) {
   const navigate = useNavigate()
   const { t } = useModuleTranslation()
-  const { invoice } = useInvoiceViewer()
 
-  const statusConfig = INVOICE_STATUS_CONFIG[invoice.status || 'draft']
+  const isInvoice = 'invoice_number' in data
+  const documentType = isInvoice ? 'invoice' : 'receipt'
+  const documentNumber = isInvoice ? (data as Invoice).invoice_number : (data as Receipt).receipt_number
+
+  const statusConfig = isInvoice
+    ? INVOICE_STATUS_CONFIG[(data.status as keyof typeof INVOICE_STATUS_CONFIG) || 'draft']
+    : RECEIPT_STATUS_CONFIG[(data.status as keyof typeof RECEIPT_STATUS_CONFIG) || 'draft']
 
   const fontQuery = useQuery(
     forgeAPI
@@ -29,10 +40,10 @@ function Header({
       .queryOptions()
   )
 
-  const documentTitle = `Invoice_${invoice?.invoice_number || ''}`
+  const documentTitle = `${isInvoice ? 'Invoice' : 'Receipt'}_${documentNumber || ''}`
 
   const reactToPrintFn = useReactToPrint({
-    contentRef: invoiceRef,
+    contentRef,
     fonts: fontQuery.data?.items?.length
       ? [
           {
@@ -66,19 +77,19 @@ function Header({
           >
             <Text truncate size="2xl" weight="semibold">
               <Text as="span" color="muted">
-                {t(`items.invoice`)}
+                {t(`items.${documentType}`, isInvoice ? 'Invoice' : 'Receipt')}
               </Text>{' '}
-              #{invoice.invoice_number}
+              #{documentNumber}
             </Text>
             <TagChip
               color={statusConfig.color}
               flexShrink="0"
               icon={statusConfig.icon}
-              label={t(`statuses.${invoice.status}`)}
+              label={t(`statuses.${data.status}`, data.status)}
             />
           </Flex>
           <Text color="muted" mt="xs">
-            For {invoice.expand?.bill_to?.name}
+            For {data.expand?.bill_to?.name || 'Client'}
           </Text>
         </Box>
         <Flex
@@ -87,25 +98,27 @@ function Header({
           width={{ base: '100%', sm: 'auto' }}
           wrap={{ base: 'wrap', sm: 'nowrap' }}
         >
-          <Button
-            flex="1"
-            icon="tabler:receipt"
-            minWidth="min-content"
-            variant="secondary"
-            onClick={() =>
-              navigate(
-                `/melvinchia3636--invoice-maker/receipt/modify?fromInvoice=${invoice.id}`
-              )
-            }
-          >
-            createReceipt
-          </Button>
+          {isInvoice && (
+            <Button
+              flex="1"
+              icon="tabler:receipt"
+              minWidth="min-content"
+              variant="secondary"
+              onClick={() =>
+                navigate(
+                  `/melvinchia3636--invoice-maker/invoice/modify?fromInvoice=${data.id}`
+                )
+              }
+            >
+              createReceipt
+            </Button>
+          )}
           <Button
             as={Link}
             flex="1"
             icon="tabler:pencil"
             minWidth="min-content"
-            to={`/melvinchia3636--invoice-maker/receipt/modify/${invoice.id}`}
+            to={`/melvinchia3636--invoice-maker/${documentType}/modify/${data.id}`}
             variant="secondary"
           >
             Edit
@@ -124,5 +137,3 @@ function Header({
     </>
   )
 }
-
-export default Header

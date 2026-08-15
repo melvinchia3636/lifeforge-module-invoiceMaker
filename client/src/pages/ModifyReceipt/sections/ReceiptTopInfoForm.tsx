@@ -44,9 +44,12 @@ function ReceiptTopInfoForm() {
       <Grid gap="lg" templateCols={{ base: 1, lg: 2 }}>
         {/* Left side - Client */}
         <Box minWidth="0">
-          <Text as="h3" color="muted" mb="sm" size="sm" weight="medium">
-            {t('inputs.billTo', 'Bill To')}
-          </Text>
+          <Flex align="center" gap="xs" mb="sm">
+            <Text as="h3" color="muted" size="sm" weight="medium">
+              {t('inputs.billTo', 'Bill To')}
+            </Text>
+            <Icon color="dangerous" icon="uil:asterisk" size="0.75em" />
+          </Flex>
           <Flex direction={{ base: 'column', sm: 'row' }} gap="sm" minWidth="0">
             <ListboxInput
               renderContent={() => {
@@ -97,9 +100,12 @@ function ReceiptTopInfoForm() {
         {/* Right side - Dates & Payment Method */}
         <Grid gap="md" templateCols={{ base: 1, md: 2 }}>
           <Box>
-            <Text as="label" color="muted" display="block" mb="xs" size="sm">
-              {t('inputs.date', 'Date')}
-            </Text>
+            <Flex align="center" gap="xs" mb="xs">
+              <Text as="label" color="muted" size="sm">
+                {t('inputs.date', 'Date')}
+              </Text>
+              <Icon color="dangerous" icon="uil:asterisk" size="0.75em" />
+            </Flex>
             <DateInput
               value={formData.date}
               variant="plain"
@@ -107,9 +113,12 @@ function ReceiptTopInfoForm() {
             />
           </Box>
           <Box>
-            <Text as="label" color="muted" display="block" mb="xs" size="sm">
-              {t('inputs.paymentMethod', 'Payment Method')}
-            </Text>
+            <Flex align="center" gap="xs" mb="xs">
+              <Text as="label" color="muted" size="sm">
+                {t('inputs.paymentMethod', 'Payment Method')}
+              </Text>
+              <Icon color="dangerous" icon="uil:asterisk" size="0.75em" />
+            </Flex>
             <ListboxInput
               renderContent={() => (
                 <Flex align="center" gap="sm" minWidth="0">

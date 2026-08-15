@@ -11,8 +11,10 @@ import {
   Icon,
   ListboxInput,
   ListboxOption,
+  Prose,
   Text,
   TextInput,
+  Tooltip,
   useModalStore
 } from '@lifeforge/ui'
 
@@ -35,9 +37,12 @@ function TopInfoSection() {
       <Grid gap="lg" templateCols={{ base: 1, lg: 2 }}>
         {/* Left side - Client */}
         <Box minWidth="0">
-          <Text as="h3" color="muted" mb="sm" size="sm" weight="medium">
-            {t('inputs.billTo')}
-          </Text>
+          <Flex align="center" gap="xs" mb="sm">
+            <Text as="h3" color="muted" size="sm" weight="medium">
+              {t('inputs.billTo')}
+            </Text>
+            <Icon color="dangerous" icon="uil:asterisk" size="0.75em" />
+          </Flex>
           <Flex direction={{ base: 'column', sm: 'row' }} gap="sm" minWidth="0">
             <ListboxInput
               renderContent={() => {
@@ -88,9 +93,12 @@ function TopInfoSection() {
         {/* Right side - Dates & Status */}
         <Grid gap="md" templateCols={{ base: 1, md: 2 }}>
           <Box>
-            <Text as="label" color="muted" display="block" mb="xs" size="sm">
-              {t('inputs.date')}
-            </Text>
+            <Flex align="center" gap="xs" mb="xs">
+              <Text as="label" color="muted" size="sm">
+                {t('inputs.date')}
+              </Text>
+              <Icon color="dangerous" icon="uil:asterisk" size="0.75em" />
+            </Flex>
             <DateInput
               value={formData.date}
               variant="plain"
@@ -98,9 +106,12 @@ function TopInfoSection() {
             />
           </Box>
           <Box>
-            <Text as="label" color="muted" display="block" mb="xs" size="sm">
-              {t('inputs.dueDate')}
-            </Text>
+            <Flex align="center" gap="xs" mb="xs">
+              <Text as="label" color="muted" size="sm">
+                {t('inputs.dueDate')}
+              </Text>
+              <Icon color="dangerous" icon="uil:asterisk" size="0.75em" />
+            </Flex>
             <DateInput
               value={formData.due_date}
               variant="plain"
@@ -108,9 +119,34 @@ function TopInfoSection() {
             />
           </Box>
           <Box>
-            <Text as="label" color="muted" display="block" mb="xs" size="sm">
-              {t('inputs.paymentTerms')}
-            </Text>
+            <Flex align="center" gap="xs" mb="xs">
+              <Text as="label" color="muted" size="sm">
+                {t('inputs.paymentTerms')}
+              </Text>
+              <Tooltip icon="tabler:info-circle" id="payment-terms-tooltip">
+                <Text
+                  asChild
+                  color={{ base: 'bg-800', dark: 'bg-100' }}
+                  size="base"
+                  whiteSpace="pre-line"
+                >
+                  <Prose>
+                    {t('tooltips.paymentTerms')
+                      .split('\n')
+                      .map(e => (
+                        <li
+                          key={e}
+                          style={{
+                            marginLeft: '1rem'
+                          }}
+                        >
+                          {e}
+                        </li>
+                      ))}
+                  </Prose>
+                </Text>
+              </Tooltip>
+            </Flex>
             <TextInput
               placeholder="Net 30"
               value={formData.payment_terms}

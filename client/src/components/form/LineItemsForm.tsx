@@ -6,6 +6,7 @@ import {
   CurrencyInput,
   Flex,
   Grid,
+  Icon,
   NumberInput,
   Stack,
   Text,
@@ -48,13 +49,16 @@ export default function LineItemsForm({
       >
         <Grid gap="md" templateCols="repeat(12, 1fr)">
           <Box gridColumnSpan={6}>
-            <Text
-              color={{ base: 'bg-800', dark: 'bg-100' }}
-              size="sm"
-              weight="medium"
-            >
-              {t('inputs.item')}
-            </Text>
+            <Flex align="center" gap="xs">
+              <Text
+                color={{ base: 'bg-800', dark: 'bg-100' }}
+                size="sm"
+                weight="medium"
+              >
+                {t('inputs.item')}
+              </Text>
+              <Icon color="dangerous" icon="uil:asterisk" size="0.75em" />
+            </Flex>
           </Box>
           <Box gridColumnSpan={2}>
             <Text
@@ -96,15 +100,16 @@ export default function LineItemsForm({
               {/* Mobile layout - stacked */}
               <Stack display={{ base: 'flex', lg: 'none' }} gap="sm">
                 <Box>
-                  <Text
-                    as="label"
-                    color="muted"
-                    display="block"
-                    mb="xs"
-                    size="sm"
-                  >
-                    {t('inputs.item')}
-                  </Text>
+                  <Flex align="center" gap="xs" mb="xs">
+                    <Text
+                      as="label"
+                      color="muted"
+                      size="sm"
+                    >
+                      {t('inputs.item')}
+                    </Text>
+                    <Icon color="dangerous" icon="uil:asterisk" size="0.75em" />
+                  </Flex>
                   <TextAreaInput
                     placeholder="Item description"
                     value={item.description}

@@ -1,16 +1,19 @@
 import { useRef } from 'react'
 import { useParams } from 'react-router'
 
-import Header from './components/Header'
+import DocumentViewHeader from '@/components/DocumentViewHeader'
 import InvoicePreview from './components/InvoicePreview'
-import InvoiceViewerProvider from './providers/InvoiceViewerProvider'
+import InvoiceViewerProvider, {
+  useInvoiceViewer
+} from './providers/InvoiceViewerProvider'
 
 function ViewInvoiceContent() {
   const invoiceRef = useRef<HTMLDivElement>(null)
+  const { invoice } = useInvoiceViewer()
 
   return (
     <>
-      <Header invoiceRef={invoiceRef} />
+      <DocumentViewHeader data={invoice} contentRef={invoiceRef} />
       <InvoicePreview ref={invoiceRef} />
     </>
   )

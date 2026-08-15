@@ -116,7 +116,15 @@
     "invoiceUpdated": "發票更新成功",
     "receiptCreated": "收據建立成功",
     "receiptUpdated": "收據更新成功",
-    "clientDeleted": "客戶刪除成功"
+    "clientDeleted": "客戶刪除成功",
+    "clientRequired": "必須選擇客戶",
+    "dateRequired": "必須選擇日期",
+    "dueDateRequired": "必須選擇到期日",
+    "itemsRequired": "至少需要一個項目",
+    "paymentMethodRequired": "必須選擇付款方式"
+  },
+  "tooltips": {
+    "paymentTerms": "100% upfront / Full payment in advance：先付全款，再開始做/發貨。\nDeposit + balance：定金 + 尾款。比如 30% deposit，70% upon completion。\nMilestone payment：按專案里程碑付款。比如你之前那個 ERP 專案就是這種。\nCOD（Cash on Delivery）：貨到付款。\nNet 7 / Net 30 / Net 60：收到 invoice 後，7/30/60 天內付款。\n50/50：50% 開工前，50% 完工/交付時。\nProgressive payment：隨著工作進度分階段付款。\nPayment upon delivery：交付時付款。\nPayment upon acceptance：客戶驗收通過後付款。\nRetainer：預付一筆固定金額，用於持續服務/開發，之後從餘額扣。\nRecurring billing：按月/季度/年自動收費，比如 SaaS。\nLetter of Credit (L/C)：信用證，國際貿易比較常見。\nEscrow：第三方託管，雙方完成約定條件後放款。\nPay-when-paid：你收到上游/客戶的錢之後才向下游付款，工程行業比較常見。"
   },
   "empty": {
     "invoice": {

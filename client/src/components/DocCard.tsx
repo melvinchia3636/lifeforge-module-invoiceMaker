@@ -103,6 +103,7 @@ export default function DocCard<T extends DocEntry>({
   return (
     <Card
       isInteractive
+      align="center"
       as="li"
       direction="row"
       onClick={() =>

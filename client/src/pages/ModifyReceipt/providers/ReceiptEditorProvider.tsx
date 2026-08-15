@@ -320,6 +320,27 @@ export default function ReceiptEditorProvider({
   const currencySymbol = settingsQuery.data?.currency_symbol || 'RM'
 
   const handleSubmit = async () => {
+    if (!formData.bill_to) {
+      toast.error(t('toast.clientRequired', 'Client is required'))
+      return
+    }
+
+    if (!formData.date) {
+      toast.error(t('toast.dateRequired', 'Date is required'))
+      return
+    }
+
+    if (!formData.payment_method) {
+      toast.error(t('toast.paymentMethodRequired', 'Payment method is required'))
+      return
+    }
+
+    const items = formData.items.filter(item => item.description.trim() !== '')
+    if (items.length === 0) {
+      toast.error(t('toast.itemsRequired', 'At least one line item is required'))
+      return
+    }
+
     const payload = {
       bill_to: formData.bill_to || undefined,
       date: formData.date.toISOString(),
@@ -334,7 +355,7 @@ export default function ReceiptEditorProvider({
       discount_amount: formData.discount_amount,
       shipping_amount: formData.shipping_amount,
       amount_paid: formData.amount_paid,
-      items: formData.items.filter(item => item.description.trim() !== '')
+      items
     }
 
     if (isEditMode) {

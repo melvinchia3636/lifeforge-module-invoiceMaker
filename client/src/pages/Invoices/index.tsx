@@ -2,12 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router'
 
 import { type InferOutput } from '@lifeforge/api'
-import {
-  EmptyStateScreen,
-  Scrollbar,
-  Stack,
-  WithQuery
-} from '@lifeforge/ui'
+import { EmptyStateScreen, Scrollbar, Stack, WithQuery } from '@lifeforge/ui'
 
 import DocCard from '@/components/DocCard'
 import DocWrapper from '@/components/DocWrapper'
@@ -64,7 +59,7 @@ export default function InvoiceMaker() {
                         label: 'createReceipt',
                         onClick: () =>
                           navigate(
-                            `/melvinchia3636--invoice-maker/receipt/modify?fromInvoice=${invoice.id}`
+                            `/melvinchia3636--invoice-maker/invoice/modify?fromInvoice=${invoice.id}`
                           )
                       }
                     ]}

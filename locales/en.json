@@ -116,7 +116,15 @@
     "invoiceUpdated": "Invoice updated successfully",
     "receiptCreated": "Receipt created successfully",
     "receiptUpdated": "Receipt updated successfully",
-    "clientDeleted": "Client deleted successfully"
+    "clientDeleted": "Client deleted successfully",
+    "clientRequired": "Client is required",
+    "dateRequired": "Date is required",
+    "dueDateRequired": "Due date is required",
+    "itemsRequired": "At least one item is required",
+    "paymentMethodRequired": "Payment method is required"
+  },
+  "tooltips": {
+    "paymentTerms": "100% upfront / Full payment in advance: Pay in full before work/shipment begins.\nDeposit + balance: Deposit + remaining balance. E.g., 30% deposit, 70% upon completion.\nMilestone payment: Payment based on project milestones.\nCOD (Cash on Delivery): Payment upon physical delivery.\nNet 7 / Net 30 / Net 60: Payment due within 7/30/60 days after receiving the invoice.\n50/50: 50% upfront, 50% upon completion/delivery.\nProgressive payment: Phased payments as work progresses.\nPayment upon delivery: Payment due when delivery is made.\nPayment upon acceptance: Payment due after customer inspection and acceptance.\nRetainer: Advance payment of a fixed amount for ongoing services/development, deducted from the balance later.\nRecurring billing: Automatic billing on a monthly/quarterly/annual basis, e.g., SaaS.\nLetter of Credit (L/C): A letter of credit, common in international trade.\nEscrow: Third-party custody, funds released after both parties meet agreed conditions.\nPay-when-paid: Payment to subcontractors is made only after receiving payment from the client, common in construction."
   },
   "empty": {
     "invoice": {

@@ -6,8 +6,8 @@ import PreviewLineItems from '@/components/preview/PreviewLineItems'
 import PreviewPaymentInfo from '@/components/preview/PreviewPaymentInfo'
 import PreviewTotals from '@/components/preview/PreviewTotals'
 
-import TopInfoSection from './sections/TopInfoSection'
 import { useInvoiceViewer } from '../../providers/InvoiceViewerProvider'
+import TopInfoSection from './sections/TopInfoSection'
 
 export default function InvoicePreview({
   ref
