@@ -1,4 +1,5 @@
 import TotalsForm from '@/components/form/TotalsForm'
+
 import { useInvoiceEditor } from '../../providers/InvoiceEditorProvider'
 
 function TotalSection() {

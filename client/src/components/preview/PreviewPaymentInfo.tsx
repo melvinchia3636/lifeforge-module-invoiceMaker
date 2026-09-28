@@ -14,7 +14,7 @@ export default function PreviewPaymentInfo({
   notes
 }: PreviewPaymentInfoProps) {
   return (
-    <Flex direction="column" gap="lg" mt="3xl">
+    <Flex direction="column" gap="lg" mt="lg">
       {(settings.bank_name || settings.bank_account) && (
         <Flex direction="column" gap="none">
           <Text color="muted" mb="sm" weight="medium">
