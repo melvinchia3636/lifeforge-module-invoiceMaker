@@ -53,7 +53,7 @@ function TopInfoSection() {
                 if (!targetClient) {
                   return (
                     <Flex align="center" color="muted" gap="sm">
-                      <Icon icon="tabler:user" size="1.25rem" />
+                      <Icon icon="tabler:user" />
                       <Text>Select Client</Text>
                     </Flex>
                   )
@@ -61,7 +61,7 @@ function TopInfoSection() {
 
                 return (
                   <Flex align="center" gap="sm" minWidth="0">
-                    <Icon icon="tabler:user" size="1.25rem" />
+                    <Icon icon="tabler:user" />
                     <Text truncate>{targetClient.name}</Text>
                   </Flex>
                 )
