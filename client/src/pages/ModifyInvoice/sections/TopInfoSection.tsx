@@ -9,12 +9,12 @@ import {
   Flex,
   Grid,
   Icon,
+  IconTooltip,
   ListboxInput,
   ListboxOption,
   Prose,
   Text,
   TextInput,
-  Tooltip,
   useModalStore
 } from '@lifeforge/ui'
 
@@ -123,7 +123,7 @@ function TopInfoSection() {
               <Text as="label" color="muted" size="sm">
                 {t('inputs.paymentTerms')}
               </Text>
-              <Tooltip icon="tabler:info-circle" id="payment-terms-tooltip">
+              <IconTooltip icon="tabler:info-circle" id="payment-terms-tooltip">
                 <Text
                   asChild
                   color={{ base: 'bg-800', dark: 'bg-100' }}
@@ -145,7 +145,7 @@ function TopInfoSection() {
                       ))}
                   </Prose>
                 </Text>
-              </Tooltip>
+              </IconTooltip>
             </Flex>
             <TextInput
               placeholder="Net 30"
