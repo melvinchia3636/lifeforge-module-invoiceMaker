@@ -1,95 +1,104 @@
+import { asc, eq } from 'drizzle-orm'
+import { createSelectSchema } from 'drizzle-orm/zod'
 import z from 'zod'
 
 import forge from '../forge'
-import schemas from '../schema'
+import {
+  invoiceMakerReceiptItems,
+  invoiceMakerReceipts
+} from '../schema.drizzle'
+
+const receiptItemDto = createSelectSchema(invoiceMakerReceiptItems)
+
+const receiptItemInputDto = z.object({
+  description: z.string(),
+  quantity: z.number(),
+  rate: z.number(),
+  order: z.number()
+})
 
 export const listByReceipt = forge
   .query({
     description: 'List all items for a receipt',
     input: {
       query: z.object({
-        receiptId: z.string()
+        receiptId: forge.existsIn(z.string(), invoiceMakerReceipts)
       })
     },
-    existenceCheck: {
-      query: { receiptId: 'receipts' }
-    },
     output: {
-      OK: z.array(schemas.receipt_items),
-      NOT_FOUND: true
+      OK: z.array(receiptItemDto)
     }
   })
-  .callback(async ({ pb, query: { receiptId }, response }) =>
-    response.ok(
-      await pb.getFullList
-        .collection('receipt_items')
-        .filter([{ field: 'receipt', operator: '=', value: receiptId }])
-        .sort(['order'])
-        .execute()
-    )
-  )
+  .callback(async ({ db, query: { receiptId }, response }) => {
+    const rows = await db
+      .select()
+      .from(invoiceMakerReceiptItems)
+      .where(eq(invoiceMakerReceiptItems.receipt, receiptId))
+      .orderBy(asc(invoiceMakerReceiptItems.order))
+
+    return response.ok(rows)
+  })
 
 export const create = forge
   .mutation({
     description: 'Create a new line item for a receipt',
     input: {
-      body: schemas.receipt_items
-    },
-    existenceCheck: {
-      body: { receipt: 'receipts' }
+      body: receiptItemInputDto.extend({
+        receipt: forge.existsIn(z.string(), invoiceMakerReceipts)
+      })
     },
     output: {
-      CREATED: schemas.receipt_items,
-      NOT_FOUND: true
+      CREATED: receiptItemDto
     }
   })
-  .callback(async ({ pb, body, response }) =>
-    response.created(
-      await pb.create.collection('receipt_items').data(body).execute()
-    )
-  )
+  .callback(async ({ db, body, response }) => {
+    const [created] = await db
+      .insert(invoiceMakerReceiptItems)
+      .values(body)
+      .returning()
+
+    return response.created(created)
+  })
 
 export const update = forge
   .mutation({
     description: 'Update an existing line item for a receipt',
     input: {
       query: z.object({
-        id: z.string()
+        id: forge.existsIn(z.string(), invoiceMakerReceiptItems)
       }),
-      body: schemas.receipt_items.partial()
-    },
-    existenceCheck: {
-      query: { id: 'receipt_items' }
+      body: receiptItemInputDto.partial()
     },
     output: {
-      OK: schemas.receipt_items,
-      NOT_FOUND: true
+      OK: receiptItemDto
     }
   })
-  .callback(async ({ pb, query: { id }, body, response }) =>
-    response.ok(
-      await pb.update.collection('receipt_items').id(id).data(body).execute()
-    )
-  )
+  .callback(async ({ db, query: { id }, body, response }) => {
+    const [updated] = await db
+      .update(invoiceMakerReceiptItems)
+      .set(body)
+      .where(eq(invoiceMakerReceiptItems.id, id))
+      .returning()
+
+    return response.ok(updated)
+  })
 
 export const remove = forge
   .mutation({
     description: 'Delete a line item from a receipt',
     input: {
       query: z.object({
-        id: z.string()
+        id: forge.existsIn(z.string(), invoiceMakerReceiptItems)
       })
     },
-    existenceCheck: {
-      query: { id: 'receipt_items' }
-    },
     output: {
-      NO_CONTENT: true,
-      NOT_FOUND: true
+      NO_CONTENT: true
     }
   })
-  .callback(async ({ pb, query: { id }, response }) => {
-    await pb.delete.collection('receipt_items').id(id).execute()
+  .callback(async ({ db, query: { id }, response }) => {
+    await db
+      .delete(invoiceMakerReceiptItems)
+      .where(eq(invoiceMakerReceiptItems.id, id))
 
     return response.noContent()
   })
@@ -99,24 +108,21 @@ export const reorder = forge
     description: 'Reorder receipt line items',
     input: {
       body: z.object({
-        receiptId: z.string(),
+        receiptId: forge.existsIn(z.string(), invoiceMakerReceipts),
         itemIds: z.array(z.string())
       })
     },
-    existenceCheck: {
-      body: { receiptId: 'receipts' }
-    },
     output: {
-      OK: z.object({ success: z.boolean() }),
-      NOT_FOUND: true
+      OK: z.object({ success: z.boolean() })
     }
   })
-  .callback(async ({ pb, body: { itemIds }, response }) => {
-    const updates = itemIds.map((id, index) =>
-      pb.update.collection('receipt_items').id(id).data({ order: index }).execute()
-    )
-
-    await Promise.all(updates)
+  .callback(async ({ db, body: { itemIds }, response }) => {
+    for (const [index, id] of itemIds.entries()) {
+      await db
+        .update(invoiceMakerReceiptItems)
+        .set({ order: index })
+        .where(eq(invoiceMakerReceiptItems.id, id))
+    }
 
     return response.ok({ success: true })
   })

@@ -3,7 +3,6 @@ import { Bordered, Box, Flex, Text } from '@lifeforge/ui'
 import { forgeAPI } from '@/manifest'
 
 interface CompanySettings {
-  collectionId: string
   id: string
   default_logo?: string
   company_name?: string
@@ -37,9 +36,7 @@ export default function CompanyHeader({
               <img
                 alt="Logo"
                 src={forgeAPI.getMedia({
-                  collectionId: settings.collectionId,
-                  recordId: settings.id,
-                  fieldId: settings.default_logo
+                  key: settings.default_logo
                 })}
                 style={{
                   objectFit: 'contain'

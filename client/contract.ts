@@ -15,12 +15,6 @@ export const contract = {
             "bill_to": {
               "type": "string"
             },
-            "date": {
-              "type": "string"
-            },
-            "due_date": {
-              "type": "string"
-            },
             "payment_terms": {
               "type": "string"
             },
@@ -69,11 +63,20 @@ export const contract = {
             "notes": {
               "type": "string"
             },
+            "date": {
+              "type": "string"
+            },
+            "due_date": {
+              "type": "string"
+            },
             "items": {
               "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
+                  "id": {
+                    "type": "string"
+                  },
                   "description": {
                     "type": "string"
                   },
@@ -98,9 +101,9 @@ export const contract = {
             }
           },
           "required": [
+            "status",
             "date",
-            "due_date",
-            "status"
+            "due_date"
           ],
           "additionalProperties": false
         }
@@ -110,17 +113,33 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "invoice_number": {
               "type": "string"
             },
             "bill_to": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "date": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "due_date": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "payment_terms": {
               "type": "string"
@@ -135,8 +154,7 @@ export const contract = {
                 "sent",
                 "paid",
                 "overdue",
-                "cancelled",
-                ""
+                "cancelled"
               ]
             },
             "shipping_address": {
@@ -151,7 +169,9 @@ export const contract = {
               ]
             },
             "tax_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "discount_type": {
               "type": "string",
@@ -162,34 +182,34 @@ export const contract = {
               ]
             },
             "discount_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "shipping_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "amount_paid": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "notes": {
               "type": "string"
             },
             "created": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             }
           },
           "required": [
+            "id",
             "invoice_number",
             "bill_to",
             "date",
@@ -206,10 +226,7 @@ export const contract = {
             "amount_paid",
             "notes",
             "created",
-            "updated",
-            "id",
-            "collectionId",
-            "collectionName"
+            "updated"
           ],
           "additionalProperties": false
         }
@@ -241,8 +258,7 @@ export const contract = {
         "CREATED": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "null"
-        },
-        "NOT_FOUND": true
+        }
       }
     },
     "getById": {
@@ -272,17 +288,33 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "invoice_number": {
               "type": "string"
             },
             "bill_to": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "date": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "due_date": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "payment_terms": {
               "type": "string"
@@ -297,8 +329,7 @@ export const contract = {
                 "sent",
                 "paid",
                 "overdue",
-                "cancelled",
-                ""
+                "cancelled"
               ]
             },
             "shipping_address": {
@@ -313,7 +344,9 @@ export const contract = {
               ]
             },
             "tax_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "discount_type": {
               "type": "string",
@@ -324,71 +357,79 @@ export const contract = {
               ]
             },
             "discount_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "shipping_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "amount_paid": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "notes": {
               "type": "string"
             },
             "created": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "items": {
               "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
                   "invoice": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   },
                   "description": {
                     "type": "string"
                   },
                   "quantity": {
-                    "type": "number"
+                    "type": "number",
+                    "minimum": -140737488355328,
+                    "maximum": 140737488355327
                   },
                   "rate": {
-                    "type": "number"
+                    "type": "number",
+                    "minimum": -140737488355328,
+                    "maximum": 140737488355327
                   },
                   "order": {
-                    "type": "number"
-                  },
-                  "id": {
-                    "type": "string"
-                  },
-                  "collectionId": {
-                    "type": "string"
-                  },
-                  "collectionName": {
-                    "type": "string"
+                    "type": "integer",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
+                  "id",
                   "invoice",
                   "description",
                   "quantity",
                   "rate",
-                  "order",
-                  "id",
-                  "collectionId",
-                  "collectionName"
+                  "order"
                 ],
                 "additionalProperties": false
               }
@@ -399,6 +440,11 @@ export const contract = {
                 "bill_to": {
                   "type": "object",
                   "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
                     "name": {
                       "type": "string"
                     },
@@ -412,31 +458,22 @@ export const contract = {
                       "type": "string"
                     },
                     "created": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date-time"
                     },
                     "updated": {
-                      "type": "string"
-                    },
-                    "id": {
-                      "type": "string"
-                    },
-                    "collectionId": {
-                      "type": "string"
-                    },
-                    "collectionName": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date-time"
                     }
                   },
                   "required": [
+                    "id",
                     "name",
                     "address",
                     "email",
                     "phone",
                     "created",
-                    "updated",
-                    "id",
-                    "collectionId",
-                    "collectionName"
+                    "updated"
                   ],
                   "additionalProperties": false
                 }
@@ -445,6 +482,7 @@ export const contract = {
             }
           },
           "required": [
+            "id",
             "invoice_number",
             "bill_to",
             "date",
@@ -462,14 +500,10 @@ export const contract = {
             "notes",
             "created",
             "updated",
-            "id",
-            "collectionId",
-            "collectionName",
             "items"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     },
     "list": {
@@ -509,182 +543,190 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "array",
           "items": {
-            "allOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "invoice_number": {
-                    "type": "string"
-                  },
-                  "bill_to": {
-                    "type": "string"
-                  },
-                  "date": {
-                    "type": "string"
-                  },
-                  "due_date": {
-                    "type": "string"
-                  },
-                  "payment_terms": {
-                    "type": "string"
-                  },
-                  "po_number": {
-                    "type": "string"
-                  },
-                  "status": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "invoice_number": {
+                "type": "string"
+              },
+              "bill_to": {
+                "anyOf": [
+                  {
                     "type": "string",
-                    "enum": [
-                      "draft",
-                      "sent",
-                      "paid",
-                      "overdue",
-                      "cancelled",
-                      ""
-                    ]
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                   },
-                  "shipping_address": {
-                    "type": "string"
-                  },
-                  "tax_type": {
-                    "type": "string",
-                    "enum": [
-                      "rate",
-                      "fixed",
-                      ""
-                    ]
-                  },
-                  "tax_amount": {
-                    "type": "number"
-                  },
-                  "discount_type": {
-                    "type": "string",
-                    "enum": [
-                      "rate",
-                      "fixed",
-                      ""
-                    ]
-                  },
-                  "discount_amount": {
-                    "type": "number"
-                  },
-                  "shipping_amount": {
-                    "type": "number"
-                  },
-                  "amount_paid": {
-                    "type": "number"
-                  },
-                  "notes": {
-                    "type": "string"
-                  },
-                  "created": {
-                    "type": "string"
-                  },
-                  "updated": {
-                    "type": "string"
-                  },
-                  "subtotal": {},
-                  "item_count": {},
-                  "calculated_tax": {},
-                  "calculated_discount": {},
-                  "calculated_shipping": {},
-                  "id": {
-                    "type": "string"
-                  },
-                  "collectionId": {
-                    "type": "string"
-                  },
-                  "collectionName": {
-                    "type": "string"
-                  },
-                  "expand": {
-                    "type": "object",
-                    "properties": {
-                      "bill_to": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "address": {
-                            "type": "string"
-                          },
-                          "email": {
-                            "type": "string"
-                          },
-                          "phone": {
-                            "type": "string"
-                          },
-                          "created": {
-                            "type": "string"
-                          },
-                          "updated": {
-                            "type": "string"
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "collectionId": {
-                            "type": "string"
-                          },
-                          "collectionName": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "address",
-                          "email",
-                          "phone",
-                          "created",
-                          "updated",
-                          "id",
-                          "collectionId",
-                          "collectionName"
-                        ]
-                      }
-                    }
+                  {
+                    "type": "null"
                   }
-                },
-                "required": [
-                  "invoice_number",
-                  "bill_to",
-                  "date",
-                  "due_date",
-                  "payment_terms",
-                  "po_number",
-                  "status",
-                  "shipping_address",
-                  "tax_type",
-                  "tax_amount",
-                  "discount_type",
-                  "discount_amount",
-                  "shipping_amount",
-                  "amount_paid",
-                  "notes",
-                  "created",
-                  "updated",
-                  "subtotal",
-                  "item_count",
-                  "calculated_tax",
-                  "calculated_discount",
-                  "calculated_shipping",
-                  "id",
-                  "collectionId",
-                  "collectionName"
                 ]
               },
-              {
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "due_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "payment_terms": {
+                "type": "string"
+              },
+              "po_number": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "draft",
+                  "sent",
+                  "paid",
+                  "overdue",
+                  "cancelled"
+                ]
+              },
+              "shipping_address": {
+                "type": "string"
+              },
+              "tax_type": {
+                "type": "string",
+                "enum": [
+                  "rate",
+                  "fixed",
+                  ""
+                ]
+              },
+              "tax_amount": {
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
+              },
+              "discount_type": {
+                "type": "string",
+                "enum": [
+                  "rate",
+                  "fixed",
+                  ""
+                ]
+              },
+              "discount_amount": {
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
+              },
+              "shipping_amount": {
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
+              },
+              "amount_paid": {
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
+              },
+              "notes": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "subtotal": {
+                "type": "number"
+              },
+              "item_count": {
+                "type": "number"
+              },
+              "calculated_tax": {
+                "type": "number"
+              },
+              "calculated_discount": {
+                "type": "number"
+              },
+              "calculated_shipping": {
+                "type": "number"
+              },
+              "expand": {
                 "type": "object",
                 "properties": {
-                  "subtotal": {
-                    "type": "number"
+                  "bill_to": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      },
+                      "created": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "address",
+                      "email",
+                      "phone",
+                      "created",
+                      "updated"
+                    ],
+                    "additionalProperties": false
                   }
                 },
-                "required": [
-                  "subtotal"
-                ]
+                "additionalProperties": false
               }
-            ]
+            },
+            "required": [
+              "id",
+              "invoice_number",
+              "bill_to",
+              "date",
+              "due_date",
+              "payment_terms",
+              "po_number",
+              "status",
+              "shipping_address",
+              "tax_type",
+              "tax_amount",
+              "discount_type",
+              "discount_amount",
+              "shipping_amount",
+              "amount_paid",
+              "notes",
+              "created",
+              "updated",
+              "subtotal",
+              "item_count",
+              "calculated_tax",
+              "calculated_discount",
+              "calculated_shipping"
+            ],
+            "additionalProperties": false
           }
         }
       }
@@ -712,8 +754,7 @@ export const contract = {
         }
       },
       "output": {
-        "NO_CONTENT": true,
-        "NOT_FOUND": true
+        "NO_CONTENT": true
       }
     },
     "update": {
@@ -741,16 +782,7 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
-            "invoice_number": {
-              "type": "string"
-            },
             "bill_to": {
-              "type": "string"
-            },
-            "date": {
-              "type": "string"
-            },
-            "due_date": {
               "type": "string"
             },
             "payment_terms": {
@@ -801,6 +833,15 @@ export const contract = {
             "notes": {
               "type": "string"
             },
+            "invoice_number": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "due_date": {
+              "type": "string"
+            },
             "items": {
               "type": "array",
               "items": {
@@ -840,17 +881,33 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "invoice_number": {
               "type": "string"
             },
             "bill_to": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "date": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "due_date": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "payment_terms": {
               "type": "string"
@@ -865,8 +922,7 @@ export const contract = {
                 "sent",
                 "paid",
                 "overdue",
-                "cancelled",
-                ""
+                "cancelled"
               ]
             },
             "shipping_address": {
@@ -881,7 +937,9 @@ export const contract = {
               ]
             },
             "tax_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "discount_type": {
               "type": "string",
@@ -892,34 +950,34 @@ export const contract = {
               ]
             },
             "discount_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "shipping_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "amount_paid": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "notes": {
               "type": "string"
             },
             "created": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             }
           },
           "required": [
+            "id",
             "invoice_number",
             "bill_to",
             "date",
@@ -936,14 +994,10 @@ export const contract = {
             "amount_paid",
             "notes",
             "created",
-            "updated",
-            "id",
-            "collectionId",
-            "collectionName"
+            "updated"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     }
   },
@@ -960,9 +1014,6 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
-            "invoice": {
-              "type": "string"
-            },
             "description": {
               "type": "string"
             },
@@ -975,25 +1026,16 @@ export const contract = {
             "order": {
               "type": "number"
             },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
+            "invoice": {
               "type": "string"
             }
           },
           "required": [
-            "invoice",
             "description",
             "quantity",
             "rate",
             "order",
-            "id",
-            "collectionId",
-            "collectionName"
+            "invoice"
           ],
           "additionalProperties": false
         }
@@ -1003,44 +1045,52 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "invoice": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "description": {
               "type": "string"
             },
             "quantity": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "rate": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "order": {
-              "type": "number"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "integer",
+              "minimum": -2147483648,
+              "maximum": 2147483647
             }
           },
           "required": [
+            "id",
             "invoice",
             "description",
             "quantity",
             "rate",
-            "order",
-            "id",
-            "collectionId",
-            "collectionName"
+            "order"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     },
     "listByInvoice": {
@@ -1072,45 +1122,53 @@ export const contract = {
           "items": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
               "invoice": {
-                "type": "string"
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
               },
               "description": {
                 "type": "string"
               },
               "quantity": {
-                "type": "number"
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
               },
               "rate": {
-                "type": "number"
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
               },
               "order": {
-                "type": "number"
-              },
-              "id": {
-                "type": "string"
-              },
-              "collectionId": {
-                "type": "string"
-              },
-              "collectionName": {
-                "type": "string"
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
               }
             },
             "required": [
+              "id",
               "invoice",
               "description",
               "quantity",
               "rate",
-              "order",
-              "id",
-              "collectionId",
-              "collectionName"
+              "order"
             ],
             "additionalProperties": false
           }
-        },
-        "NOT_FOUND": true
+        }
       }
     },
     "remove": {
@@ -1136,8 +1194,7 @@ export const contract = {
         }
       },
       "output": {
-        "NO_CONTENT": true,
-        "NOT_FOUND": true
+        "NO_CONTENT": true
       }
     },
     "reorder": {
@@ -1182,8 +1239,7 @@ export const contract = {
             "success"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     },
     "update": {
@@ -1211,9 +1267,6 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
-            "invoice": {
-              "type": "string"
-            },
             "description": {
               "type": "string"
             },
@@ -1225,15 +1278,6 @@ export const contract = {
             },
             "order": {
               "type": "number"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
             }
           },
           "additionalProperties": false
@@ -1244,44 +1288,52 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "invoice": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "description": {
               "type": "string"
             },
             "quantity": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "rate": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "order": {
-              "type": "number"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "integer",
+              "minimum": -2147483648,
+              "maximum": 2147483647
             }
           },
           "required": [
+            "id",
             "invoice",
             "description",
             "quantity",
             "rate",
-            "order",
-            "id",
-            "collectionId",
-            "collectionName"
+            "order"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     }
   },
@@ -1299,9 +1351,6 @@ export const contract = {
           "type": "object",
           "properties": {
             "bill_to": {
-              "type": "string"
-            },
-            "date": {
               "type": "string"
             },
             "payment_method": {
@@ -1350,11 +1399,17 @@ export const contract = {
             "amount_paid": {
               "type": "number"
             },
+            "date": {
+              "type": "string"
+            },
             "items": {
               "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
+                  "id": {
+                    "type": "string"
+                  },
                   "description": {
                     "type": "string"
                   },
@@ -1379,8 +1434,8 @@ export const contract = {
             }
           },
           "required": [
-            "date",
-            "status"
+            "status",
+            "date"
           ],
           "additionalProperties": false
         }
@@ -1390,14 +1445,29 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "receipt_number": {
               "type": "string"
             },
             "bill_to": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "date": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "payment_method": {
               "type": "string"
@@ -1413,8 +1483,7 @@ export const contract = {
               "enum": [
                 "draft",
                 "issued",
-                "cancelled",
-                ""
+                "cancelled"
               ]
             },
             "shipping_address": {
@@ -1429,7 +1498,9 @@ export const contract = {
               ]
             },
             "tax_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "discount_type": {
               "type": "string",
@@ -1440,31 +1511,31 @@ export const contract = {
               ]
             },
             "discount_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "shipping_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "amount_paid": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "created": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             }
           },
           "required": [
+            "id",
             "receipt_number",
             "bill_to",
             "date",
@@ -1480,10 +1551,7 @@ export const contract = {
             "shipping_amount",
             "amount_paid",
             "created",
-            "updated",
-            "id",
-            "collectionId",
-            "collectionName"
+            "updated"
           ],
           "additionalProperties": false
         }
@@ -1515,8 +1583,7 @@ export const contract = {
         "CREATED": {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "null"
-        },
-        "NOT_FOUND": true
+        }
       }
     },
     "getById": {
@@ -1546,14 +1613,29 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "receipt_number": {
               "type": "string"
             },
             "bill_to": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "date": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "payment_method": {
               "type": "string"
@@ -1569,8 +1651,7 @@ export const contract = {
               "enum": [
                 "draft",
                 "issued",
-                "cancelled",
-                ""
+                "cancelled"
               ]
             },
             "shipping_address": {
@@ -1585,7 +1666,9 @@ export const contract = {
               ]
             },
             "tax_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "discount_type": {
               "type": "string",
@@ -1596,68 +1679,76 @@ export const contract = {
               ]
             },
             "discount_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "shipping_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "amount_paid": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "created": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "items": {
               "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
                   "receipt": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   },
                   "description": {
                     "type": "string"
                   },
                   "quantity": {
-                    "type": "number"
+                    "type": "number",
+                    "minimum": -140737488355328,
+                    "maximum": 140737488355327
                   },
                   "rate": {
-                    "type": "number"
+                    "type": "number",
+                    "minimum": -140737488355328,
+                    "maximum": 140737488355327
                   },
                   "order": {
-                    "type": "number"
-                  },
-                  "id": {
-                    "type": "string"
-                  },
-                  "collectionId": {
-                    "type": "string"
-                  },
-                  "collectionName": {
-                    "type": "string"
+                    "type": "integer",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
                   }
                 },
                 "required": [
+                  "id",
                   "receipt",
                   "description",
                   "quantity",
                   "rate",
-                  "order",
-                  "id",
-                  "collectionId",
-                  "collectionName"
+                  "order"
                 ],
                 "additionalProperties": false
               }
@@ -1668,6 +1759,11 @@ export const contract = {
                 "bill_to": {
                   "type": "object",
                   "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
                     "name": {
                       "type": "string"
                     },
@@ -1681,31 +1777,22 @@ export const contract = {
                       "type": "string"
                     },
                     "created": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date-time"
                     },
                     "updated": {
-                      "type": "string"
-                    },
-                    "id": {
-                      "type": "string"
-                    },
-                    "collectionId": {
-                      "type": "string"
-                    },
-                    "collectionName": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date-time"
                     }
                   },
                   "required": [
+                    "id",
                     "name",
                     "address",
                     "email",
                     "phone",
                     "created",
-                    "updated",
-                    "id",
-                    "collectionId",
-                    "collectionName"
+                    "updated"
                   ],
                   "additionalProperties": false
                 }
@@ -1714,6 +1801,7 @@ export const contract = {
             }
           },
           "required": [
+            "id",
             "receipt_number",
             "bill_to",
             "date",
@@ -1730,14 +1818,10 @@ export const contract = {
             "amount_paid",
             "created",
             "updated",
-            "id",
-            "collectionId",
-            "collectionName",
             "items"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     },
     "list": {
@@ -1775,176 +1859,183 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "array",
           "items": {
-            "allOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "receipt_number": {
-                    "type": "string"
-                  },
-                  "bill_to": {
-                    "type": "string"
-                  },
-                  "date": {
-                    "type": "string"
-                  },
-                  "payment_method": {
-                    "type": "string"
-                  },
-                  "payment_terms": {
-                    "type": "string"
-                  },
-                  "reference_number": {
-                    "type": "string"
-                  },
-                  "status": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "receipt_number": {
+                "type": "string"
+              },
+              "bill_to": {
+                "anyOf": [
+                  {
                     "type": "string",
-                    "enum": [
-                      "draft",
-                      "issued",
-                      "cancelled",
-                      ""
-                    ]
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                   },
-                  "shipping_address": {
-                    "type": "string"
-                  },
-                  "tax_type": {
-                    "type": "string",
-                    "enum": [
-                      "rate",
-                      "fixed",
-                      ""
-                    ]
-                  },
-                  "tax_amount": {
-                    "type": "number"
-                  },
-                  "discount_type": {
-                    "type": "string",
-                    "enum": [
-                      "rate",
-                      "fixed",
-                      ""
-                    ]
-                  },
-                  "discount_amount": {
-                    "type": "number"
-                  },
-                  "shipping_amount": {
-                    "type": "number"
-                  },
-                  "amount_paid": {
-                    "type": "number"
-                  },
-                  "created": {
-                    "type": "string"
-                  },
-                  "updated": {
-                    "type": "string"
-                  },
-                  "subtotal": {},
-                  "item_count": {},
-                  "calculated_tax": {},
-                  "calculated_discount": {},
-                  "calculated_shipping": {},
-                  "id": {
-                    "type": "string"
-                  },
-                  "collectionId": {
-                    "type": "string"
-                  },
-                  "collectionName": {
-                    "type": "string"
-                  },
-                  "expand": {
-                    "type": "object",
-                    "properties": {
-                      "bill_to": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "address": {
-                            "type": "string"
-                          },
-                          "email": {
-                            "type": "string"
-                          },
-                          "phone": {
-                            "type": "string"
-                          },
-                          "created": {
-                            "type": "string"
-                          },
-                          "updated": {
-                            "type": "string"
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "collectionId": {
-                            "type": "string"
-                          },
-                          "collectionName": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "address",
-                          "email",
-                          "phone",
-                          "created",
-                          "updated",
-                          "id",
-                          "collectionId",
-                          "collectionName"
-                        ]
-                      }
-                    }
+                  {
+                    "type": "null"
                   }
-                },
-                "required": [
-                  "receipt_number",
-                  "bill_to",
-                  "date",
-                  "payment_method",
-                  "payment_terms",
-                  "reference_number",
-                  "status",
-                  "shipping_address",
-                  "tax_type",
-                  "tax_amount",
-                  "discount_type",
-                  "discount_amount",
-                  "shipping_amount",
-                  "amount_paid",
-                  "created",
-                  "updated",
-                  "subtotal",
-                  "item_count",
-                  "calculated_tax",
-                  "calculated_discount",
-                  "calculated_shipping",
-                  "id",
-                  "collectionId",
-                  "collectionName"
                 ]
               },
-              {
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "payment_method": {
+                "type": "string"
+              },
+              "payment_terms": {
+                "type": "string"
+              },
+              "reference_number": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "draft",
+                  "issued",
+                  "cancelled"
+                ]
+              },
+              "shipping_address": {
+                "type": "string"
+              },
+              "tax_type": {
+                "type": "string",
+                "enum": [
+                  "rate",
+                  "fixed",
+                  ""
+                ]
+              },
+              "tax_amount": {
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
+              },
+              "discount_type": {
+                "type": "string",
+                "enum": [
+                  "rate",
+                  "fixed",
+                  ""
+                ]
+              },
+              "discount_amount": {
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
+              },
+              "shipping_amount": {
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
+              },
+              "amount_paid": {
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
+              },
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "subtotal": {
+                "type": "number"
+              },
+              "item_count": {
+                "type": "number"
+              },
+              "calculated_tax": {
+                "type": "number"
+              },
+              "calculated_discount": {
+                "type": "number"
+              },
+              "calculated_shipping": {
+                "type": "number"
+              },
+              "expand": {
                 "type": "object",
                 "properties": {
-                  "subtotal": {
-                    "type": "number"
+                  "bill_to": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      },
+                      "created": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "address",
+                      "email",
+                      "phone",
+                      "created",
+                      "updated"
+                    ],
+                    "additionalProperties": false
                   }
                 },
-                "required": [
-                  "subtotal"
-                ]
+                "additionalProperties": false
               }
-            ]
+            },
+            "required": [
+              "id",
+              "receipt_number",
+              "bill_to",
+              "date",
+              "payment_method",
+              "payment_terms",
+              "reference_number",
+              "status",
+              "shipping_address",
+              "tax_type",
+              "tax_amount",
+              "discount_type",
+              "discount_amount",
+              "shipping_amount",
+              "amount_paid",
+              "created",
+              "updated",
+              "subtotal",
+              "item_count",
+              "calculated_tax",
+              "calculated_discount",
+              "calculated_shipping"
+            ],
+            "additionalProperties": false
           }
         }
       }
@@ -1972,8 +2063,7 @@ export const contract = {
         }
       },
       "output": {
-        "NO_CONTENT": true,
-        "NOT_FOUND": true
+        "NO_CONTENT": true
       }
     },
     "update": {
@@ -2001,13 +2091,7 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
-            "receipt_number": {
-              "type": "string"
-            },
             "bill_to": {
-              "type": "string"
-            },
-            "date": {
               "type": "string"
             },
             "payment_method": {
@@ -2056,6 +2140,12 @@ export const contract = {
             "amount_paid": {
               "type": "number"
             },
+            "receipt_number": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
             "items": {
               "type": "array",
               "items": {
@@ -2095,14 +2185,29 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "receipt_number": {
               "type": "string"
             },
             "bill_to": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "date": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "payment_method": {
               "type": "string"
@@ -2118,8 +2223,7 @@ export const contract = {
               "enum": [
                 "draft",
                 "issued",
-                "cancelled",
-                ""
+                "cancelled"
               ]
             },
             "shipping_address": {
@@ -2134,7 +2238,9 @@ export const contract = {
               ]
             },
             "tax_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "discount_type": {
               "type": "string",
@@ -2145,31 +2251,31 @@ export const contract = {
               ]
             },
             "discount_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "shipping_amount": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "amount_paid": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "created": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             }
           },
           "required": [
+            "id",
             "receipt_number",
             "bill_to",
             "date",
@@ -2185,14 +2291,10 @@ export const contract = {
             "shipping_amount",
             "amount_paid",
             "created",
-            "updated",
-            "id",
-            "collectionId",
-            "collectionName"
+            "updated"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     }
   },
@@ -2209,9 +2311,6 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
-            "receipt": {
-              "type": "string"
-            },
             "description": {
               "type": "string"
             },
@@ -2224,25 +2323,16 @@ export const contract = {
             "order": {
               "type": "number"
             },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
+            "receipt": {
               "type": "string"
             }
           },
           "required": [
-            "receipt",
             "description",
             "quantity",
             "rate",
             "order",
-            "id",
-            "collectionId",
-            "collectionName"
+            "receipt"
           ],
           "additionalProperties": false
         }
@@ -2252,44 +2342,52 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "receipt": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "description": {
               "type": "string"
             },
             "quantity": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "rate": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "order": {
-              "type": "number"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "integer",
+              "minimum": -2147483648,
+              "maximum": 2147483647
             }
           },
           "required": [
+            "id",
             "receipt",
             "description",
             "quantity",
             "rate",
-            "order",
-            "id",
-            "collectionId",
-            "collectionName"
+            "order"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     },
     "listByReceipt": {
@@ -2321,45 +2419,53 @@ export const contract = {
           "items": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
               "receipt": {
-                "type": "string"
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
               },
               "description": {
                 "type": "string"
               },
               "quantity": {
-                "type": "number"
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
               },
               "rate": {
-                "type": "number"
+                "type": "number",
+                "minimum": -140737488355328,
+                "maximum": 140737488355327
               },
               "order": {
-                "type": "number"
-              },
-              "id": {
-                "type": "string"
-              },
-              "collectionId": {
-                "type": "string"
-              },
-              "collectionName": {
-                "type": "string"
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
               }
             },
             "required": [
+              "id",
               "receipt",
               "description",
               "quantity",
               "rate",
-              "order",
-              "id",
-              "collectionId",
-              "collectionName"
+              "order"
             ],
             "additionalProperties": false
           }
-        },
-        "NOT_FOUND": true
+        }
       }
     },
     "remove": {
@@ -2385,8 +2491,7 @@ export const contract = {
         }
       },
       "output": {
-        "NO_CONTENT": true,
-        "NOT_FOUND": true
+        "NO_CONTENT": true
       }
     },
     "reorder": {
@@ -2431,8 +2536,7 @@ export const contract = {
             "success"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     },
     "update": {
@@ -2460,9 +2564,6 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
-            "receipt": {
-              "type": "string"
-            },
             "description": {
               "type": "string"
             },
@@ -2474,15 +2575,6 @@ export const contract = {
             },
             "order": {
               "type": "number"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
             }
           },
           "additionalProperties": false
@@ -2493,44 +2585,52 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "receipt": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "description": {
               "type": "string"
             },
             "quantity": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "rate": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "order": {
-              "type": "number"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "integer",
+              "minimum": -2147483648,
+              "maximum": 2147483647
             }
           },
           "required": [
+            "id",
             "receipt",
             "description",
             "quantity",
             "rate",
-            "order",
-            "id",
-            "collectionId",
-            "collectionName"
+            "order"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     }
   },
@@ -2574,6 +2674,11 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "name": {
               "type": "string"
             },
@@ -2587,31 +2692,22 @@ export const contract = {
               "type": "string"
             },
             "created": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             }
           },
           "required": [
+            "id",
             "name",
             "address",
             "email",
             "phone",
             "created",
-            "updated",
-            "id",
-            "collectionId",
-            "collectionName"
+            "updated"
           ],
           "additionalProperties": false
         }
@@ -2644,6 +2740,11 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "name": {
               "type": "string"
             },
@@ -2657,35 +2758,25 @@ export const contract = {
               "type": "string"
             },
             "created": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             }
           },
           "required": [
+            "id",
             "name",
             "address",
             "email",
             "phone",
             "created",
-            "updated",
-            "id",
-            "collectionId",
-            "collectionName"
+            "updated"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     },
     "list": {
@@ -2703,6 +2794,11 @@ export const contract = {
           "items": {
             "type": "object",
             "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
               "name": {
                 "type": "string"
               },
@@ -2716,31 +2812,22 @@ export const contract = {
                 "type": "string"
               },
               "created": {
-                "type": "string"
+                "type": "string",
+                "format": "date-time"
               },
               "updated": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "collectionId": {
-                "type": "string"
-              },
-              "collectionName": {
-                "type": "string"
+                "type": "string",
+                "format": "date-time"
               }
             },
             "required": [
+              "id",
               "name",
               "address",
               "email",
               "phone",
               "created",
-              "updated",
-              "id",
-              "collectionId",
-              "collectionName"
+              "updated"
             ],
             "additionalProperties": false
           }
@@ -2770,9 +2857,7 @@ export const contract = {
         }
       },
       "output": {
-        "NO_CONTENT": true,
-        "CONFLICT": true,
-        "NOT_FOUND": true
+        "NO_CONTENT": true
       }
     },
     "update": {
@@ -2827,6 +2912,11 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "name": {
               "type": "string"
             },
@@ -2840,35 +2930,25 @@ export const contract = {
               "type": "string"
             },
             "created": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             }
           },
           "required": [
+            "id",
             "name",
             "address",
             "email",
             "phone",
             "created",
-            "updated",
-            "id",
-            "collectionId",
-            "collectionName"
+            "updated"
           ],
           "additionalProperties": false
-        },
-        "NOT_FOUND": true
+        }
       }
     }
   },
@@ -2886,6 +2966,11 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "company_name": {
               "type": "string"
             },
@@ -2911,7 +2996,9 @@ export const contract = {
               "type": "string"
             },
             "default_tax_rate": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "bank_name": {
               "type": "string"
@@ -2932,31 +3019,29 @@ export const contract = {
               "type": "string"
             },
             "next_invoice_number": {
-              "type": "number"
+              "type": "integer",
+              "minimum": -2147483648,
+              "maximum": 2147483647
             },
             "receipt_prefix": {
               "type": "string"
             },
             "next_receipt_number": {
-              "type": "number"
+              "type": "integer",
+              "minimum": -2147483648,
+              "maximum": 2147483647
             },
             "created": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             }
           },
           "required": [
+            "id",
             "company_name",
             "company_address",
             "company_reg_no",
@@ -2976,10 +3061,7 @@ export const contract = {
             "receipt_prefix",
             "next_receipt_number",
             "created",
-            "updated",
-            "id",
-            "collectionId",
-            "collectionName"
+            "updated"
           ],
           "additionalProperties": false
         }
@@ -3051,15 +3133,6 @@ export const contract = {
             },
             "next_receipt_number": {
               "type": "number"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
             }
           },
           "additionalProperties": false
@@ -3070,6 +3143,11 @@ export const contract = {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "type": "object",
           "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
             "company_name": {
               "type": "string"
             },
@@ -3095,7 +3173,9 @@ export const contract = {
               "type": "string"
             },
             "default_tax_rate": {
-              "type": "number"
+              "type": "number",
+              "minimum": -140737488355328,
+              "maximum": 140737488355327
             },
             "bank_name": {
               "type": "string"
@@ -3116,31 +3196,29 @@ export const contract = {
               "type": "string"
             },
             "next_invoice_number": {
-              "type": "number"
+              "type": "integer",
+              "minimum": -2147483648,
+              "maximum": 2147483647
             },
             "receipt_prefix": {
               "type": "string"
             },
             "next_receipt_number": {
-              "type": "number"
+              "type": "integer",
+              "minimum": -2147483648,
+              "maximum": 2147483647
             },
             "created": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             "updated": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "collectionId": {
-              "type": "string"
-            },
-            "collectionName": {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             }
           },
           "required": [
+            "id",
             "company_name",
             "company_address",
             "company_reg_no",
@@ -3160,10 +3238,7 @@ export const contract = {
             "receipt_prefix",
             "next_receipt_number",
             "created",
-            "updated",
-            "id",
-            "collectionId",
-            "collectionName"
+            "updated"
           ],
           "additionalProperties": false
         }
