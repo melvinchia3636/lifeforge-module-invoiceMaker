@@ -28,18 +28,18 @@ export default function InvoicePreview({
     >
       <PrintArea contentRef={ref}>
         <Card
-          height="100%"
           p="xl"
           r="lg"
           style={{
-            aspectRatio: '1 / 1.414',
             backgroundColor: '#fff',
+            boxDecorationBreak: 'clone',
             color: '#000',
-            fontFamily: 'Onest'
+            fontFamily: 'Onest',
+            WebkitBoxDecorationBreak: 'clone'
           }}
           width="100%"
         >
-          <Flex direction="column" gap="sm" height="100%" width="100%">
+          <Flex direction="column" gap="sm" width="100%">
             <CompanyHeader settings={settings} title="INVOICE" />
             <TopInfoSection />
             <PreviewLineItems

@@ -13,6 +13,7 @@ function TopInfoSection() {
         <Text
           mb="xs"
           style={{ color: '#71717a', fontSize: '14px', fontWeight: 500 }}
+          whiteSpace="nowrap"
         >
           Bill To:
         </Text>
@@ -32,29 +33,40 @@ function TopInfoSection() {
         )}
       </Flex>
       <Flex direction="column" flex="1" gap="sm">
-        <Flex justify="between">
-          <Text style={{ color: '#71717a' }}>Invoice Number:</Text>
+        <Flex gap="lg" justify="between">
+          <Text style={{ color: '#71717a' }} whiteSpace="nowrap">
+            Invoice Number:
+          </Text>
           <Text>{invoice.invoice_number}</Text>
         </Flex>
-        <Flex justify="between">
-          <Text style={{ color: '#71717a' }}>Date:</Text>
+        <Flex gap="lg" justify="between">
+          <Text style={{ color: '#71717a' }} whiteSpace="nowrap">
+            Date:
+          </Text>
           <Text>{dayjs(invoice.date).format('DD MMM YYYY')}</Text>
         </Flex>
-        <Flex justify="between">
-          <Text style={{ color: '#71717a' }}>Payment Terms:</Text>
+        <Flex gap="lg" justify="between">
+          <Text style={{ color: '#71717a' }} whiteSpace="nowrap">
+            Payment Terms:
+          </Text>
           <Text>{invoice.payment_terms || '-'}</Text>
         </Flex>
-        <Flex justify="between">
-          <Text style={{ color: '#71717a' }}>Due Date:</Text>
+        <Flex gap="lg" justify="between">
+          <Text style={{ color: '#71717a' }} whiteSpace="nowrap">
+            Due Date:
+          </Text>
           <Text>{dayjs(invoice.due_date).format('DD MMM YYYY')}</Text>
         </Flex>
         {invoice.po_number && (
-          <Flex justify="between">
-            <Text style={{ color: '#71717a' }}>PO Number:</Text>
-            <Text>{invoice.po_number}</Text>
+          <Flex gap="lg" justify="between">
+            <Text style={{ color: '#71717a' }} whiteSpace="nowrap">
+              PO Number:
+            </Text>
+            <Text align="right">{invoice.po_number}</Text>
           </Flex>
         )}
         <Flex
+          gap="lg"
           justify="between"
           mt="lg"
           style={{ fontSize: '20px', fontWeight: 600 }}

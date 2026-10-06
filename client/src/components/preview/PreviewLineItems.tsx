@@ -18,17 +18,20 @@ export default function PreviewLineItems({
   return (
     <Flex
       direction="column"
+      flexShrink="0"
       mb="lg"
+      overflow={{ base: 'hidden', print: 'visible' }}
+      r="sm"
       style={{
-        border: '1px solid #e4e4e7',
-        borderRadius: '0.5rem',
-        overflow: 'hidden'
+        border: '1px solid #e4e4e7'
       }}
     >
       <Flex
         bg="bg-950"
         gap="md"
         p="md"
+        rtl="sm"
+        rtr="sm"
         style={{ fontSize: '14px', fontWeight: 500 }}
       >
         <Box asChild flex="6">
@@ -41,12 +44,12 @@ export default function PreviewLineItems({
         </Box>
         <Box asChild flex="2">
           <Text align="center" color="bg-50">
-            Rate
+            Rate ({currencySymbol})
           </Text>
         </Box>
         <Box asChild flex="2">
           <Text align="right" color="bg-50">
-            Amount
+            Amount ({currencySymbol})
           </Text>
         </Box>
       </Flex>
@@ -59,7 +62,8 @@ export default function PreviewLineItems({
             p="md"
             style={{
               borderBottom:
-                index < items.length - 1 ? '1px solid #e4e4e7' : undefined
+                index < items.length - 1 ? '1px solid #e4e4e7' : undefined,
+              breakInside: 'avoid'
             }}
           >
             <Box asChild flex="6">
@@ -70,7 +74,6 @@ export default function PreviewLineItems({
             </Box>
             <Box asChild flex="2">
               <Text align="center">
-                {currencySymbol}{' '}
                 {item.rate.toLocaleString('en-MY', {
                   minimumFractionDigits: 2
                 })}
@@ -78,7 +81,6 @@ export default function PreviewLineItems({
             </Box>
             <Box asChild flex="2">
               <Text align="right">
-                {currencySymbol}{' '}
                 {(item.quantity * item.rate).toLocaleString('en-MY', {
                   minimumFractionDigits: 2
                 })}
