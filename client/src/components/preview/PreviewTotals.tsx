@@ -58,11 +58,7 @@ export default function PreviewTotals({
           </Box>
         )}
         <Box asChild width="auto">
-          <Text
-            align="right"
-            style={{ fontVariantNumeric: 'tabular-nums' }}
-            weight={isTotal ? 'semibold' : undefined}
-          >
+          <Text align="right" weight={isTotal ? 'semibold' : undefined}>
             {value}
           </Text>
         </Box>
