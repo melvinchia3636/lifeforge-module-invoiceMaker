@@ -13,6 +13,7 @@ import {
   ListboxInput,
   ListboxOption,
   Prose,
+  Scrollbar,
   Text,
   TextInput,
   useModalStore
@@ -123,28 +124,38 @@ function TopInfoSection() {
               <Text as="label" color="muted" size="sm">
                 {t('inputs.paymentTerms')}
               </Text>
-              <IconTooltip icon="tabler:info-circle" id="payment-terms-tooltip">
-                <Text
-                  asChild
-                  color={{ base: 'bg-800', dark: 'bg-100' }}
-                  size="base"
-                  whiteSpace="pre-line"
-                >
-                  <Prose>
-                    {t('tooltips.paymentTerms')
-                      .split('\n')
-                      .map(e => (
-                        <li
-                          key={e}
-                          style={{
-                            marginLeft: '1rem'
-                          }}
-                        >
-                          {e}
-                        </li>
-                      ))}
-                  </Prose>
-                </Text>
+              <IconTooltip
+                clickable
+                openOnClick
+                icon="tabler:info-circle"
+                id="payment-terms-tooltip"
+              >
+                <Box height="20rem" width="16rem">
+                  <Scrollbar>
+                    <Text
+                      asChild
+                      color={{ base: 'bg-800', dark: 'bg-100' }}
+                      pr="sm"
+                      size="base"
+                      whiteSpace="pre-line"
+                    >
+                      <Prose>
+                        {t('tooltips.paymentTerms')
+                          .split('\n')
+                          .map(e => (
+                            <li
+                              key={e}
+                              style={{
+                                marginLeft: '1rem'
+                              }}
+                            >
+                              {e}
+                            </li>
+                          ))}
+                      </Prose>
+                    </Text>
+                  </Scrollbar>
+                </Box>
               </IconTooltip>
             </Flex>
             <TextInput
