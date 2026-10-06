@@ -17,10 +17,7 @@ interface CompanyHeaderProps {
   title: string
 }
 
-export default function CompanyHeader({
-  settings,
-  title
-}: CompanyHeaderProps) {
+export default function CompanyHeader({ settings, title }: CompanyHeaderProps) {
   return (
     <Flex direction="column" mb="lg" width="100%">
       <Bordered
@@ -77,7 +74,7 @@ export default function CompanyHeader({
         style={{
           fontSize: '32px',
           fontWeight: 300,
-          letterSpacing: '0.05em'
+          letterSpacing: '0.1em'
         }}
       >
         {title}
