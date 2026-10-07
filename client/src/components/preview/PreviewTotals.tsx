@@ -71,7 +71,8 @@ export default function PreviewTotals({
       direction="column"
       gap="xs"
       style={{
-        marginLeft: 'auto'
+        marginLeft: 'auto',
+        breakInside: 'avoid'
       }}
       width="50%"
     >

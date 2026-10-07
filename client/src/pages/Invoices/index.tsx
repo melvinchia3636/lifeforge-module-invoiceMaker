@@ -59,7 +59,7 @@ export default function InvoiceMaker() {
                         label: 'createReceipt',
                         onClick: () =>
                           navigate(
-                            `/melvinchia3636--invoice-maker/invoice/modify?fromInvoice=${invoice.id}`
+                            `/melvinchia3636--invoice-maker/receipt/modify?fromInvoice=${invoice.id}`
                           )
                       }
                     ]}

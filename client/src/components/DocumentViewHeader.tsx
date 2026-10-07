@@ -106,7 +106,7 @@ export default function DocumentViewHeader({
               variant="secondary"
               onClick={() =>
                 navigate(
-                  `/melvinchia3636--invoice-maker/invoice/modify?fromInvoice=${data.id}`
+                  `/melvinchia3636--invoice-maker/receipt/modify?fromInvoice=${data.id}`
                 )
               }
             >
