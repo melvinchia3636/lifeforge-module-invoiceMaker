@@ -1,20 +1,34 @@
-import { useRef } from 'react'
 import { useParams } from 'react-router'
 
 import DocumentViewHeader from '@/components/DocumentViewHeader'
-import ReceiptPreview from './components/ReceiptPreview'
+import { ReceiptPdf } from '@/components/pdf/documents/ReceiptPdf'
+import DocumentPdfPreview from '@/components/pdf/DocumentPdfPreview'
 import ReceiptViewerProvider, {
   useReceiptViewer
 } from './providers/ReceiptViewerProvider'
 
 function ViewReceiptContent() {
-  const receiptRef = useRef<HTMLDivElement>(null)
-  const { receipt } = useReceiptViewer()
+  const { receipt, settings, currencySymbol, calculations } = useReceiptViewer()
 
   return (
     <>
-      <DocumentViewHeader data={receipt} contentRef={receiptRef} />
-      <ReceiptPreview ref={receiptRef} />
+      <DocumentViewHeader
+        calculations={calculations}
+        currencySymbol={currencySymbol}
+        data={receipt}
+        settings={settings}
+      />
+      <DocumentPdfPreview logoKey={settings.default_logo}>
+        {logoSrc => (
+          <ReceiptPdf
+            calculations={calculations}
+            currencySymbol={currencySymbol}
+            logoSrc={logoSrc}
+            receipt={receipt}
+            settings={settings}
+          />
+        )}
+      </DocumentPdfPreview>
     </>
   )
 }

@@ -1,28 +1,55 @@
-import { useQuery } from '@tanstack/react-query'
-import { Link, useNavigate } from 'react-router'
-import { useReactToPrint } from 'react-to-print'
+import { useState } from 'react'
+import { useNavigate } from 'react-router'
+
+import { pdf } from '@react-pdf/renderer'
 
 import type { InferOutput } from '@lifeforge/api'
 import { useModuleTranslation } from '@lifeforge/localization'
-import { Box, Button, Flex, GoBackButton, TagChip, Text } from '@lifeforge/ui'
+import {
+  Box,
+  Button,
+  ContextMenu,
+  ContextMenuItem,
+  Flex,
+  GoBackButton,
+  TagChip,
+  Text,
+  useModalStore
+} from '@lifeforge/ui'
 
-import { INVOICE_STATUS_CONFIG, RECEIPT_STATUS_CONFIG } from '@/constants/statusConfig'
+import { InvoicePdf } from '@/components/pdf/documents/InvoicePdf'
+import { ReceiptPdf } from '@/components/pdf/documents/ReceiptPdf'
+import { ensurePdfFont, resolveMediaDataUrl } from '@/components/pdf/shared/fonts'
+import type { PdfCalculations } from '@/components/pdf/shared/types'
+import {
+  INVOICE_STATUS_CONFIG,
+  RECEIPT_STATUS_CONFIG
+} from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
+import ModifyInvoiceStatusModal from '@/modals/ModifyInvoiceStatusModal'
+import ModifyReceiptStatusModal from '@/modals/ModifyReceiptStatusModal'
 
 type Invoice = InferOutput<typeof forgeAPI.invoices.getById>
 type Receipt = InferOutput<typeof forgeAPI.receipts.getById>
+type Settings = InferOutput<typeof forgeAPI.settings.get>
 
 interface DocumentViewHeaderProps {
   data: Invoice | Receipt
-  contentRef: React.RefObject<HTMLDivElement | null>
+  settings: Settings
+  currencySymbol: string
+  calculations: PdfCalculations
 }
 
 export default function DocumentViewHeader({
   data,
-  contentRef
+  settings,
+  currencySymbol,
+  calculations
 }: DocumentViewHeaderProps) {
   const navigate = useNavigate()
   const { t } = useModuleTranslation()
+  const { open } = useModalStore()
+  const [downloading, setDownloading] = useState(false)
 
   const isInvoice = 'invoice_number' in data
   const documentType = isInvoice ? 'invoice' : 'receipt'
@@ -32,28 +59,57 @@ export default function DocumentViewHeader({
     ? INVOICE_STATUS_CONFIG[(data.status as keyof typeof INVOICE_STATUS_CONFIG) || 'draft']
     : RECEIPT_STATUS_CONFIG[(data.status as keyof typeof RECEIPT_STATUS_CONFIG) || 'draft']
 
-  const fontQuery = useQuery(
-    forgeAPI
-      .getGoogleFont({
-        family: 'Onest'
-      })
-      .queryOptions()
-  )
+  const documentTitle = [documentNumber, data.expand?.bill_to?.name]
+    .filter(Boolean)
+    .join(' ')
 
-  const documentTitle = `${isInvoice ? 'Invoice' : 'Receipt'}_${documentNumber || ''}`
+  async function handleDownload() {
+    setDownloading(true)
 
-  const reactToPrintFn = useReactToPrint({
-    contentRef,
-    fonts: fontQuery.data?.items?.length
-      ? [
-          {
-            family: fontQuery.data.items[0].family,
-            source: fontQuery.data.items[0].files.regular || ''
-          }
-        ]
-      : [],
-    documentTitle
-  })
+    try {
+      await ensurePdfFont()
+
+      const logoSrc = await resolveMediaDataUrl(settings.default_logo)
+
+      const blob = await pdf(
+        isInvoice ? (
+          <InvoicePdf
+            calculations={calculations}
+            currencySymbol={currencySymbol}
+            invoice={data}
+            logoSrc={logoSrc}
+            settings={settings}
+          />
+        ) : (
+          <ReceiptPdf
+            calculations={calculations}
+            currencySymbol={currencySymbol}
+            logoSrc={logoSrc}
+            receipt={data}
+            settings={settings}
+          />
+        )
+      ).toBlob()
+
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+
+      link.download = `${documentTitle}.pdf`
+      link.href = url
+      link.click()
+      URL.revokeObjectURL(url)
+    } finally {
+      setDownloading(false)
+    }
+  }
+
+  function handleChangeStatus() {
+    if (isInvoice) {
+      open(ModifyInvoiceStatusModal, { id: data.id, status: data.status })
+    } else {
+      open(ModifyReceiptStatusModal, { id: data.id, status: data.status })
+    }
+  }
 
   return (
     <>
@@ -98,40 +154,42 @@ export default function DocumentViewHeader({
           width={{ base: '100%', sm: 'auto' }}
           wrap={{ base: 'wrap', sm: 'nowrap' }}
         >
-          {isInvoice && (
-            <Button
-              flex="1"
-              icon="tabler:receipt"
-              minWidth="min-content"
-              variant="secondary"
+          <Button
+            flex="1"
+            icon="tabler:download"
+            loading={downloading}
+            minWidth="min-content"
+            onClick={handleDownload}
+          >
+            downloadPdf
+          </Button>
+          <ContextMenu>
+            {isInvoice && (
+              <ContextMenuItem
+                icon="tabler:receipt"
+                label="createReceipt"
+                onClick={() =>
+                  navigate(
+                    `/melvinchia3636--invoice-maker/receipt/modify?fromInvoice=${data.id}`
+                  )
+                }
+              />
+            )}
+            <ContextMenuItem
+              icon="tabler:pencil"
+              label="edit"
               onClick={() =>
                 navigate(
-                  `/melvinchia3636--invoice-maker/receipt/modify?fromInvoice=${data.id}`
+                  `/melvinchia3636--invoice-maker/${documentType}/modify/${data.id}`
                 )
               }
-            >
-              createReceipt
-            </Button>
-          )}
-          <Button
-            as={Link}
-            flex="1"
-            icon="tabler:pencil"
-            minWidth="min-content"
-            to={`/melvinchia3636--invoice-maker/${documentType}/modify/${data.id}`}
-            variant="secondary"
-          >
-            Edit
-          </Button>
-          <Button
-            flex="1"
-            icon="tabler:printer"
-            loading={fontQuery.isLoading}
-            minWidth="min-content"
-            onClick={reactToPrintFn}
-          >
-            Print
-          </Button>
+            />
+            <ContextMenuItem
+              icon="tabler:info-circle"
+              label="changeStatus"
+              onClick={handleChangeStatus}
+            />
+          </ContextMenu>
         </Flex>
       </Flex>
     </>
