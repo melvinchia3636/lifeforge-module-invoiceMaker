@@ -4,37 +4,31 @@ import z from 'zod'
 
 import { useForgeMutation } from '@lifeforge/api'
 import { useModuleTranslation } from '@lifeforge/localization'
-import {
-  FormModal,
-  ListboxField,
-  TextField,
-  createDefaultValues
-} from '@lifeforge/ui'
+import { FormModal, ListboxField, createDefaultValues } from '@lifeforge/ui'
 
 import { INVOICE_STATUS_CONFIG } from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
-import type { InvoiceEntry } from '@/pages/Invoices'
 
 const schema = z.object({
-  invoice_number: z.string().min(1, 'Required'),
   status: z.enum(['draft', 'sent', 'paid', 'overdue', 'cancelled'])
 })
 
-interface InvoiceMetadataModalProps {
+interface InvoiceStatusModalProps {
   data: {
-    invoice: InvoiceEntry
+    id: string
+    status?: string
   }
   onClose: () => void
 }
 
-export default function ModifyInvoiceMetadataModal({
-  data: { invoice },
+export default function ModifyInvoiceStatusModal({
+  data: { id, status },
   onClose
-}: InvoiceMetadataModalProps) {
+}: InvoiceStatusModalProps) {
   const { t } = useModuleTranslation()
 
   const updateMutation = useForgeMutation(
-    forgeAPI.invoices.update.input({ id: invoice.id }),
+    forgeAPI.invoices.update.input({ id }),
     {
       action: 'update',
       queryKey: forgeAPI.key,
@@ -47,8 +41,12 @@ export default function ModifyInvoiceMetadataModal({
   const form = useForm({
     defaultValues: {
       ...createDefaultValues(schema),
-      invoice_number: invoice.invoice_number,
-      status: invoice.status || 'draft'
+      status: (status || 'draft') as
+        | 'draft'
+        | 'sent'
+        | 'paid'
+        | 'overdue'
+        | 'cancelled'
     },
     resolver: zodResolver(schema)
   })
@@ -64,30 +62,22 @@ export default function ModifyInvoiceMetadataModal({
         }
       }}
       uiConfig={{
-        icon: 'tabler:file-invoice',
-        title: 'Edit Invoice Metadata',
+        icon: 'tabler:info-circle',
+        title: 'changeInvoiceStatus',
         namespace: 'apps.melvinchia3636$invoiceMaker',
         onClose
       }}
     >
-      <TextField
-        required
-        control={form.control}
-        icon="tabler:hash"
-        label="Invoice Number"
-        name="invoice_number"
-        placeholder="001"
-      />
       <ListboxField
         required
         control={form.control}
         icon="tabler:info-circle"
         label="Status"
         name="status"
-        options={Object.entries(INVOICE_STATUS_CONFIG).map(([key, status]) => ({
-          icon: status.icon,
+        options={Object.entries(INVOICE_STATUS_CONFIG).map(([key, config]) => ({
+          icon: config.icon,
           text: t(`statuses.${key}`),
-          color: status.color,
+          color: config.color,
           value: key as 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled'
         }))}
       />

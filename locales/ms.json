@@ -34,6 +34,7 @@
     "downloadPdf": "Muat Turun PDF",
     "duplicate": "Duplikasi",
     "manageClients": "Urus Pelanggan",
+    "changeStatus": "Tukar Status",
     "settings": "Tetapan"
   },
   "tabs": {
@@ -113,7 +114,10 @@
       "confirm": "Padam"
     },
     "settings": "Tetapan",
-    "editInvoiceMetadata": "Sunting Metadata Invois"
+    "renameInvoice": "Namakan Semula Invois",
+    "renameReceipt": "Namakan Semula Resit",
+    "changeInvoiceStatus": "Tukar Status Invois",
+    "changeReceiptStatus": "Tukar Status Resit"
   },
   "toast": {
     "invoiceCreated": "Invois berjaya dicipta",

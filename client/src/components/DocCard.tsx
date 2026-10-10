@@ -19,6 +19,8 @@ import {
 } from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
+import ModifyInvoiceStatusModal from '@/modals/ModifyInvoiceStatusModal'
+import ModifyReceiptStatusModal from '@/modals/ModifyReceiptStatusModal'
 
 export type DocType = 'invoice' | 'receipt'
 
@@ -90,6 +92,14 @@ export default function DocCard<T extends DocEntry>({
     })
   }
 
+  function handleChangeStatus() {
+    if (type === 'invoice') {
+      open(ModifyInvoiceStatusModal, { id: data.id, status: data.status })
+    } else {
+      open(ModifyReceiptStatusModal, { id: data.id, status: data.status })
+    }
+  }
+
   async function handleDuplicate() {
     setDuplicating(true)
 
@@ -141,6 +151,11 @@ export default function DocCard<T extends DocEntry>({
         {extraActions.map(action => (
           <ContextMenuItem key={action.label} {...action} />
         ))}
+        <ContextMenuItem
+          icon="tabler:info-circle"
+          label="changeStatus"
+          onClick={handleChangeStatus}
+        />
         <ContextMenuItem
           icon="tabler:pencil"
           label="edit"

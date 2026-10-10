@@ -4,37 +4,31 @@ import z from 'zod'
 
 import { useForgeMutation } from '@lifeforge/api'
 import { useModuleTranslation } from '@lifeforge/localization'
-import {
-  FormModal,
-  ListboxField,
-  TextField,
-  createDefaultValues
-} from '@lifeforge/ui'
+import { FormModal, ListboxField, createDefaultValues } from '@lifeforge/ui'
 
 import { RECEIPT_STATUS_CONFIG } from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
-import type { ReceiptEntry } from '@/pages/Receipts'
 
 const schema = z.object({
-  receipt_number: z.string().min(1, 'Required'),
   status: z.enum(['draft', 'issued', 'cancelled'])
 })
 
-interface ReceiptMetadataModalProps {
+interface ReceiptStatusModalProps {
   data: {
-    receipt: ReceiptEntry
+    id: string
+    status?: string
   }
   onClose: () => void
 }
 
-export default function ModifyReceiptMetadataModal({
-  data: { receipt },
+export default function ModifyReceiptStatusModal({
+  data: { id, status },
   onClose
-}: ReceiptMetadataModalProps) {
+}: ReceiptStatusModalProps) {
   const { t } = useModuleTranslation()
 
   const updateMutation = useForgeMutation(
-    forgeAPI.receipts.update.input({ id: receipt.id }),
+    forgeAPI.receipts.update.input({ id }),
     {
       action: 'update',
       queryKey: forgeAPI.key,
@@ -47,8 +41,7 @@ export default function ModifyReceiptMetadataModal({
   const form = useForm({
     defaultValues: {
       ...createDefaultValues(schema),
-      receipt_number: receipt.receipt_number,
-      status: receipt.status || 'draft'
+      status: (status || 'draft') as 'draft' | 'issued' | 'cancelled'
     },
     resolver: zodResolver(schema)
   })
@@ -64,30 +57,22 @@ export default function ModifyReceiptMetadataModal({
         }
       }}
       uiConfig={{
-        icon: 'tabler:receipt',
-        title: 'Edit Receipt Metadata',
+        icon: 'tabler:info-circle',
+        title: 'changeReceiptStatus',
         namespace: 'apps.melvinchia3636$invoiceMaker',
         onClose
       }}
     >
-      <TextField
-        required
-        control={form.control}
-        icon="tabler:hash"
-        label="Receipt Number"
-        name="receipt_number"
-        placeholder="REC-001"
-      />
       <ListboxField
         required
         control={form.control}
         icon="tabler:info-circle"
         label="Status"
         name="status"
-        options={Object.entries(RECEIPT_STATUS_CONFIG).map(([key, status]) => ({
-          icon: status.icon,
+        options={Object.entries(RECEIPT_STATUS_CONFIG).map(([key, config]) => ({
+          icon: config.icon,
           text: t(`statuses.${key}`),
-          color: status.color,
+          color: config.color,
           value: key as 'draft' | 'issued' | 'cancelled'
         }))}
       />

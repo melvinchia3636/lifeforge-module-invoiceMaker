@@ -15,7 +15,7 @@ import {
 
 import { INVOICE_STATUS_CONFIG } from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
-import ModifyInvoiceMetadataModal from '@/modals/ModifyInvoiceMetadataModal'
+import RenameInvoiceModal from '@/modals/RenameInvoiceModal'
 import type { InvoiceEntry } from '@/pages/Invoices'
 
 import { useInvoiceEditor } from '../providers/InvoiceEditorProvider'
@@ -49,7 +49,7 @@ function Header() {
               variant="plain"
               onClick={() => {
                 if (invoiceQuery.data) {
-                  open(ModifyInvoiceMetadataModal, {
+                  open(RenameInvoiceModal, {
                     invoice: invoiceQuery.data as unknown as InvoiceEntry
                   })
                 }

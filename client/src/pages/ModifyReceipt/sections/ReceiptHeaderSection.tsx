@@ -15,7 +15,7 @@ import {
 
 import { RECEIPT_STATUS_CONFIG } from '@/constants/statusConfig'
 import { forgeAPI } from '@/manifest'
-import ModifyReceiptMetadataModal from '@/modals/ModifyReceiptMetadataModal'
+import RenameReceiptModal from '@/modals/RenameReceiptModal'
 import type { ReceiptEntry } from '@/pages/Receipts'
 
 import { useReceiptEditor } from '../providers/ReceiptEditorProvider'
@@ -32,6 +32,7 @@ function ReceiptHeaderSection() {
   )
 
   const { isEditMode } = useReceiptEditor()
+
   const status = receiptQuery.data?.status || 'draft'
 
   return (
@@ -50,7 +51,7 @@ function ReceiptHeaderSection() {
               variant="plain"
               onClick={() => {
                 if (receiptQuery.data) {
-                  open(ModifyReceiptMetadataModal, {
+                  open(RenameReceiptModal, {
                     receipt: receiptQuery.data as unknown as ReceiptEntry
                   })
                 }

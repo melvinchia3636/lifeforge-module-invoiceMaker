@@ -34,6 +34,7 @@
     "downloadPdf": "下载 PDF",
     "duplicate": "复制",
     "manageClients": "管理客户",
+    "changeStatus": "更改状态",
     "settings": "设置"
   },
   "tabs": {
@@ -113,7 +114,10 @@
       "confirm": "删除"
     },
     "settings": "设置",
-    "editInvoiceMetadata": "编辑发票元数据"
+    "renameInvoice": "重命名发票",
+    "renameReceipt": "重命名收据",
+    "changeInvoiceStatus": "更改发票状态",
+    "changeReceiptStatus": "更改收据状态"
   },
   "toast": {
     "invoiceCreated": "发票创建成功",
