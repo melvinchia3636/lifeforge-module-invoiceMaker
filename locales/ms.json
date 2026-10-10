@@ -9,6 +9,10 @@
     "receipts": {
       "title": "Resit",
       "description": "Cipta dan urus resit untuk transaksi yang telah selesai."
+    },
+    "clients": {
+      "title": "Pelanggan",
+      "description": "Urus pelanggan anda dan butiran bil mereka."
     }
   },
   "sidebar": {

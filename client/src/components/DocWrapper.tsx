@@ -13,7 +13,6 @@ import {
   RECEIPT_STATUS_CONFIG
 } from '@/constants/statusConfig'
 import useFilter from '@/hooks/useFilter'
-import ManageClientsModal from '@/modals/ManageClientsModal'
 import ModifySettingsModal from '@/modals/ModifySettingsModal'
 
 import DocInnerHeader from './DocInnerHeader'
@@ -48,7 +47,9 @@ function DocWrapper({
     <>
       <DocModuleHeader
         newButtonLabel="New Invoice"
-        onManageClients={() => open(ManageClientsModal, {})}
+        onManageClients={() =>
+          navigate('/melvinchia3636--invoice-maker/client')
+        }
         onManageSettings={() => open(ModifySettingsModal, {})}
         onNewClick={() =>
           navigate(`/melvinchia3636--invoice-maker/${type}/modify`)

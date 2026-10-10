@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from 'react-router'
 
 import {
   EmptyStateScreen,
@@ -6,12 +7,10 @@ import {
   SidebarItem,
   SidebarTitle,
   SidebarWrapper,
-  WithQuery,
-  useModalStore
+  WithQuery
 } from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
-import ManageClientsModal from '@/modals/ManageClientsModal'
 
 export default function DocSidebar({
   statusFilter,
@@ -30,7 +29,7 @@ export default function DocSidebar({
   allItemIcon: string
   allItemLabel: string
 }) {
-  const { open } = useModalStore()
+  const navigate = useNavigate()
   const clientsQuery = useQuery(forgeAPI.clients.list.queryOptions())
 
   return (
@@ -62,7 +61,7 @@ export default function DocSidebar({
         actionButton={{
           icon: 'tabler:settings',
           onClick: () => {
-            open(ManageClientsModal, {})
+            navigate('/melvinchia3636--invoice-maker/client')
           }
         }}
         label="clients"

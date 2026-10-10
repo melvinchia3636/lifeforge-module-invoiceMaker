@@ -9,6 +9,10 @@
     "receipts": {
       "title": "收據",
       "description": "為已完成的交易建立和管理收據。"
+    },
+    "clients": {
+      "title": "客戶",
+      "description": "管理您的客戶及其帳單資訊。"
     }
   },
   "sidebar": {

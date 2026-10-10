@@ -7,7 +7,8 @@ import contract from './contract'
 const { forgeAPI, ...manifest } = createForgeModule({
   subsection: [
     { label: 'Invoices', icon: 'tabler:file-invoice', path: 'invoice' },
-    { label: 'Receipts', icon: 'tabler:receipt', path: 'receipt' }
+    { label: 'Receipts', icon: 'tabler:receipt', path: 'receipt' },
+    { label: 'Clients', icon: 'tabler:users', path: 'client' }
   ],
   routes: {
     '/': lazy(() => import('@/pages')),
@@ -18,7 +19,8 @@ const { forgeAPI, ...manifest } = createForgeModule({
     '/receipt': lazy(() => import('@/pages/Receipts')),
     '/receipt/view/:id': lazy(() => import('@/pages/ViewReceipt')),
     '/receipt/modify': lazy(() => import('@/pages/ModifyReceipt')),
-    '/receipt/modify/:id': lazy(() => import('@/pages/ModifyReceipt'))
+    '/receipt/modify/:id': lazy(() => import('@/pages/ModifyReceipt')),
+    '/client': lazy(() => import('@/pages/Clients'))
   },
   contract
 })

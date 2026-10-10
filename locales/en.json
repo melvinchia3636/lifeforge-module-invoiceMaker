@@ -9,6 +9,10 @@
     "receipts": {
       "title": "Receipts",
       "description": "Create and manage receipts for completed transactions."
+    },
+    "clients": {
+      "title": "Clients",
+      "description": "Manage your clients and their billing details."
     }
   },
   "sidebar": {

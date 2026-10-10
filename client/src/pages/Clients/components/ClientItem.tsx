@@ -17,8 +17,7 @@ import {
 } from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
-
-import ClientModal from '../../ModifyClientModal'
+import ClientModal from '@/modals/ModifyClientModal'
 
 type Client = InferOutput<typeof forgeAPI.clients.list>[number]
 
@@ -69,11 +68,13 @@ function ClientItem({ client }: { client: Client }) {
           <Icon color="muted" icon="tabler:user" size="1.75em" />
         </Flex>
         <Box minWidth="0" width="100%">
-          <Text truncate weight="medium">
+          <Text as="h4" truncate weight="medium">
             {client.name}
           </Text>
           {(client.email || client.phone) && (
-            <Text color="muted">{client.email || client.phone}</Text>
+            <Text as="p" color="muted">
+              {client.email || client.phone}
+            </Text>
           )}
         </Box>
       </Flex>
